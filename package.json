@@ -1,0 +1,29 @@
+{
+  "name": "easy-router-node",
+  "version": "1.0.0",
+  "description": "Easy Router made with nodejs.",
+  "main": "app.js",
+  "scripts": {
+    "test": "easy-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/luizmiranda7/easy-router-node.git"
+  },
+  "keywords": [
+    "easy-router",
+    "nodejs"
+  ],
+  "author": "Luiz Miranda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/luizmiranda7/easy-router-node/issues"
+  },
+  "homepage": "https://gitlab.com/luizmiranda7/easy-router-node#README",
+  "dependencies": {
+    "express": "^4.13.3",
+    "pg": "^4.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.12.2"
+  }
+}
