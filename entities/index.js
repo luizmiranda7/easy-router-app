@@ -29,24 +29,25 @@ models.forEach(function(model) {
 	entities.DirectionLeg.belongsTo(entities.RoutePoint, {as: 'finalPoint', foreignKey: 'final_point_id'});
 
 	entities.Order.belongsTo(entities.DeliveryPoint, {as: 'deliveryPoint', foreignKey: 'delivery_point_id'});
-	entities.Order.belongsTo(entities.DistributionCenter, {as: 'distributionCenter', foreignKey: 'distributionCenter'});
+	entities.Order.belongsTo(entities.DistributionCenter, {as: 'distributionCenter', foreignKey: 'dist_center_id'});
 
 	entities.Route.belongsTo(entities.DistributionCenter, {as: 'distributionCenter', foreignKey: 'dist_center_id'});
 	entities.Route.belongsTo(entities.Vehicle, {as: 'vehicle', foreignKey: 'vehicle_id'});
+	entities.Route.belongsTo(entities.Driver, {as: 'driver', foreignKey: 'driver_id'});
 	
 	entities.RouteRequest.belongsTo(entities.DistributionCenter, {as: 'distributionCenter', foreignKey: 'dist_center_id'});
 	
 	// Route n:m Order
-	entities.Route.belongsToMany(entities.Order, {as: 'orders', through: 'RouteOrder'});
-	entities.Order.belongsToMany(entities.Route, {as: 'routes', through: 'RouteOrder'});
+	entities.Route.belongsToMany(entities.Order, {as: 'orders', through: 'route_order'});
+	entities.Order.belongsToMany(entities.Route, {as: 'routes', through: 'route_order'});
 
 	// RouteRequest n:m Order
-	entities.RouteRequest.belongsToMany(entities.Order, {as: 'orders', through:'RouteRequestOrder'});
-	entities.Order.belongsToMany(entities.RouteRequest, {as: 'routeRequests', through: 'RouteOrder'});	
+	entities.RouteRequest.belongsToMany(entities.RoutePoint, {as: 'routePoints', through:'route_request_point'});
+	entities.RoutePoint.belongsToMany(entities.RouteRequest, {as: 'routeRequests', through: 'route_request_point'});	
 
 	// RouteArea n:m RoutePoint
-	entities.RouteArea.belongsToMany(entities.RoutePoint, {as: 'routePoints', through:'RouteAreaPoint'});
-	entities.RoutePoint.belongsToMany(entities.RouteArea, {as: 'routeAreas', through:'RouteAreaPoint'});
+	entities.RouteArea.belongsToMany(entities.RoutePoint, {as: 'routePoints', through:'route_area_point'});
+	entities.RoutePoint.belongsToMany(entities.RouteArea, {as: 'routeAreas', through:'route_area_point'});
 
 })(module.exports)
 
