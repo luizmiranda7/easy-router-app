@@ -2,9 +2,10 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://easy:easy@localhost:5432/easyrouter');
 
 module.exports = function(sequelize, DataTypes) {
-  var DirectionLeg = sequelize.define('easy_direction_leg', {
+  var DirectionLeg = sequelize.define('DirectionLeg', {
     uuid: {
       type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
       unique: true,
       primaryKey: true
     },
@@ -13,7 +14,8 @@ module.exports = function(sequelize, DataTypes) {
     markedToUpdate: { type: Sequelize.DATE },
     lastTimeUpdate: { type: Sequelize.DATE }
   }, {
-    freezeTable: false
+    freezeTableName: false,
+tableName: 'easy_direction_leg'
   });
   return DirectionLeg;
 }

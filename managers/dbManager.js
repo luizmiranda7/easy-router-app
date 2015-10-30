@@ -1,4 +1,4 @@
-var entities = require('../entities');
+var e = require('../entities');
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://easy:easy@localhost:5432/easyrouter');
 
@@ -8,21 +8,23 @@ var initialize = function(){
 
 var forceTableCreation = function(){
 	// Force table creation
-	entities.Calendar.sync({force: true}).then(function () {
-		entities.Interval.sync({force: true}).then(function () {
-			entities.Person.sync({force: true}).then(function () {
-				entities.Driver.sync({force: true}).then(function () {
-					entities.Address.sync({force: true}).then(function () {
-						entities.Local.sync({force: true}).then(function () {
-							entities.RoutePoint.sync({force: true}).then(function () {
-								entities.DeliveryPoint.sync({force: true}).then(function () {
-									entities.DistributionCenter.sync({force: true}).then(function () {
-								entities.DirectionLeg.sync({force: true}).then(function () {});
-								entities.RouteArea.sync({force: true}).then(function () {});
-									entities.Order.sync({force: true}).then(function () {
-										entities.RouteRequest.sync({force: true}).then(function () {});
-											entities.Vehicle.sync({force: true}).then(function () {
-												entities.Route.sync({force: true}).then(function () {});
+	e.Calendar.sync({force: true}).then(function () {
+		e.Interval.sync({force: true}).then(function () {
+			e.Address.sync({force: true}).then(function () {
+				e.Local.sync({force: true}).then(function () {
+					e.RoutePoint.sync({force: true}).then(function () {
+						e.DeliveryPoint.sync({force: true}).then(function () {
+							e.DistributionCenter.sync({force: true}).then(function () {
+								e.Person.sync({force: true}).then(function () {
+									e.Driver.sync({force: true}).then(function () {
+									e.DirectionLeg.sync({force: true}).then(function () {});
+									e.RouteArea.sync({force: true}).then(function () {});
+									e.Order.sync({force: true}).then(function () {
+										e.RouteRequest.sync({force: true}).then(function () {});
+											e.Vehicle.sync({force: true}).then(function () {
+												e.Route.sync({force: true}).then(function () {
+													mockModel();
+												});
 											});
 										});
 									});
@@ -34,13 +36,24 @@ var forceTableCreation = function(){
 			});
 		});
 	});
-	
-	
-	
-	
-	
+}
+
+var mockModel = function(){
+	e.Route.create().then(function(route){
+		e.Driver.create().then(function(driver){
+			route.setDriver(driver);
+			e.DistributionCenter.create().then(function(distributionCenter){
+				driver.setCurrentDistributionCenter(distributionCenter);
+				route.setDistributionCenter(distributionCenter);
+				driver.save().then(function(){});
+				route.save().then(function(){});
+			});
+			route.save().then(function(){});
+		});
+	});
 }
 
 module.exports = {
-	initialize
+	initialize,
+	mockModel
 };

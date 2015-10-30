@@ -12,42 +12,43 @@ models.forEach(function(model) {
 (function(entities){
 	entities.Calendar.hasMany(entities.Interval, {as: 'intervals'});
 
-	entities.Driver.belongsTo(entities.Person, {as: 'person', foreignKey: 'person_id'});
-	entities.Driver.belongsTo(entities.Calendar, {as: 'calendar', foreignKey: 'calendar_id'});
+	entities.Driver.belongsTo(entities.Person, {foreignKey: 'person_id'});
+	entities.Driver.belongsTo(entities.Calendar, {foreignKey: 'calendar_id'});
 	entities.Driver.belongsTo(entities.DistributionCenter, {as: 'currentDistributionCenter', foreignKey: 'curr_dist_center_id'});
 
-	entities.RoutePoint.belongsTo(entities.Address, {as: 'address', foreignKey: 'address_id'});
-	entities.RoutePoint.belongsTo(entities.Local, {as: 'local', foreignKey: 'local_id'});
+	entities.RoutePoint.belongsTo(entities.Address, {foreignKey: 'address_id'});
+	entities.RoutePoint.belongsTo(entities.Local, {foreignKey: 'local_id'});
 
-	entities.DeliveryPoint.belongsTo(entities.Calendar, {as: 'calendar', foreignKey: 'calendar_id'});
-	entities.DeliveryPoint.belongsTo(entities.RoutePoint, {as: 'routePoint', foreignKey: 'route_point_id'});
+	entities.DeliveryPoint.belongsTo(entities.Calendar, {foreignKey: 'calendar_id'});
+	entities.DeliveryPoint.belongsTo(entities.RoutePoint, {foreignKey: 'route_point_id'});
 
-	entities.DistributionCenter.belongsTo(entities.Calendar, {as: 'calendar', foreignKey: 'calendar_id'});
-	entities.DistributionCenter.belongsTo(entities.RoutePoint, {as: 'routePoint', foreignKey: 'route_point_id'});
+	entities.DistributionCenter.belongsTo(entities.Calendar, {foreignKey: 'calendar_id'});
+	entities.DistributionCenter.belongsTo(entities.RoutePoint, {foreignKey: 'route_point_id'});
 
 	entities.DirectionLeg.belongsTo(entities.RoutePoint, {as: 'initialPoint', foreignKey: 'initial_point_id'});
 	entities.DirectionLeg.belongsTo(entities.RoutePoint, {as: 'finalPoint', foreignKey: 'final_point_id'});
 
-	entities.Order.belongsTo(entities.DeliveryPoint, {as: 'deliveryPoint', foreignKey: 'delivery_point_id'});
-	entities.Order.belongsTo(entities.DistributionCenter, {as: 'distributionCenter', foreignKey: 'dist_center_id'});
+	entities.Order.belongsTo(entities.DeliveryPoint, {foreignKey: 'delivery_point_id'});
+	entities.Order.belongsTo(entities.DistributionCenter, {foreignKey: 'dist_center_id'});
 
-	entities.Route.belongsTo(entities.DistributionCenter, {as: 'distributionCenter', foreignKey: 'dist_center_id'});
-	entities.Route.belongsTo(entities.Vehicle, {as: 'vehicle', foreignKey: 'vehicle_id'});
-	entities.Route.belongsTo(entities.Driver, {as: 'driver', foreignKey: 'driver_id'});
+	entities.Route.belongsTo(entities.DistributionCenter, {foreignKey: 'dist_center_id'});
+	entities.Route.belongsTo(entities.Vehicle, {foreignKey: 'vehicle_id'});
+	entities.Route.belongsTo(entities.Driver, {foreignKey: 'driver_id'});
 	
-	entities.RouteRequest.belongsTo(entities.DistributionCenter, {as: 'distributionCenter', foreignKey: 'dist_center_id'});
+	entities.RouteRequest.belongsTo(entities.DistributionCenter, {foreignKey: 'dist_center_id'});
+	entities.DistributionCenter.hasOne(entities.RouteRequest);
 	
 	// Route n:m Order
-	entities.Route.belongsToMany(entities.Order, {as: 'orders', through: 'route_order'});
-	entities.Order.belongsToMany(entities.Route, {as: 'routes', through: 'route_order'});
+	entities.Route.belongsToMany(entities.Order, {through: 'route_order'});
+	entities.Order.belongsToMany(entities.Route, {through: 'route_order'});
 
 	// RouteRequest n:m Order
-	entities.RouteRequest.belongsToMany(entities.RoutePoint, {as: 'routePoints', through:'route_request_point'});
-	entities.RoutePoint.belongsToMany(entities.RouteRequest, {as: 'routeRequests', through: 'route_request_point'});	
+	entities.RouteRequest.belongsToMany(entities.RoutePoint, {through:'route_request_point'});
+	entities.RoutePoint.belongsToMany(entities.RouteRequest, {through: 'route_request_point'});	
 
 	// RouteArea n:m RoutePoint
-	entities.RouteArea.belongsToMany(entities.RoutePoint, {as: 'routePoints', through:'route_area_point'});
-	entities.RoutePoint.belongsToMany(entities.RouteArea, {as: 'routeAreas', through:'route_area_point'});
+	entities.RouteArea.belongsToMany(entities.RoutePoint, {through:'route_area_point'});
+	entities.RoutePoint.belongsToMany(entities.RouteArea, {through:'route_area_point'});
 
 })(module.exports)
 
