@@ -42,6 +42,7 @@ var mockModel = function(){
 	e.Route.create().then(function(route){
 		e.Driver.create().then(function(driver){
 			route.setDriver(driver);
+			route.status='PENDING';
 			e.DistributionCenter.create().then(function(distributionCenter){
 				driver.setCurrentDistributionCenter(distributionCenter);
 				route.setDistributionCenter(distributionCenter);
