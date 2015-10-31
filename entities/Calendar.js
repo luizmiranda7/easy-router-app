@@ -1,18 +1,11 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://easy:easy@localhost:5432/easyrouter');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/easyrouter');
 
+var calendarSchema = mongoose.Schema({
+  id: Schema.Types.ObjectId,
+  intervals: [{initialDate: Date, finalDate: Date}]
+});
 
-module.exports = function(sequelize, DataTypes) {
-	var Calendar = sequelize.define('Calendar', {
-	  uuid: {
-	    type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-	    unique: true,
-	    primaryKey: true
-	  }
-	}, {
-	  freezeTableName: false,
-tableName: 'easy_calendar' // Model tableName will be the same as the model name
-	});
-	return Calendar;
-}
+var Calendar = mongoose.model('Calendar', calendarSchema);
+
+module.exports.Calendar = Calendar;

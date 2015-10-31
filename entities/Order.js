@@ -1,24 +1,19 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://easy:easy@localhost:5432/easyrouter');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/easyrouter');
 
-module.exports = function(sequelize, DataTypes) {
-  var Order = sequelize.define('Order', {
-    uuid: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-      unique: true,
-      primaryKey: true
-    },
-    priorityLevel: { 
-    	type: Sequelize.INTEGER,
-    	field: 'priority_level'
-    },
-    weight: { type: Sequelize.INTEGER },
-    deadline: { type: Sequelize.DATE },
-    delivered: { type: Sequelize.BOOLEAN }
-  }, {
-    freezeTableName: false,
-tableName: 'easy_order' // Model tableName will be the same as the model name
-  });
-  return Order;
-}
+var orderSchema = mongoose.Schema({
+  id: Schema.Types.ObjectId,
+  priorityLevel: Number,
+  weight: Number,
+  deadline: Number,
+  status: {
+    type: String,
+    enum: ['PENDING', 'SCHEDULED', 'DELIVERED']
+  },
+  deliveryPoint: {type: Schema.Types.ObjectId, ref: 'DeliveryPoint'},
+  distributionCenter: {type: Schema.Types.ObjectId, ref: 'DistributionCenter'},
+});
+
+var Order = mongoose.model('Order', orderSchema);
+
+module.exports.Order = Order;

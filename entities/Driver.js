@@ -1,17 +1,14 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://easy:easy@localhost:5432/easyrouter');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/easyrouter');
 
-module.exports = function(sequelize, DataTypes) {
-	var Driver = sequelize.define('Driver', {
-	  uuid: {
-	    type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-	    unique: true,
-	    primaryKey: true
-	  }
-	}, {
-	  freezeTableName: false,
-tableName: 'easy_driver' // Model tableName will be the same as the model name
-	});
-	return Driver;
-}
+var driverSchema = mongoose.Schema({
+  id: Schema.Types.ObjectId,
+  personid: Schema.Types.ObjectId,
+  calendarid: Schema.Types.ObjectId,
+  person: {type: Schema.Types.ObjectId, ref: 'Person'},
+  calendar: {type: Schema.Types.ObjectId, ref: 'Calendar'}
+});
+
+var Driver = mongoose.model('Driver', driverSchema);
+
+module.exports.Driver = Driver;

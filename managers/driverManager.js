@@ -1,6 +1,4 @@
 var e = require('../entities');
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://easy:easy@localhost:5432/easyrouter');
 
 var findAbleDrivers = function(distributionCenter){
 	var distributionCenterUUID = distributionCenter.uuid;

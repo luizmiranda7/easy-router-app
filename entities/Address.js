@@ -1,26 +1,16 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://easy:easy@localhost:5432/easyrouter');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/easyrouter');
 
-module.exports = function(sequelize, DataTypes) {
-  var Address = sequelize.define('Address', {
-    uuid: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-      unique: true,
-      primaryKey: true
-    },
-    number: { type: Sequelize.STRING },
-    kilometer: { type: Sequelize.STRING },
-    street: { type: Sequelize.STRING },
-    city: { type: Sequelize.STRING },
-    state: { type: Sequelize.STRING },
-    postalCode: { 
-      type: Sequelize.STRING,
-      field: 'postal_code'
-    }
-  }, {
-    freezeTableName: false,
-tableName: 'easy_address' // Model tableName will be the same as the model name
-  });
-  return Address;
-}
+var addressSchema = mongoose.Schema({
+  id: Schema.Types.ObjectId,
+  number: String,
+  kilometer: String,
+  street: String,
+  city: String,
+  state: String,
+  postalCode: String
+});
+
+var Address = mongoose.model('Address', addressSchema);
+
+module.exports.Address = Address;

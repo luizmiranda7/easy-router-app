@@ -1,21 +1,12 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://easy:easy@localhost:5432/easyrouter');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/easyrouter');
 
-module.exports = function(sequelize, DataTypes) {
-  var RouteArea = sequelize.define('RouteArea', {
-    uuid: {
-      type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-      unique: true,
-      primaryKey: true
-    },
-    maxDistance: {
-    	type: Sequelize.INTEGER,
-    	field: 'max_distance'
-    }
-  }, {
-    freezeTableName: false,
-tableName: 'easy_route_area' // Model tableName will be the same as the model name
-  });
-  return RouteArea;
-}
+var routeAreaSchema = mongoose.Schema({
+  id: Schema.Types.ObjectId,
+  maxDistance: Number,
+  routePoints: [{type: Schema.Types.ObjectId, ref: 'RoutePoint'}]
+});
+
+var RouteArea = mongoose.model('RouteArea', routeAreaSchema);
+
+module.exports.RouteArea = RouteArea;

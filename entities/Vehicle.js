@@ -1,20 +1,14 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('postgres://easy:easy@localhost:5432/easyrouter');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/easyrouter');
 
-module.exports = function(sequelize, DataTypes) {
-	var Vehicle = sequelize.define('Vehicle', {
-	  uuid: {
-	    type: Sequelize.UUID,
-      defaultValue: Sequelize.UUIDV4,
-	    unique: true,
-	    primaryKey: true
-	  },	
-	  totalWeight: { type: Sequelize.BIGINT },
-	  totalVolume: { type: Sequelize.BIGINT },
-	  axes: { type: Sequelize.INTEGER }
-	}, {
-	  freezeTableName: false,
-	tableName: 'easy_vehicle' // Model tableName will be the same as the model name
-	});
-	return Vehicle;
-}
+var vehicleSchema = mongoose.Schema({
+  id: Schema.Types.ObjectId,
+  totalWeight: Number,
+  totalVolume: Number,
+  axes: Number,
+  currentDistributionCenter: {type: Schema.Types.ObjectId, ref: 'DistributionCenter'}
+});
+
+var Vehicle = mongoose.model('Vehicle', vehicleSchema);
+
+module.exports.Vehicle = Vehicle;
