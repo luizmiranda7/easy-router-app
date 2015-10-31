@@ -1,15 +1,13 @@
-var dbManager = require('./managers/dbManager.js');
 var driverManager = require('./managers/driverManager.js');
 var e = require('./entities');
 var express = require('express');
 var app = express();
 
-dbManager.initialize();
+app.use(express.bodyParser());
 
-app.get('/', function (req, res) {
-	e.DistributionCenter.findOne({}).then(function(distributionCenter){
-  		driverManager.findAbleDrivers(distributionCenter);
-	});
+app.get('/rest/addAddress', function (req, res) {
+	var address = req.body;
+	new e.Address(address).save();
 });
 
 app.get('/testando', function (req, res) {

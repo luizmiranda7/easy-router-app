@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/easyrouter');
 
 var addressSchema = mongoose.Schema({
-  id: Schema.Types.ObjectId,
+  id: mongoose.Schema.Types.ObjectId,
   number: String,
   kilometer: String,
   street: String,
@@ -12,5 +12,6 @@ var addressSchema = mongoose.Schema({
 });
 
 var Address = mongoose.model('Address', addressSchema);
+mongoose.disconnect();
 
 module.exports.Address = Address;

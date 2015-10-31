@@ -2,25 +2,24 @@ var e = require('../entities');
 
 var findAbleDrivers = function(distributionCenter){
 	var distributionCenterUUID = distributionCenter.uuid;
-	e.Route.findAll({
-		include: [e.DistributionCenter],
-		where:{
-			status: {$ne: 'EXECUTED'},
-			//distributionCenter.uuid: distributionCenterUUID
-		}
-	}).then(function(routes){
-		var driversNotAble = [];
-		routes.forEach(function(item, index){ driversNotAble.push(item.getDriver().uuid)});
-		e.Driver.findAll({
-			where:{
-				uuid: {$notIn: driversNotAble}
-			}
-		}).then(function(drivers){
-			return drivers;
-		});
+	
+	var notAbleDriversQuery = e.Route.find({status: {$ne: 'EXECUTED'}});
+	notAbleDriversQuery.populate({
+		path: 'distributionCenter',
+		match: {id: distributionCenter.id}
 	});
-}
+	notAbleDriversQuery.populate('driver');
+	notAbleDriversQuery.select('driver.id');
+	var notAbleDriversIds = notAbleDriversQuery.exec();
 
+	var driverQuery = e.Driver.find({id: {$nin: notAbleDriversIds}});
+	driverQuery.populate({
+		path: 'currentDistributionCenter',
+		match: {id: distributionCenter.id}
+	});
+	return driverQuery.exec();
+}
+	
 module.exports = {
 	findAbleDrivers
 }

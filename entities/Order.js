@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/easyrouter');
 
 var orderSchema = mongoose.Schema({
-  id: Schema.Types.ObjectId,
+  id: mongoose.Schema.Types.ObjectId,
   priorityLevel: Number,
   weight: Number,
   deadline: Number,
@@ -10,10 +10,11 @@ var orderSchema = mongoose.Schema({
     type: String,
     enum: ['PENDING', 'SCHEDULED', 'DELIVERED']
   },
-  deliveryPoint: {type: Schema.Types.ObjectId, ref: 'DeliveryPoint'},
-  distributionCenter: {type: Schema.Types.ObjectId, ref: 'DistributionCenter'},
+  deliveryPoint: {type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryPoint'},
+  distributionCenter: {type: mongoose.Schema.Types.ObjectId, ref: 'DistributionCenter'},
 });
 
 var Order = mongoose.model('Order', orderSchema);
+mongoose.disconnect();
 
 module.exports.Order = Order;

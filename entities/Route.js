@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/easyrouter');
 
 var routeSchema = mongoose.Schema({
-  id: Schema.Types.ObjectId,
+  id: mongoose.Schema.Types.ObjectId,
   firstName: String,
   surName: String,
   startDate: Date,
@@ -14,12 +14,13 @@ var routeSchema = mongoose.Schema({
     type: String,
     enum: ['EXECUTED', 'PENDING', 'CANCELED']
   },
-  deliveryPoints: [{type: Schema.Types.ObjectId, ref: 'DeliveryPoint'}],
-  distributionCenter: {type: Schema.Types.ObjectId, ref: 'DistributionCenter'},
-  vehicle: {type: Schema.Types.ObjectId, ref: 'Vehicle'},
-  driver: {type: Schema.Types.ObjectId, ref: 'Driver'}
+  deliveryPoints: [{type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryPoint'}],
+  distributionCenter: {type: mongoose.Schema.Types.ObjectId, ref: 'DistributionCenter'},
+  vehicle: {type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle'},
+  driver: {type: mongoose.Schema.Types.ObjectId, ref: 'Driver'}
 });
 
 var Route = mongoose.model('Route', routeSchema);
+mongoose.disconnect();
 
 module.exports.Route = Route;
