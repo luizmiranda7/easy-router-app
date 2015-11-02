@@ -3,8 +3,6 @@ var e = require('./entities');
 var express = require('express');
 var app = express();
 
-app.use(express.bodyParser());
-
 app.get('/rest/addAddress', function (req, res) {
 	var address = req.body;
 	new e.Address(address).save();

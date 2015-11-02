@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/easyrouter');
 
-var orderSchema = mongoose.Schema({
+module.exports.orderSchema = mongoose.Schema({
   id: mongoose.Schema.Types.ObjectId,
   priorityLevel: Number,
   weight: Number,
@@ -13,8 +12,3 @@ var orderSchema = mongoose.Schema({
   deliveryPoint: {type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryPoint'},
   distributionCenter: {type: mongoose.Schema.Types.ObjectId, ref: 'DistributionCenter'},
 });
-
-var Order = mongoose.model('Order', orderSchema);
-mongoose.disconnect();
-
-module.exports.Order = Order;
