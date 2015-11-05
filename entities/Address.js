@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
-module.exports.addressSchema = mongoose.Schema({
-  id: mongoose.Schema.Types.ObjectId,
+module.exports.schema = new mongoose.Schema({
   number: String,
   kilometer: String,
   street: String,

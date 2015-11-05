@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 
-module.exports.calendarSchema = mongoose.Schema({
-  id: mongoose.Schema.Types.ObjectId,
+module.exports.schema = new mongoose.Schema({
   intervals: [{initialDate: Date, finalDate: Date}]
 });

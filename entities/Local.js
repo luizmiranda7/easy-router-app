@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
-module.exports.localSchema = mongoose.Schema({
-  id: mongoose.Schema.Types.ObjectId,
+module.exports.schema = new mongoose.Schema({
   latitude: String,
   longitude: String
 });

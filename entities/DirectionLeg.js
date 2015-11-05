@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
-module.exports.directionLegSchema = mongoose.Schema({
-  id: mongoose.Schema.Types.ObjectId,
+module.exports.schema = new mongoose.Schema({
   distance: Number,
   duration: Date,
   markedToUpdate: Date,

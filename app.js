@@ -1,16 +1,19 @@
-var driverManager = require('./managers/driverManager.js');
-var e = require('./entities');
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 var express = require('express');
+var jsonAdapters = require('./utils/jsonAdapters');
+
 var app = express();
+app.use(bodyParser.json({
+	revive: jsonAdapters.reviveDates
+}));
 
-app.get('/rest/addAddress', function (req, res) {
-	var address = req.body;
-	new e.Address(address).save();
-});
+// Only require entities when connected
+mongoose.connect('mongodb://localhost/easyrouter');
+var e = require('./entities');
 
-app.get('/testando', function (req, res) {
-  res.send('Hello World! Testando.	');
-});
+var restController = require('./controllers/restController');
+restController.initMethods(app);
 
 var server = app.listen(3000, function () {
   var host = server.address().address;

@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
-module.exports.vehicleSchema = mongoose.Schema({
-  id: mongoose.Schema.Types.ObjectId,
+module.exports.schema = new mongoose.Schema({
   totalWeight: Number,
   totalVolume: Number,
   axes: Number,

@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
-module.exports.routeRequestSchema = mongoose.Schema({
-  id: mongoose.Schema.Types.ObjectId,
+module.exports.schema = new mongoose.Schema({
   requestedDate: Date,
   routePoints: [{type: mongoose.Schema.Types.ObjectId, ref: 'RoutePoint'}]
 });

@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
-module.exports.routeSchema = mongoose.Schema({
-  id: mongoose.Schema.Types.ObjectId,
+module.exports.schema = new mongoose.Schema({
   firstName: String,
   surName: String,
   startDate: Date,
