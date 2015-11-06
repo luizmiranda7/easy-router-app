@@ -7,5 +7,5 @@ module.exports.schema = new mongoose.Schema({
   city: String,
   state: String,
   postalCode: String,
-  codigoExterno: {type: mongoose.Schema.Types.ObjectId, ref: 'CodigoExterno'}
+  externalCode: {type: mongoose.Schema.Types.ObjectId, ref: 'ExternalCode'}
 });

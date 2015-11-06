@@ -5,5 +5,5 @@ module.exports.schema = new mongoose.Schema({
   totalVolume: Number,
   axes: Number,
   currentDistributionCenter: {type: mongoose.Schema.Types.ObjectId, ref: 'DistributionCenter'},
-  codigoExterno: {type: mongoose.Schema.Types.ObjectId, ref: 'CodigoExterno'}
+  externalCode: {type: mongoose.Schema.Types.ObjectId, ref: 'ExternalCode'}
 });

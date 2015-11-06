@@ -16,5 +16,5 @@ module.exports.schema = new mongoose.Schema({
   distributionCenter: {type: mongoose.Schema.Types.ObjectId, ref: 'DistributionCenter'},
   vehicle: {type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle'},
   driver: {type: mongoose.Schema.Types.ObjectId, ref: 'Driver'},
-  codigoExterno: {type: mongoose.Schema.Types.ObjectId, ref: 'CodigoExterno'}
+  externalCode: {type: mongoose.Schema.Types.ObjectId, ref: 'ExternalCode'}
 });

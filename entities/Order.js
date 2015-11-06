@@ -10,5 +10,5 @@ module.exports.schema = new mongoose.Schema({
   },
   deliveryPoint: {type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryPoint'},
   distributionCenter: {type: mongoose.Schema.Types.ObjectId, ref: 'DistributionCenter'},
-  codigoExterno: {type: mongoose.Schema.Types.ObjectId, ref: 'CodigoExterno'}
+  externalCode: {type: mongoose.Schema.Types.ObjectId, ref: 'ExternalCode'}
 });

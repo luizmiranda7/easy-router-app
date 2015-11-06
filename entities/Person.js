@@ -4,5 +4,5 @@ module.exports.schema = new mongoose.Schema({
   firstName: String,
   surName: String,
   birthdate: Date,
-  codigoExterno: {type: mongoose.Schema.Types.ObjectId, ref: 'CodigoExterno'}
+  externalCode: {type: mongoose.Schema.Types.ObjectId, ref: 'ExternalCode'}
 });
