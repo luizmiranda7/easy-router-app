@@ -14,6 +14,7 @@ var routeSchema = require('./Route');
 var routeRequestSchema = require('./RouteRequest');
 var routeAreaSchema = require('./RouteArea');
 var distributionCenterSchema = require('./DistributionCenter');
+var externalCode = require('./ExternalCode');
 
 var Address = mongoose.model('Address', addressSchema.schema);
 var Calendar = mongoose.model('Calendar', calendarSchema.schema);
@@ -29,6 +30,7 @@ var Route = mongoose.model('Route', routeSchema.schema);
 var RouteRequest = mongoose.model('RouteRequest', routeRequestSchema.schema);
 var RouteArea = mongoose.model('RouteArea', routeAreaSchema.schema);
 var DistributionCenter = mongoose.model('DistributionCenter', distributionCenterSchema.schema);
+var ExternalCode = mongoose.model('ExternalCode', externalCode.schema);
 
 module.exports = {
 	Address,
@@ -44,5 +46,6 @@ module.exports = {
 	Route,
 	RouteRequest,
 	RouteArea,
-	DistributionCenter
+	DistributionCenter,
+	ExternalCode
 }
