@@ -1,34 +1,51 @@
 var e = require('../entities');
+var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 
 var initMethods = function(app){
 
-	app.put('/addAddress', function (req, res) {
-		e.Address.create(req.body, function(err, savedAddress){
-			if (err) return err;
-			res.send(savedAddress);
+	app.put('/saveOrder', function(req, res){
+		e.Order.create(req.body)
+		.then(function(entity){
+			res.send(entity);
+		})
+		.catch(function(err){
+			console.log(err);
 		});
 	});
 
-	app.get('/getAddress/:postalCode', function (req, res) {
-		var address = e.Address.findOne({ 'postalCode': req.params.postalCode }).exec(function (err, address) {
-			if (err) return err;
-			res.send(address);
+	app.put('/saveExternalEntity', function(req, res){
+		var entityModel = mongoose.model(req.headers.entityname);
+		findEntityByExternalCode(entityModel, req.body.externalCode)
+		.then(function(entity){
+			if(!entity){
+				return entityModel.create(req.body);
+			}
+			return entity.save();
+		})
+		.then(function(entity){
+			res.send(entity);
+		})
+		.catch(function(err){
+			console.log(err);
 		});
 	});
 
-	app.put('/createDriver', function (req, res) {
-		e.Person.create(req.body.person, function(err, person){
-			if (err) return err;
-			e.Calendar.create(req.body.calendar, function(err, calendar){
-				if (err) return err;
-				e.Driver.create({'person': person, 'calendar': calendar}, function(err, driver){
-					if (err) return err;
-					res.send(driver)
-				});
-			});
-		});
-	});
 };
+
+var findEntityByExternalCode = function(entityName, externalCode){
+	return e.ExternalCode.find({externalCode: externalCode.externalCode, origin: externalCode.origin})
+	.exec()
+	.then(function(attachedExternalCode){
+		if(attachedExternalCode.length > 0){
+			return entityModel.find({externalCode: attachedExternalCode._id});
+		}
+		return Promise.resolve(null);
+	})
+	.catch(function(err){
+		console.log(err);
+	});
+}
 
 module.exports = {
 	initMethods

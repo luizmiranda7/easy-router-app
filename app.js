@@ -9,6 +9,7 @@ app.use(bodyParser.json({
 }));
 
 // Only require entities when connected
+mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost/easyrouter');
 var e = require('./entities');
 

@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var e = require('../entities');
 
 var scheduleGraphUpdate = function(routePoints){
-	boolean needUpdate = false;
-	
+		boolean needUpdate = false;
+
     var initialPoints = [].concat(points);
     var finalPoints = [].concat(points);
 
@@ -11,7 +11,7 @@ var scheduleGraphUpdate = function(routePoints){
     for (var initialPoint : initialPoints) {
 
         for (var finalPoint : finalPoints) {
-            var isUpdated = this.isUpdated(directionLegs, initialPoint, finalPoint);
+            var isUpdated = isUpdated(directionLegs, initialPoint, finalPoint);
             if (isUpdated == null) {
 
                 var newLeg = new e.DirectionLeg();
@@ -23,7 +23,7 @@ var scheduleGraphUpdate = function(routePoints){
 
             } else if (!isUpdated) {
 
-                DirectionLeg directionLeg = this.getDirectionLeg(directionLegs, initialPoint, finalPoint);
+                var directionLeg = getDirectionLeg(directionLegs, initialPoint, finalPoint);
                 if (!directionLeg.markedToUpdate) {
                     directionLeg.lastTimeMarkedToUpdate = new Date();
                     directionLeg.save();
@@ -35,77 +35,30 @@ var scheduleGraphUpdate = function(routePoints){
     return needUpdate;
 }
 
-    @Override
-    public MapAPIRequest getNextBatchToUpdate() {
-        StringBuilder initialPointSb =
-                new StringBuilder(
-                        "select new MutablePair<RoutePoint, Integer>(initialPoint, count(initialPoint)) as count from ");
-        initialPointSb.append(DirectionLeg.class.getName());
-        initialPointSb.append(" as directionLeg ");
-        initialPointSb.append(" join directionLeg.initialPoint as initialPoint ");
-        initialPointSb.append(" where directionLeg.markedToUpdate > directionLeg.lastUpdateTime ");
-        initialPointSb.append(" group by initialPoint ");
-        initialPointSb.append(" order by count(initialPoint) desc ");
+var getNextBatchToUpdate = function() {
+	// Pega todos initialPoints dos DirectionLegs e faz um ranking de mais aclamados
+	// Pra cada initialPoint, monta um lista de finalPoints
 
-        Query initialPointQuery = this.em.createQuery(initialPointSb.toString());
-        initialPointQuery.setMaxResults(25);
-        List<Pair<RoutePoint, Integer>> initialPointResult = initialPointQuery.getResultList();
+	e.DirectionLeg.agregate([
+		{$match: {markedToUpdate:  true}},
+		{$group: {_id: '$initialPoint', total: {$sum: '1'}}},
+		{$sort: {total: 1}},
+		{$limit: 25}
+	], function(err, initialPoints){
+		console.log('aa');
 
-        Set<RoutePoint> finalPoints = Sets.newHashSet();
-        for (Pair<RoutePoint, Integer> pair : initialPointResult) {
-            RoutePoint initialPoint = pair.getKey();
+		//var ids = [];
+		//initialPoints.each(function(item){ids.push(item.id)});
 
-            StringBuilder finalPointSb = new StringBuilder("select finalPoint from ");
-            finalPointSb.append(DirectionLeg.class.getName());
-            finalPointSb.append(" as directionLeg ");
-            finalPointSb.append(" join directionLeg.finalPoint as finalPoint ");
-            finalPointSb.append(" where directionLeg.markedToUpdate > directionLeg.lastUpdateTime ");
-            finalPointSb.append(" and initialPoint=:initialPoint ");
-            finalPointSb.append(" order by directionLeg.markedToUpdate desc ");
-            Query finalPointQuery = this.em.createQuery(finalPointSb.toString());
-            finalPointQuery.setParameter("initialPoint", initialPoint);
-            finalPoints.addAll(finalPointQuery.getResultList());
-        }
+		//e.DirectionLeg.find({markedToUpdate: true})
+		//.populate({ path: 'initialPoint', match: {_id: initialPoint}})
+		//.populate('finalPoint')
+		//.select('finalPoint')
+		//.exec(function(err, finalPoints){
 
-        StringBuilder finalPointSb =
-                new StringBuilder(
-                        " select new MutablePair<DirectionLeg, Integer>(directionLeg, count(directionLeg)) as count from ");
-        finalPointSb.append(DirectionLeg.class.getName());
-        finalPointSb.append(" as directionLeg ");
-        finalPointSb.append(" join directionLeg.finalPoint as finalPoint ");
-        finalPointSb.append(" where directionLeg.markedToUpdate > directionLeg.lastUpdateTime ");
-        finalPointSb.append(" and finalPoint in (:finalPoints) ");
-        finalPointSb.append(" group by directionLeg ");
-        finalPointSb.append(" order by count(directionLeg) desc ");
-        Query finalPointQuery = this.em.createQuery(finalPointSb.toString());
-        finalPointQuery.setParameter("finalPoint", finalPoints);
-        finalPointQuery.setMaxResults(25);
-        List<Pair<DirectionLeg, Integer>> finalPointResult = initialPointQuery.getResultList();
-
-        // verificar se final point + initial point = 100 em combinação
-        Integer finalPointSize = finalPointResult.size();
-        Integer initialPointSize = initialPointResult.size();
-        Integer totalCombination = finalPointSize * initialPointSize;
-        while (totalCombination > 100) {
-            finalPointSize = finalPointSize > 10 ? finalPointSize-- : finalPointSize;
-            initialPointSize = initialPointSize > 10 ? initialPointSize-- : initialPointSize;
-            totalCombination = initialPointSize * finalPointSize;
-        }
-
-        finalPointResult = finalPointResult.subList(0, finalPointSize);
-        initialPointResult = initialPointResult.subList(0, initialPointSize);
-
-        List<RoutePointDTO> finalFinalPoints = Lists.newArrayList();
-        List<RoutePointDTO> finalInitialPoints = Lists.newArrayList();
-        for (Pair<DirectionLeg, Integer> pair : finalPointResult) {
-            finalFinalPoints.add(pair.getKey().getFinalPoint().toDTO());
-        }
-        for (Pair<RoutePoint, Integer> pair : initialPointResult) {
-            finalInitialPoints.add(pair.getKey().toDTO());
-        }
-
-        return new MapAPIRequest(finalInitialPoints, finalFinalPoints);
-    }
+		});
+	});
+}
 
 var getDirectionLeg = function(directionLegs, initialPoint, finalPoint) {
     for (var directionLeg : directionLegs) {
@@ -153,15 +106,16 @@ var getDirectionLegs = function(points) {
      * Returns true if there is a {@link DirectionLeg} and it's updated.
      * Returns false if there is a {@link DirectionLeg} but it's out of date.
      * Returns null if there isn't a {@link DirectionLeg}
-     *
-     * @param directionLegs
-     * @param initialPoint
-     * @param finalPoint
-     * @return
      */
-    private Boolean isUpdated(Set<DirectionLeg> directionLegs, RoutePoint initialPoint, RoutePoint finalPoint) {
-        Preconditions.checkNotNull(initialPoint);
-        Preconditions.checkNotNull(finalPoint);
+    var isUpdated = function(directionLegs, initialPoint, finalPoint) {
+			if(!directionLegs || !initialPoint || !finalPoint){
+				return null;
+			}
+
+			var result = null;
+			directionLegs.each(function(directionLeg){
+
+			});
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, -1);
