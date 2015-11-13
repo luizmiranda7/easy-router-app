@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 
 var calendarSchema = require('./Calendar');
 var addressSchema = require('./Address');
-var localSchema = require('./Local');
 var personSchema = require('./Person');
 var driverSchema = require('./Driver');
 var vehicleSchema = require('./Vehicle');

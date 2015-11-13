@@ -4,14 +4,14 @@ mongoose.Promise = require('bluebird');
 
 var initMethods = function(app){
 
-	app.put('/saveOrder', function(req, res){
-		e.Order.create(req.body)
-		.then(function(entity){
-			res.send(entity);
+	app.put('/orders', function(req, res){
+		findEntityByExternalCode('Body', req.body.externalCode)
+		.then(function(order){
+			if(order){
+				return orderManager.updateOrder(order, req.body);
+			}
+			return orderManager.createOrder(req.body);
 		})
-		.catch(function(err){
-			console.log(err);
-		});
 	});
 
 	app.put('/saveExternalEntity', function(req, res){
