@@ -14,25 +14,6 @@ var initMethods = function(app){
 		})
 	});
 
-	app.put('/saveExternalEntity', function(req, res){
-		var entityModel = mongoose.model(req.headers.entityname);
-		findEntityByExternalCode(entityModel, req.body.externalCode)
-		.then(function(entity){
-			if(!entity){
-				return entityModel.create(req.body);
-			}
-			return entity.save();
-		})
-		.then(function(entity){
-			res.send(entity);
-		})
-		.catch(function(err){
-			console.log(err);
-		});
-	});
-
-};
-
 var findEntityByExternalCode = function(entityName, externalCode){
 	return e.ExternalCode.find({externalCode: externalCode.externalCode, origin: externalCode.origin})
 	.exec()
