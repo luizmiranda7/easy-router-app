@@ -14,20 +14,6 @@ var initMethods = function(app){
 		})
 	});
 
-var findEntityByExternalCode = function(entityName, externalCode){
-	return e.ExternalCode.find({externalCode: externalCode.externalCode, origin: externalCode.origin})
-	.exec()
-	.then(function(attachedExternalCode){
-		if(attachedExternalCode.length > 0){
-			return entityModel.find({externalCode: attachedExternalCode._id});
-		}
-		return Promise.resolve(null);
-	})
-	.catch(function(err){
-		console.log(err);
-	});
-}
-
 module.exports = {
 	initMethods
 }

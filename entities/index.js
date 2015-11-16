@@ -31,6 +31,20 @@ var RouteArea = mongoose.model('RouteArea', routeAreaSchema.schema);
 var DistributionCenter = mongoose.model('DistributionCenter', distributionCenterSchema.schema);
 var ExternalCode = mongoose.model('ExternalCode', externalCode.schema);
 
+var findEntityByExternalCode = function(entityName, externalCode){
+	return e.ExternalCode.find({externalCode: externalCode.externalCode, origin: externalCode.origin})
+	.exec()
+	.then(function(attachedExternalCode){
+		if(attachedExternalCode.length > 0){
+			return entityModel.find({externalCode: attachedExternalCode._id});
+		}
+		return Promise.resolve(null);
+	})
+	.catch(function(err){
+		console.log(err);
+	});
+};
+
 module.exports = {
 	Address,
 	Calendar,
@@ -46,5 +60,6 @@ module.exports = {
 	RouteRequest,
 	RouteArea,
 	DistributionCenter,
-	ExternalCode
+	ExternalCode,
+	findEntityByExternalCode
 }
