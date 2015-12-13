@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var ExternalCode = require('../entities/ExternalCode');
 
 module.exports.schema = new mongoose.Schema({
   priorityLevel: Number,
@@ -10,5 +11,5 @@ module.exports.schema = new mongoose.Schema({
   },
   deliveryPoint: {type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryPoint'},
   distributionCenter: {type: mongoose.Schema.Types.ObjectId, ref: 'DistributionCenter'},
-  externalCode: {type: mongoose.Schema.Types.ObjectId, ref: 'ExternalCode'}
+  externalCode: ExternalCode.schema
 });

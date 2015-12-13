@@ -36,39 +36,26 @@ var updateOrder = function(order, json) {
 
   if (json.deliveryPoint) {
     e.findEntityByExternalCode('DeliveryPoint', json.deliveryPoint.externalCode)
-    then(function(deliveryPoint) {
-      if (deliveryPoint) {
-        return new Promisse(deliveryPoint);
-      }
-        return createDeliveryPoint(json.deliveryPoint.externalCode);
-      }
+    then((deliveryPoint) => {
+      if (deliveryPoint) { return new Promisse(deliveryPoint); }
+      return deliveryPointManager.createDeliveryPoint(json.deliveryPoint.externalCode);
     })
-    .then(function(deliveryPoint) {
+    .then((deliveryPoint) => {
       order.deliveryPoint = deliveryPoint._id;
-      return order;
-    })
-    .catch(function(err) {
-        throw err;
-    )};
+    });
   }
 
   if (json.distributionCenter) {
     e.findEntityByExternalCode('DistributionCenter', json.distributionCenter.externalCode)
     then(function(distributionCenter) {
-      if (distributionCenter) {
-        return new Promisse(distributionCenter);
-      }
-        return createDeliveryPoint(json.distributionCenter.externalCode);
-      }
+      if (distributionCenter) { return new Promisse(distributionCenter); }
+      return distributionCenterManager.createDistributionCenter(json.distributionCenter.externalCode);
     })
     .then(function(distributionCenter) {
       order.distributionCenter = distributionCenter._id;
-      return order;
-    })
-    .catch(function(err) {
-        throw err;
-    )};
+    });
   }
+
 }
 
 var findPendingOrders = function() {

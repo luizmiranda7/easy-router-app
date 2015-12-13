@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var ExternalCode = require('../entities/ExternalCode');
 
 module.exports.schema = new mongoose.Schema({
   distance: Number,
@@ -7,6 +8,5 @@ module.exports.schema = new mongoose.Schema({
   lastTimeMarkedToUpdate: Date,
   lastTimeUpdate: Date,
   firstPoint: {type: mongoose.Schema.Types.ObjectId, ref: 'RoutePoint'},
-  lastPoint: {type: mongoose.Schema.Types.ObjectId, ref: 'RoutePoint'},
-  externalCode: {type: mongoose.Schema.Types.ObjectId, ref: 'ExternalCode'}
+  lastPoint: {type: mongoose.Schema.Types.ObjectId, ref: 'RoutePoint'}
 });
