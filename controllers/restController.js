@@ -11,6 +11,18 @@ var initMethods = function(app){
 		return orderManager.createOrUpdate(req.body);
 	});
 
+	app.put('/drivers', function(req, res){
+		return driverManager.createOrUpdate(req.body);
+	});
+
+	app.put('/distributionCenters', function(req, res){
+		return distributionCenterManager.createOrUpdate(req.body);
+	});
+
+	app.put('/vehicles', function(req, res){
+		return vehicleManager.createOrUpdate(req.body);
+	});
+
 };
 
 module.exports = {
