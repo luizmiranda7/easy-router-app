@@ -1,52 +1,52 @@
 var e = require('../entities');
 var mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
+var Promise = require('bluebird');
+mongoose.Promise = Promise;
+var routePointManager = require('./routePointManager');
+var calendarManager = require('./calendarManager');
 
-var createDeliveryPoint = function(json){
-	var deliveryPoint = new e.DeliveryPoint({});
-	deliveryPoint.
+var createOrUpdate = function(json){
+  e.findByExternalCode('DeliveryPoint', json.externalCode)
+  .then(function(deliveryPoint){
+    if (deliveryPoint) {
+      return update(deliveryPoint, json);
+    }
+    return update(new e.DeliveryPoint({}), json);
+  });
+}
 	
-	if(json.name){ deliveryPoint.name = json.name; }
-	if(json.deliveryDuration){ deliveryPoint.deliveryDuration = json.deliveryDuration; }
+var update = function(deliveryPoint, json){
 
-	if(json.routePoint){
-		e.findByExternalCode('RoutePoint', json.routePoint)
-		.then((routePoint) => {
-			if(routePoint){ return new Promise(routePoint);}
-			return routePointManager.createRoutePoint(json.routePoint);
-		})
-		.then(function(routePoint){
-			if(routePoint){
-				deliveryPoint.routePoint = routePoint;
-			}
-		});
+	if(json.name){ 
+		deliveryPoint.name = json.name;
 	}
 
-	if(json.calendar){
-		e.findByExternalCode('Calendar', json.calendar)
-		.then(function(calendar){
-			if(calendar){ return new Promise(calendar);}
-			return calendarManager.createCalendar(json.calendar);
-		})
-		.then(function(calendar){
-			if(calendar){
-				deliveryPoint.calendar = calendar;
-			}
-		});
+	if(json.deliveryDuration){
+		deliveryPoint.deliveryDuration = json.deliveryDuration;
 	}
 
-	externalCodeManager.createExternalCode(json.externalCode)
-	.then(function(externalCode){
-		deliveryPoint.externalCode = externalCode._id;
+	if(json.externalCode){
+		deliveryPoint.externalCode = json.externalCode;
+	}
 
-		return externalCodeManager.findByExternalCode()
-	})
+	var routePointPromise = routePointManager.createOrUpdate(json.routePoint)
+	.then(function(routePoint){
+		deliveryPoint.routePoint = routePoint;
+	});
+
+	var calendarPromise = calendarManager.createOrUpdate(json.calendar)
+	.then(function(calendar){
+		deliveryPoint.calendar = calendar;
+	});
+
+	return Promise.all([routePointPromise, calendarPromise])
+	.then(function(){
+		deliveryPoint.save();
+		return deliveryPoint;
+	});
 };
 
-var updateDeliveryPoint = function(deliveryPoint, json){
-	deliveryPoint.update
-}
 
 module.exports = {
-	createDeliveryPoint
+	createOrUpdate
 };

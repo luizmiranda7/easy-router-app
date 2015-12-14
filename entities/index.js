@@ -24,6 +24,15 @@ var RouteRequest = mongoose.model('RouteRequest', routeRequestSchema.schema);
 var RouteArea = mongoose.model('RouteArea', routeAreaSchema.schema);
 var DistributionCenter = mongoose.model('DistributionCenter', distributionCenterSchema.schema);
 
+var findByExternalCode = function(entityName, externalCode){
+	var entityModel = mongoose.model(entityName);
+	return entityModel.findOne({
+		"externalCode.externalCode": externalCode.externalCode,
+		"externalCode.origin": externalCode.origin
+	})
+	.exec();
+};
+
 module.exports = {
 	Calendar,
 	Driver,
@@ -35,5 +44,6 @@ module.exports = {
 	Route,
 	RouteRequest,
 	RouteArea,
-	DistributionCenter
+	DistributionCenter,
+	findByExternalCode
 }
