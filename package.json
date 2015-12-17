@@ -21,11 +21,12 @@
   },
   "homepage": "https://gitlab.com/luizmiranda7/easy-router-node#README",
   "dependencies": {
-    "bluebird": "^3.0.5",
-    "body-parser": "^1.14.1",
-    "express": "^4.13.3",
-    "method-override": "^2.3.5",
-    "mongoose": "^4.2.5",
-    "underscore": "^1.8.3"
+    "bluebird": "latest",
+    "body-parser": "latest",
+    "express": "latest",
+    "method-override": "latest",
+    "mongoose": "latest",
+    "underscore": "latest",
+    "bower": "latest"
   }
 }

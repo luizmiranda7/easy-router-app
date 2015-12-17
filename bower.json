@@ -1,0 +1,27 @@
+{
+  "name": "easy-router-node",
+  "version": "0.0.0",
+  "authors": [
+    "luiz.miranda <luizmiranda7@gmail.com>"
+  ],
+  "description": "",
+  "main": "/view/main/index.html",
+  "moduleType": [],
+  "keywords": [
+    "easy",
+    "router",
+    "node"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "src/view/lib/bootstrap",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "latest"
+  }
+}
