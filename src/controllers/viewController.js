@@ -8,9 +8,9 @@ var initMethods = function(app, rootDirName) {
         next();
     });
 
-    //router.get("/", function(req, res) {
-    //    res.sendFile(path + "index.html");
-    //});
+    router.get("/access", function(req, res) {
+        res.sendFile(path + "index.html");
+    });
 
     router.get("/", function(req, res){
         res.sendFile(path + "conver.html");

@@ -1,7 +1,6 @@
 var e = require('../entities');
 var Promise = require('bluebird');
-var mongoose = require('mongoose');
-mongoose.Promise = Promise;
+var mongoose = require('mongoose'); mongoose.Promise = Promise;
 var calendarManager = require('./distributionCenterManager');
 
 var createOrUpdate = function(json){
