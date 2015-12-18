@@ -5,15 +5,11 @@
     "luiz.miranda <luizmiranda7@gmail.com>"
   ],
   "description": "",
-  "main": "/view/main/index.html",
+  "main": "",
   "moduleType": [],
-  "keywords": [
-    "easy",
-    "router",
-    "node"
-  ],
   "license": "MIT",
   "homepage": "",
+  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -22,6 +18,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "latest"
+    "bootstrap": "latest",
+    "polymer": "Polymer/polymer#^1.2.0"
   }
 }

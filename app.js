@@ -19,6 +19,10 @@ restController.initMethods(app);
 var viewController = require('./src/controllers/viewController');
 viewController.initMethods(app, __dirname);
 
+app.use('/lib',  express.static(__dirname + '/src/view/lib'));
+app.use('/css',  express.static(__dirname + '/src/view/css'));
+app.use('/images',  express.static(__dirname + '/src/view/images'));
+
 var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
