@@ -6,7 +6,7 @@ var routePointManager = require('./routePointManager');
 var calendarManager = require('./calendarManager');
 
 var createOrUpdate = function(json){
-  e.findByExternalCode('DeliveryPoint', json.externalCode)
+  return e.findByExternalCode('DeliveryPoint', json.externalCode)
   .then(function(deliveryPoint){
     if (deliveryPoint) {
       return update(deliveryPoint, json);
@@ -41,8 +41,7 @@ var update = function(deliveryPoint, json){
 
 	return Promise.all([routePointPromise, calendarPromise])
 	.then(function(){
-		deliveryPoint.save();
-		return deliveryPoint;
+		return deliveryPoint.save();
 	});
 };
 

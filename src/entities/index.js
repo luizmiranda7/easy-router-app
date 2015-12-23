@@ -33,6 +33,14 @@ var findByExternalCode = function(entityName, externalCode){
 	.exec();
 };
 
+var deleteByExternalCode = function(entityName, externalCode){
+	var entityModel = mongoose.model(entityName);
+	return entityModel.find({
+		'externalCode.externalCode': externalCode.externalCode,
+		'externalCode.origin': externalCode.origin
+	}).remove().exec();
+}
+
 module.exports = {
 	Calendar,
 	Driver,
@@ -45,5 +53,6 @@ module.exports = {
 	RouteRequest,
 	RouteArea,
 	DistributionCenter,
-	findByExternalCode
+	findByExternalCode,
+	deleteByExternalCode
 }

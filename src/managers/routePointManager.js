@@ -41,7 +41,7 @@ var update = function(routePoint, json) {
     if (json.externalCode) {
         routePoint.externalCode = json.externalCode;
     }
-    return routePoint;
+    return routePoint.save();
 };
 
 

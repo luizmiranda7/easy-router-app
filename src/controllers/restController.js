@@ -1,3 +1,4 @@
+var express = require('express');
 var e = require('../entities');
 var mongoose = require('mongoose');
 var orderManager = require('../managers/orderManager');
@@ -8,53 +9,77 @@ var vehicleManager = require('../managers/vehicleManager');
 
 // REST Methods - Retrieve, Create, Update and Delete
 var initMethods = function(app){
+    var router = express.Router();
+    router.use(function(req, res, next) {
+        console.log("/" + req.method);
+        next();
+    });
 	
 	// Retrieve Methods - REST
-	app.get('/rest/orders', function(req, res){
-		return orderManager.get(req.body);
+	router.get('/orders', function(req, res){
+		return e.findByExternalCode.get('Order', req.body);
 	});
 
-	app.get('/rest/drivers', function(req, res){
-		return driverManager.get(req.body);
+	router.get('/drivers', function(req, res){
+		return e.findByExternalCode.get('Driver', req.body);
 	});
 
-	app.get('/rest/distributionCenters', function(req, res){
-		return distributionCenterManager.get(req.body);
+	router.get('/distributionCenters', function(req, res){
+		return e.findByExternalCode.get('DistributionCenter', req.body);
 	});
 
-	app.get('/rest/vehicles', function(req, res){
-		return vehicleManager.get(req.body);
+	router.get('/vehicles', function(req, res){
+		return e.findByExternalCode.get('Vehicle', req.body);
 	});
 
 	// Create and Update Methods - REST
-	app.post('/rest/orders', function(req, res){
-		return orderManager.createOrUpdate(req.body);
+	router.post('/orders', function(req, res){
+		orderManager.createOrUpdate(req.body)
+		.then(function(order){
+			res.send(order);
+		});
 	});
 
-	app.post('/rest/drivers', function(req, res){
-		return driverManager.createOrUpdate(req.body);
+	router.post('/drivers', function(req, res){
+		if(req.headers.del){
+			return e.deleteByExternalCode('Driver', req.body)
+			.then(function(driver){
+				res.send(driver);
+			});
+		}
+		return driverManager.createOrUpdate(req.body)
+		.then(function(driver){
+			res.send(driver);
+		});
 	});
 
-	app.post('/rest/distributionCenters', function(req, res){
-		return distributionCenterManager.createOrUpdate(req.body);
+	router.post('/distributionCenters', function(req, res){
+		if(req.headers.del){
+			return e.deleteByExternalCode('DistributionCenter', req.body)
+			.then(function(distributionCenters){
+				res.send(distributionCenters);
+			});
+		}
+		return distributionCenterManager.createOrUpdate(req.body)
+		.then(function(distributionCenter){
+			res.send(distributionCenter);
+		});
 	});
 
-	app.post('/rest/vehicles', function(req, res){
-		return vehicleManager.createOrUpdate(req.body);
+	router.post('/vehicles', function(req, res){
+		if(req.headers.del){
+			return e.deleteByExternalCode('Vehicle', req.body)
+			.then(function(vehicle){
+				res.send(vehicle);
+			});
+		}
+		return vehicleManager.createOrUpdate(req.body)
+		.then(function(vehicle){
+			res.send(vehicle);
+		});
 	});
 
-	// Delete methods - REST	
-	app.delete('/rest/drivers', function(req, res){
-		return driverManager.delete(req.body);
-	});
-
-	app.delete('/rest/distributionCenters', function(req, res){
-		return distributionCenterManager.delete(req.body);
-	});
-
-	app.delete('/rest/vehicles', function(req, res){
-		return vehicleManager.delete(req.body);
-	});
+    app.use("/rest", router);
 
 };
 

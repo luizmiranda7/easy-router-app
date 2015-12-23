@@ -22,8 +22,7 @@ var update = function(calendar, json){
 		calendar.externalCode = json.externalCode;
 	}
 
-	calendar.save();
-	return calendar;
+	return calendar.save();
 }
 
 module.exports = {

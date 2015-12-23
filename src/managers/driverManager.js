@@ -5,7 +5,7 @@ mongoose.Promise = Promise;
 var calendarManager = require('./calendarManager');
 
 var createOrUpdate = function(json){
-  e.findByExternalCode('Driver', json.externalCode)
+  return e.findByExternalCode('Driver', json.externalCode)
   .then(function(driver){
     if (driver) {
       return update(driver, json);
@@ -41,8 +41,7 @@ var update = function(driver, json){
 		driver.calendar = calendar;
 	})
 	.then(function(){
-		driver.save();
-		return driver;
+		return driver.save();
 	});
 
 };
@@ -78,10 +77,10 @@ var findAbleDrivers = function(distributionCenter){
 	console.log('error:', err);
 	});
 
-}
+};
 
 module.exports = {
-	findAbleDrivers
+	findAbleDrivers,
 	createOrUpdate
 };
 

@@ -5,7 +5,7 @@ var routePointManager = require('./routePointManager');
 var calendarManager = require('./calendarManager');
 
 var createOrUpdate = function(json){
-  e.findByExternalCode('DistributionCenter', json.externalCode)
+  return e.findByExternalCode('DistributionCenter', json.externalCode)
   .then(function(distributionCenter){
     if (distributionCenter) {
       return update(distributionCenter, json);
@@ -38,10 +38,9 @@ var update = function(distributionCenter, json){
 		distributionCenter.calendar = calendar;
 	});
 
-	return mongoose.Promise.all(routePointPromise, calendarPromise)
+	return Promise.all([routePointPromise, calendarPromise])
 	.then(function(){
-		distributionCenter.save();
-		return distributionCenter;
+		return distributionCenter.save();
 	});
 };
 

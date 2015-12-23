@@ -4,7 +4,7 @@ var mongoose = require('mongoose'); mongoose.Promise = Promise;
 var calendarManager = require('./distributionCenterManager');
 
 var createOrUpdate = function(json){
-  e.findByExternalCode('Vehicle', json.externalCode)
+  return e.findByExternalCode('Vehicle', json.externalCode)
   .then(function(vehicle){
     if (vehicle) {
       return update(vehicle, json);
@@ -36,8 +36,7 @@ var update = function(vehicle, json){
 		vehicle.currentDistributionCenter = distributionCenter;
 	})
 	.then(function(){
-		vehicle.save();
-		return vehicle;
+		return vehicle.save();
 	});
 
 };
@@ -52,7 +51,7 @@ var getNextRoute = function(vehicle){
 };
 
 module.exports = {
-	findAbleVehicles,
+	findAbleVehicle,
 	createOrUpdate,
 	getNextRoute
 };
