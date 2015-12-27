@@ -23,10 +23,13 @@
   "dependencies": {
     "bluebird": "latest",
     "body-parser": "latest",
+    "bower": "latest",
+    "ejs": "^2.3.4",
     "express": "latest",
     "method-override": "latest",
     "mongoose": "latest",
-    "underscore": "latest",
-    "bower": "latest"
+    "path": "latest",
+    "swig": "^1.4.2",
+    "underscore": "latest"
   }
 }

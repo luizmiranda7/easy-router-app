@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
 var ExternalCode = require('./ExternalCode');
-var Person = require('../entities/Person');
+var Person = require('./Person');
+var Calendar = require('./Calendar');
 
 module.exports.schema = new mongoose.Schema({
-  calendar: {type: mongoose.Schema.Types.ObjectId, ref: 'Calendar'},
+  calendar: Calendar.schema,
   externalCode: ExternalCode.schema,
   person: Person.schema
 });

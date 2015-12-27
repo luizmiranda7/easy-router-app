@@ -6,6 +6,10 @@ var deliveryPointManager = require('./deliveryPointManager');
 var distributionCenterManager = require('./distributionCenterManager');
 
 var createOrUpdate = function(json) {
+    if(!json){
+        return Promise.resolve(null);
+    }
+    
     return e.findByExternalCode('Order', json.externalCode)
     .then(function(order) {
         if (order) {
@@ -62,15 +66,31 @@ var updateOrder = function(order, json) {
 }
 
 var findPendingOrders = function() {
-    e.Order.find({
+    return e.Order.find({
         status: 'PENDING'
-    }).sort({
+    })
+    .populate('deliveryPoint')
+    .populate('distributionCenter')
+    .sort({
         priorityLevel: -1,
         deadline: -1
     }).exec();
 };
 
+var findOrders = function(externalCodes){
+    var externalCodesString = externalCodes.map(function(item){return item.externalCode;});
+    var origins = externalCodes.map(function(item){return item.origin;});
+    return e.Order.find({
+        "externalCode.externalCode":{$in: externalCodesString},
+        "externalCode.origin":{$in: origins}
+    })
+    .populate('deliveryPoint')
+    .populate('distributionCenter')
+    .exec();
+};
+
 module.exports = {
+    findOrders,
     findPendingOrders,
     createOrUpdate
 };

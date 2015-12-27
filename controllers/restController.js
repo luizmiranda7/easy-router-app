@@ -1,6 +1,7 @@
 var express = require('express');
 var e = require('../entities');
 var mongoose = require('mongoose');
+var routeManager = require('../managers/routeManager');
 var orderManager = require('../managers/orderManager');
 var driverManager = require('../managers/driverManager');
 var distributionCenterManager = require('../managers/distributionCenterManager');
@@ -20,6 +21,12 @@ var initMethods = function(app){
 		return e.findByExternalCode.get('Order', req.body);
 	});
 
+	// Retrieve Methods - REST
+	router.get('/pendingOrders', function(req, res){
+		return orderManager.findPendingOrders();
+	});
+
+
 	router.get('/drivers', function(req, res){
 		return e.findByExternalCode.get('Driver', req.body);
 	});
@@ -34,6 +41,13 @@ var initMethods = function(app){
 
 	// Create and Update Methods - REST
 	router.post('/orders', function(req, res){
+		if(req.headers.del){
+			return e.deleteByExternalCode('Order', req.body)
+			.then(function(order){
+				res.send(order);
+			});
+		}
+
 		orderManager.createOrUpdate(req.body)
 		.then(function(order){
 			res.send(order);
@@ -76,6 +90,13 @@ var initMethods = function(app){
 		return vehicleManager.createOrUpdate(req.body)
 		.then(function(vehicle){
 			res.send(vehicle);
+		});
+	});
+
+	router.post('/directionLegUpdateRequest', function(req, res){
+		return routeManager.getDirectionLegUpdateRequest(req.body)
+		.then(function(directionLegUpdateRequest){
+			res.send(directionLegUpdateRequest);
 		});
 	});
 

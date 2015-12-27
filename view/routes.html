@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Easy Router</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="js/directionLegUpdater.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="lib/bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP_3WejV6sd2fKNBfI6e1E4Hznr6Z60Mg&callback=initMap">
+    </script>
+
+    <!-- Custom styles for this template -->
+    <link href="css/jumbotron.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="lib/bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Easy Router</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control" value="<%= email %>">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Senha" class="form-control" value="<%= password %>">
+            </div>
+            <button type="submit" class="btn btn-success">Entre</button>
+            <button type="submit" class="btn btn-primary">Cadastre-se</button>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+    <br/>
+    <br/>
+    <br/>
+
+    <div class="container orderContainer">
+      <div class="bs-example" data-example-id="table-within-panel">
+        <div class="panel panel-default">
+          <div class="panel-heading">Orders</div>
+          <div class="panel-body">
+            <p>Select all orders to be routed. Remember that only pending orders will be routed and the routing algorithm will only use availables drivers and vehicles. 
+            </p>
+          </div>
+          <table class="table orders">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Client Name</th>
+                <th>Address</th>
+                <th>Weight</th>
+                <th>Priority Level</th>
+                <th>More Info</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+              <tr class="order" externalCode="{{order.externalCode.externalCode}}" origin="{{order.externalCode.origin}}">
+                <th scope="row">
+                  <input type="checkbox" value=""></input>
+                </th>
+                <td>{{order.deliveryPoint.name}}</td>
+                <td>
+                  {{order.deliveryPoint.routePoint.street}}
+                  <a href="http://maps.google.com/maps?q={{order.deliveryPoint.routePoint.latitude}},{{order.deliveryPoint.routePoint.longitude}}" target="_blank"> Map </a>
+                </td>
+                <td>{{order.weight}}</td>
+                <td>{{order.priorityLevel}}</td>
+                <td>
+                  <input type="button" class="btn btn-default" value="!"></input>
+                  <input type="button" class="btn btn-default" value="Remove" onclick="DIRECTION_LEG_UPDATER.deleteOrder(this)"></input>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+
+        </div>
+
+        <button type="button" class="btn btn-default" onclick="DIRECTION_LEG_UPDATER.update(this)">Compute Route</button>
+      </div>
+    </div>
+  </body>
+</html>

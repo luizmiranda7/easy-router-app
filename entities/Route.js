@@ -12,7 +12,7 @@ module.exports.schema = new mongoose.Schema({
     type: String,
     enum: ['EXECUTED', 'PENDING', 'CANCELED']
   },
-  deliveryPoints: [{type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryPoint'}],
+  orders: [{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}],
   distributionCenter: {type: mongoose.Schema.Types.ObjectId, ref: 'DistributionCenter'},
   vehicle: {type: mongoose.Schema.Types.ObjectId, ref: 'Vehicle'},
   driver: {type: mongoose.Schema.Types.ObjectId, ref: 'Driver'}

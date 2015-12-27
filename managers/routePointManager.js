@@ -2,17 +2,10 @@ var e = require('../entities');
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-var createOrUpdate = function(json) {
-    return e.findByExternalCode('RoutePoint', json.externalCode)
-        .then(function(routePoint) {
-            if (routePoint) {
-                return update(routePoint, json);
-            }
-            return update(new e.RoutePoint({}), json);
-        });
-}
-
-var update = function(routePoint, json) {
+var createOrUpdate = function(routePoint, json) {
+    if(!routePoint){
+        routePoint = {};
+    }
 
     if (json.latitude) {
         routePoint.latitude = json.latitude;
@@ -41,7 +34,7 @@ var update = function(routePoint, json) {
     if (json.externalCode) {
         routePoint.externalCode = json.externalCode;
     }
-    return routePoint.save();
+    return routePoint;
 };
 
 

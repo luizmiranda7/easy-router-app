@@ -1,9 +1,13 @@
 var e = require('../entities');
 var Promise = require('bluebird');
 var mongoose = require('mongoose'); mongoose.Promise = Promise;
-var calendarManager = require('./distributionCenterManager');
+var distributionCenterManager = require('./distributionCenterManager');
 
 var createOrUpdate = function(json){
+	if(!json){
+		return Promise.resolve(null);
+	}
+	
   return e.findByExternalCode('Vehicle', json.externalCode)
   .then(function(vehicle){
     if (vehicle) {
@@ -33,7 +37,9 @@ var update = function(vehicle, json){
 
 	return distributionCenterManager.createOrUpdate(json.distributionCenter)
 	.then(function(distributionCenter){
-		vehicle.currentDistributionCenter = distributionCenter;
+		if(distributionCenter){
+			vehicle.currentDistributionCenter = distributionCenter;
+		}
 	})
 	.then(function(){
 		return vehicle.save();

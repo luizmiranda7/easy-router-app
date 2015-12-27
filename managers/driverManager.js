@@ -2,9 +2,12 @@ var e = require('../entities');
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
 mongoose.Promise = Promise;
-var calendarManager = require('./calendarManager');
 
 var createOrUpdate = function(json){
+	if(!json){
+		return Promise.resolve(null);
+	}
+	
   return e.findByExternalCode('Driver', json.externalCode)
   .then(function(driver){
     if (driver) {
@@ -36,14 +39,12 @@ var update = function(driver, json){
 		driver.externalCode = json.externalCode;
 	}
 
-	return calendarManager.createOrUpdate(json.calendar)
-	.then(function(calendar){
-		driver.calendar = calendar;
-	})
-	.then(function(){
-		return driver.save();
-	});
+	
+	if(json.calendar){
+		driver.calendar = json.calendar;
+	}
 
+	return driver.save();
 };
 
 var findAbleDrivers = function(distributionCenter){

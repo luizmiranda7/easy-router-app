@@ -3,9 +3,12 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 mongoose.Promise = Promise;
 var routePointManager = require('./routePointManager');
-var calendarManager = require('./calendarManager');
 
 var createOrUpdate = function(json){
+	if(!json){
+		return Promise.resolve(null);
+	}
+	
   return e.findByExternalCode('DeliveryPoint', json.externalCode)
   .then(function(deliveryPoint){
     if (deliveryPoint) {
@@ -29,20 +32,15 @@ var update = function(deliveryPoint, json){
 		deliveryPoint.externalCode = json.externalCode;
 	}
 
-	var routePointPromise = routePointManager.createOrUpdate(json.routePoint)
-	.then(function(routePoint){
-		deliveryPoint.routePoint = routePoint;
-	});
+	if(json.calendar){
+		deliveryPoint.calendar = json.calendar;
+	}
 
-	var calendarPromise = calendarManager.createOrUpdate(json.calendar)
-	.then(function(calendar){
-		deliveryPoint.calendar = calendar;
-	});
+	if(json.routePoint){
+		deliveryPoint.routePoint = routePointManager.createOrUpdate(deliveryPoint.routePoint, json.routePoint)
+	}
 
-	return Promise.all([routePointPromise, calendarPromise])
-	.then(function(){
-		return deliveryPoint.save();
-	});
+	return deliveryPoint.save();
 };
 
 
