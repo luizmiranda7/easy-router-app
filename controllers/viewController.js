@@ -1,6 +1,8 @@
 var express = require('express');
 var routeManager = require('../managers/routeManager');
 var orderManager = require('../managers/orderManager');
+var mainConfig = require('../configurations/mainConfig');
+var e = require('../entities');
 
 var initMethods = function(app, rootDirName) {
     var router = express.Router();
@@ -26,21 +28,23 @@ var initMethods = function(app, rootDirName) {
         res.render(path + "conver.html");
     });
 
-    router.get("/routes", function(req, res){
+    router.get("/orders", function(req, res){
         orderManager.findPendingOrders()
         .then(function(orders){
-            res.render(path + "routes.html",
+            res.render(path + "orders.html",
             {
-                apiKey: "AIzaSyDP_3WejV6sd2fKNBfI6e1E4Hznr6Z60Mg",
+                apiKey: mainConfig.apiKey,
                 orders: orders
             });
         });
     });
 
-    router.get("/order", function(req, res){
-        orderManager.findPendingOrders()
+    router.post("/orderDetails", function(req, res){
+        orderManager.findOrders([req.body])
         .then(function(orders){
-            res.render(path + "orders.html", orders);
+            if(orders){
+                res.render(path + "orderDetails.html", {order: orders[0]});
+            }
         });
     });
 

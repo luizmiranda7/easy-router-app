@@ -10,7 +10,7 @@ module.exports.schema = new mongoose.Schema({
   tax: Number,
   status: {
     type: String,
-    enum: ['EXECUTED', 'PENDING', 'CANCELED']
+    enum: ['PENDING', 'EXECUTED', 'SCHEDULED', 'CANCELED']
   },
   orders: [{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}],
   distributionCenter: {type: mongoose.Schema.Types.ObjectId, ref: 'DistributionCenter'},

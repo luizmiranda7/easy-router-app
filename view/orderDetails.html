@@ -1,0 +1,60 @@
+<div id="orderDetails" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Details</h4>
+      </div>
+      <div class="modal-body">
+        
+        <div>
+          <label>Delivery Name:</label>
+          <span>{{order.deliveryPoint.name}}</span>
+        </div>
+
+        <div>
+          <label>Distribution Center Name:</label>
+          <span>{{order.distributionCenter.name}}</span>
+        </div>
+
+        <div>
+          <label>Priority:</label>
+          <span>{{order.priorityLevel}}</span>
+        </div>
+
+        <div>
+          <label>Weight:</label>
+          <span>{{order.weight}}</span>
+        </div>
+        
+        <div>
+          <label>Deadline:</label>
+          <span>{{order.deadline}}</span>
+        </div>
+
+        <div>
+          <label>Status:</label>
+          <span>{{order.status}}</span>
+        </div>
+        
+        <div>
+          <label>Address:</label>
+          <span>{{order.deliveryPoint.routePoint.street}}, 
+          {{order.deliveryPoint.routePoint.number}} - 
+          {{order.deliveryPoint.routePoint.city}}, 
+          {{order.deliveryPoint.routePoint.state}} - 
+          {{order.deliveryPoint.routePoint.postalCode}} 
+          <a href="http://maps.google.com/maps?q={{order.deliveryPoint.routePoint.latitude}},{{order.deliveryPoint.routePoint.longitude}}" target="_blank"> Map </a></span>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

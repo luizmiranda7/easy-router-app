@@ -10,17 +10,17 @@
     <link rel="icon" href="favicon.ico">
 
     <title>Easy Router</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="lib/jquery/dist/jquery.min.js"></script>
-    <script src="js/directionLegUpdater.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="lib/bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
+    <script async defer src="lib/jquery/dist/jquery.min.js"></script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP_3WejV6sd2fKNBfI6e1E4Hznr6Z60Mg&callback=initMap">
     </script>
+    <script async defer src="js/directionLegUpdater.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="lib/bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
 
     <!-- Custom styles for this template -->
     <link href="css/jumbotron.css" rel="stylesheet">
@@ -52,10 +52,10 @@
         <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right">
             <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control" value="<%= email %>">
+              <input type="text" placeholder="Email" class="form-control" value="">
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Senha" class="form-control" value="<%= password %>">
+              <input type="password" placeholder="Senha" class="form-control" value="">
             </div>
             <button type="submit" class="btn btn-success">Entre</button>
             <button type="submit" class="btn btn-primary">Cadastre-se</button>
