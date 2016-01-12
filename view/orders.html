@@ -1,60 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+{% extends 'layout.html' %}
 
-    <title>Easy Router</title>
-    <script async defer src="lib/jquery/dist/jquery.min.js"></script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key={{apiKey}}&callback=initMap">
-    </script>
-    <script async defer src="js/orders.js"></script>
-    <script async defer src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+{% block header %}
+  <script async defer src="js/orders.js"></script>-
+{% endblock %}
 
-    <!-- Bootstrap core CSS -->
-    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="css/jumbotron.css" rel="stylesheet">
-  </head>
-
-  <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Easy Router</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control" value="">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Senha" class="form-control" value="">
-            </div>
-            <button type="submit" class="btn btn-success">Entre</button>
-            <button type="submit" class="btn btn-primary">Cadastre-se</button>
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </nav>
-
-    <br/>
-    <br/>
-    <br/>
-
+{% block content %}
     <div class="container orderContainer">
       <div class="bs-example" data-example-id="table-within-panel">
         <div class="panel panel-default">
@@ -111,5 +61,5 @@
     </div>
 
     <button type="button" style="display: none;" class="btn btn-info btn-lg modalOpener" data-toggle="modal" data-target="#orderDetails"></button>
-  </body>
-</html>
+
+{% endblock %}

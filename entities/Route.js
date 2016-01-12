@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 
 module.exports.schema = new mongoose.Schema({
-  firstName: String,
-  surName: String,
   startDate: Date,
   endDate: Date,
   distance: Number,

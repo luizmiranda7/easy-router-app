@@ -18,6 +18,11 @@ var Order = mongoose.model('Order', orderSchema.schema);
 var Route = mongoose.model('Route', routeSchema.schema);
 var DistributionCenter = mongoose.model('DistributionCenter', distributionCenterSchema.schema);
 
+var findAll = function(entityName){
+	var entityModel = mongoose.model(entityName);
+	return entityModel.findAll().exec();
+}
+
 var findByExternalCode = function(entityName, externalCode){
 	var entityModel = mongoose.model(entityName);
 	return entityModel.findOne({
@@ -54,6 +59,7 @@ module.exports = {
 	Order,
 	Route,
 	DistributionCenter,
+	findAll,
 	findByExternalCode,
 	findByExternalCodes,
 	deleteByExternalCode

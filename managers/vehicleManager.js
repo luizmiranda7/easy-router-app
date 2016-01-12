@@ -47,17 +47,20 @@ var update = function(vehicle, json){
 
 };
 
-var findAbleVehicle = function(distributionCenter){
-	
-
+var findAll = function(vehicle){
+	return e.Vehicle.find()
+	.populate('currentDistributionCenter')
+	.exec();
 };
 
-var getNextRoute = function(vehicle){
-
+var findVehicle = function(externalCode){
+	return e.findByExternalCode(externalCode)
+	.populate('currentDistributionCenter')
+	.exec();
 };
 
 module.exports = {
-	findAbleVehicle,
-	createOrUpdate,
-	getNextRoute
+	findAll,
+	findVehicle,
+	createOrUpdate
 };

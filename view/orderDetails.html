@@ -7,48 +7,53 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Details</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body easy-form">
         
-        <div>
-          <label>Delivery Name:</label>
-          <span>{{order.deliveryPoint.name}}</span>
-        </div>
-
-        <div>
-          <label>Distribution Center Name:</label>
-          <span>{{order.distributionCenter.name}}</span>
-        </div>
-
-        <div>
-          <label>Priority:</label>
-          <span>{{order.priorityLevel}}</span>
-        </div>
-
-        <div>
-          <label>Weight:</label>
-          <span>{{order.weight}}</span>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Delivery Point</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.deliveryPoint.name}}" ></input>
+          <div class="input-group-btn">
+              <button type="button" class="btn btn-default" onclick="deliveryPoints.openSelectModal(this)">Select</button>
+          </div>
         </div>
         
-        <div>
-          <label>Deadline:</label>
-          <span>{{order.deadline}}</span>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Distribution Center</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.distributionCenter.name}}" ></input>
+          <div class="input-group-btn">
+              <button type="button" class="btn btn-default" onclick="distributionCenters.openSelectModal(this)">Select</button>
+          </div>
         </div>
 
-        <div>
-          <label>Status:</label>
-          <span>{{order.status}}</span>
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Priority:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.priorityLevel}}" ></input>
         </div>
         
-        <div>
-          <label>Address:</label>
-          <span>{{order.deliveryPoint.routePoint.street}}, 
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Weight:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.weight}}" ></input>
+        </div>
+        
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Deadline:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.deadline}}" ></input>
+        </div>
+        
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Status:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.status}}" ></input>
+        </div>
+        
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Address:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.deliveryPoint.routePoint.street}}, 
           {{order.deliveryPoint.routePoint.number}} - 
           {{order.deliveryPoint.routePoint.city}}, 
           {{order.deliveryPoint.routePoint.state}} - 
           {{order.deliveryPoint.routePoint.postalCode}} 
-          <a href="http://maps.google.com/maps?q={{order.deliveryPoint.routePoint.latitude}},{{order.deliveryPoint.routePoint.longitude}}" target="_blank"> Map </a></span>
+          <a href='http://maps.google.com/maps?q={{order.deliveryPoint.routePoint.latitude}},{{order.deliveryPoint.routePoint.longitude}}' target='_blank'> Map </a>"></input>
         </div>
-
 
       </div>
       <div class="modal-footer">

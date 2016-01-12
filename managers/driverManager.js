@@ -77,7 +77,6 @@ var findAbleDrivers = function(distributionCenter){
 	.catch(function(err){
 	console.log('error:', err);
 	});
-
 };
 
 module.exports = {

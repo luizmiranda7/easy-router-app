@@ -24,8 +24,9 @@ var e = require('./entities');
 var restController = require('./controllers/restController');
 restController.initMethods(app);
 
+GLOBAL.rootDirName = __dirname;
 var viewController = require('./controllers/viewController');
-viewController.initMethods(app, __dirname);
+viewController.initMethods(app);
 
 app.use('/view/js',  express.static(__dirname + '/view/js'));
 app.use('/view/lib',  express.static(__dirname + '/view/lib'));

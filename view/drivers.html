@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block header %}
+  <script async defer src="js/drivers.js"></script>-
+{% endblock %}
+
+{% block content %}
+<div class="container driverContainer">
+  <div class="bs-example" data-example-id="table-within-panel">
+    <div class="panel panel-default">
+      <div class="panel-heading">Drivers</div>
+      <div class="panel-body">
+        <p>Create, View, Remove and Update drivers and its calendars.</p>
+      </div>
+      <table class="table drivers">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for driver in drivers %}
+          <tr class="driver" externalCode="{{driver.externalCode.externalCode}}" origin="{{driver.externalCode.origin}}">
+            <th scope="row">
+              <input type="checkbox" value=""></input>
+            </th>
+            <td>{{driver.person.firstName}} {{driver.person.surName}}</td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  More... <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#" onclick="drivers.schedule(this)">Details</a></li>
+                  <li><a href="#" onclick="drivers.remove(this)">Remove</a></li>
+                  <li><a href="#" onclick="drivers.update(this)">Update</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <button type="button" class="btn btn-default" onclick="drivers.computeNewDriver(this)">Compute New Driver</button>
+  </div>
+</div>
+
+<button type="button" style="display: none;" class="btn btn-info btn-lg modalOpener" data-toggle="modal" data-target="#driverDetails"></button>
+
+{% endblock %}

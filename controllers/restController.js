@@ -7,7 +7,6 @@ var driverManager = require('../managers/driverManager');
 var distributionCenterManager = require('../managers/distributionCenterManager');
 var vehicleManager = require('../managers/vehicleManager');
 
-
 // REST Methods - Retrieve, Create, Update and Delete
 var initMethods = function(app){
     var router = express.Router();

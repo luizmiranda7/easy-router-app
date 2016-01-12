@@ -1,118 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+{% extends 'layout.html' %}
 
-    <title>Easy Router</title>
-    <script async defer src="lib/jquery/dist/jquery.min.js"></script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP_3WejV6sd2fKNBfI6e1E4Hznr6Z60Mg&callback=initMap">
-    </script>
-    <script async defer src="js/directionLegUpdater.js"></script>
+{% block header %}
+  <script async defer src="js/routes.js"></script>-
+{% endblock %}
 
-    <!-- Bootstrap core CSS -->
-    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="lib/bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-
-    <!-- Custom styles for this template -->
-    <link href="css/jumbotron.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="lib/bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Easy Router</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control" value="">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Senha" class="form-control" value="">
-            </div>
-            <button type="submit" class="btn btn-success">Entre</button>
-            <button type="submit" class="btn btn-primary">Cadastre-se</button>
-          </form>
-        </div><!--/.navbar-collapse -->
+{% block content %}
+<div class="container routeContainer">
+  <div class="bs-example" data-example-id="table-within-panel">
+    <div class="panel panel-default">
+      <div class="panel-heading">Routes</div>
+      <div class="panel-body">
+        <p>Select all routes to be routed. Remember that only pending routes will be routed and the routing algorithm will only use availables drivers and vehicles. 
+        </p>
       </div>
-    </nav>
-
-    <br/>
-    <br/>
-    <br/>
-
-    <div class="container orderContainer">
-      <div class="bs-example" data-example-id="table-within-panel">
-        <div class="panel panel-default">
-          <div class="panel-heading">Orders</div>
-          <div class="panel-body">
-            <p>Select all orders to be routed. Remember that only pending orders will be routed and the routing algorithm will only use availables drivers and vehicles. 
-            </p>
-          </div>
-          <table class="table orders">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Client Name</th>
-                <th>Address</th>
-                <th>Weight</th>
-                <th>Priority Level</th>
-                <th>More Info</th>
-              </tr>
-            </thead>
-            <tbody>
-            {% for order in orders %}
-              <tr class="order" externalCode="{{order.externalCode.externalCode}}" origin="{{order.externalCode.origin}}">
-                <th scope="row">
-                  <input type="checkbox" value=""></input>
-                </th>
-                <td>{{order.deliveryPoint.name}}</td>
-                <td>
-                  {{order.deliveryPoint.routePoint.street}}
-                  <a href="http://maps.google.com/maps?q={{order.deliveryPoint.routePoint.latitude}},{{order.deliveryPoint.routePoint.longitude}}" target="_blank"> Map </a>
-                </td>
-                <td>{{order.weight}}</td>
-                <td>{{order.priorityLevel}}</td>
-                <td>
-                  <input type="button" class="btn btn-default" value="!"></input>
-                  <input type="button" class="btn btn-default" value="Remove" onclick="DIRECTION_LEG_UPDATER.deleteOrder(this)"></input>
-                </td>
-              </tr>
-            {% endfor %}
-            </tbody>
-          </table>
-
-        </div>
-
-        <button type="button" class="btn btn-default" onclick="DIRECTION_LEG_UPDATER.update(this)">Compute Route</button>
-      </div>
+      <table class="table routes">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Start</th>
+            <th>Stop</th>
+            <th>Distribution Center</th>
+            <th>Status</th>
+            <th>Vehicle Type</th>
+            <th>Driver</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for route in routes %}
+          <tr class="route" externalCode="{{route.externalCode.externalCode}}" origin="{{route.externalCode.origin}}">
+            <th scope="row">
+              <input type="checkbox" value=""></input>
+            </th>
+            <td>{{route.startDate}}</td>
+            <td>{{route.endDate}}</td>
+            <td>{{route.distributionCenter.name}}</td>
+            <td>{{route.status}}</td>
+            <td>{{route.vehicle.type}}</td>
+            <td>{{route.driver.person.firstname}} {{route.driver.person.surname}}</td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  More... <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#" onclick="routes.schedule(this)">Details</a></li>
+                  <li><a href="#" onclick="routes.remove(this)">Remove</a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
     </div>
-  </body>
-</html>
+
+    <button type="button" class="btn btn-default" onclick="routes.computeNewRoute(this)">Compute New Route</button>
+  </div>
+</div>
+
+<button type="button" style="display: none;" class="btn btn-info btn-lg modalOpener" data-toggle="modal" data-target="#routeDetails"></button>
+
+{% endblock %}

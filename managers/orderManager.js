@@ -17,7 +17,7 @@ var createOrUpdate = function(json) {
         }
         return updateOrder(new e.Order({}), json);
     });
-}
+};
 
 var updateOrder = function(order, json) {
     if (json.priorityLevel) {
@@ -63,7 +63,17 @@ var updateOrder = function(order, json) {
         .catch(function(err) {
             console.log(err);
         });
-}
+};
+
+var findAll = function(){
+    return e.Order.find()
+    .populate('deliveryPoint')
+    .populate('distributionCenter')
+    .sort({
+        priorityLevel: -1,
+        deadline: -1
+    }).exec();
+};
 
 var findPendingOrders = function() {
     return e.Order.find({
@@ -89,7 +99,18 @@ var findOrders = function(externalCodes){
     .exec();
 };
 
+var findOrder = function(externalCode){
+    return findOrders([externalCode])
+    .then(function(orders){
+        if(orders.length > 0){
+            return orders[0];
+        }
+    });
+};
+
 module.exports = {
+    findAll,
+    findOrder,
     findOrders,
     findPendingOrders,
     createOrUpdate
