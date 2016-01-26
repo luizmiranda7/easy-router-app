@@ -1,11 +1,9 @@
 var e = require('../entities');
-var Promise = require('bluebird');
-var mongoose = require('mongoose'); mongoose.Promise = Promise;
 var distributionCenterManager = require('./distributionCenterManager');
 
 var createOrUpdate = function(json){
 	if(!json){
-		return Promise.resolve(null);
+		return e.nullPromise();
 	}
 	
   return e.findByExternalCode('Vehicle', json.externalCode)
@@ -18,6 +16,14 @@ var createOrUpdate = function(json){
 }
 
 var update = function(vehicle, json){
+
+	if(json.costPerTime){ 
+		vehicle.costPerTime = json.costPerTime;
+	}
+
+	if(json.costPerDistance){ 
+		vehicle.costPerDistance = json.costPerDistance;
+	}
 
 	if(json.totalWeight){ 
 		vehicle.totalWeight = json.totalWeight;

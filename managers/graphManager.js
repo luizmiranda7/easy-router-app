@@ -1,4 +1,3 @@
-var mongoose = require('mongoose');
 var e = require('../entities');
 
 var scheduleGraphUpdate = function(routePoints) {

@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var Promise = require('bluebird');
+mongoose.Promise = Promise;
 
 var calendarSchema = require('./Calendar');
 var driverSchema = require('./Driver');
@@ -51,6 +53,10 @@ var deleteByExternalCode = function(entityName, externalCode){
 	}).remove().exec();
 }
 
+var nullPromisse = function(){
+	return Promise.resolve(null);
+}
+
 module.exports = {
 	Driver,
 	Vehicle,
@@ -62,5 +68,6 @@ module.exports = {
 	findAll,
 	findByExternalCode,
 	findByExternalCodes,
-	deleteByExternalCode
+	deleteByExternalCode,
+	nullPromisse
 }

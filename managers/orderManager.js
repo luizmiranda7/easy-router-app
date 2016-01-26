@@ -1,13 +1,10 @@
 var e = require('../entities');
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
-mongoose.Promise = Promise;
 var deliveryPointManager = require('./deliveryPointManager');
 var distributionCenterManager = require('./distributionCenterManager');
 
 var createOrUpdate = function(json) {
     if(!json){
-        return Promise.resolve(null);
+        return e.nullPromise();
     }
     
     return e.findByExternalCode('Order', json.externalCode)

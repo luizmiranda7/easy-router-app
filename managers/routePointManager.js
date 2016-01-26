@@ -1,6 +1,4 @@
 var e = require('../entities');
-var mongoose = require('mongoose');
-mongoose.Promise = require('bluebird');
 
 var createOrUpdate = function(routePoint, json) {
     if(!routePoint){

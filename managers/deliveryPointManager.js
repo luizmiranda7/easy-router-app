@@ -1,12 +1,9 @@
 var e = require('../entities');
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
-mongoose.Promise = Promise;
 var routePointManager = require('./routePointManager');
 
 var createOrUpdate = function(json){
 	if(!json){
-		return Promise.resolve(null);
+		return e.nullPromise();
 	}
 	
   return e.findByExternalCode('DeliveryPoint', json.externalCode)
@@ -42,7 +39,6 @@ var update = function(deliveryPoint, json){
 
 	return deliveryPoint.save();
 };
-
 
 module.exports = {
 	createOrUpdate
