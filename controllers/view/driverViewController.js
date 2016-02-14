@@ -12,7 +12,7 @@ router.use(function(req, res, next) {
 });
 
 router.get("/", function(req, res){
-    e.findAll()
+    e.findAll("Driver")
     .then(function(drivers){
         if(drivers){
             res.render(path + "drivers.html", {drivers: drivers});
@@ -21,9 +21,9 @@ router.get("/", function(req, res){
 });
 
 router.post("/details", function(req, res){
-    e.findByExternalCode([req.body])
+    e.findByExternalCode("Driver", [req.body])
     .then(function(driver){
-        if(drivers){
+        if(driver){
             res.render(path + "driverDetails.html", {driver: driver});
         }
     });

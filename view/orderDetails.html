@@ -11,7 +11,13 @@
         
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1">Delivery Point</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.deliveryPoint.name}}" ></input>
+          <input type="text" 
+                class="form-control" 
+                aria-describedby="basic-addon1" 
+                value="{{order.deliveryPoint.name}}"
+                externalcode="{{order.deliveryPoint.externalCode.externalCode}}"
+                origin="{{order.deliveryPoint.externalCode.origin}}"></input>
+
           <div class="input-group-btn">
               <button type="button" class="btn btn-default" onclick="deliveryPoints.openSelectModal(this)">Select</button>
           </div>
@@ -19,7 +25,12 @@
         
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1">Distribution Center</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.distributionCenter.name}}" ></input>
+          <input type="text" 
+                class="form-control" 
+                aria-describedby="basic-addon1" 
+                value="{{order.distributionCenter.name}}"
+                externalcode="{{order.distributionCenter.externalCode.externalCode}}"
+                origin="{{order.distributionCenter.externalCode.origin}}"></input>
           <div class="input-group-btn">
               <button type="button" class="btn btn-default" onclick="distributionCenters.openSelectModal(this)">Select</button>
           </div>
@@ -58,8 +69,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="orders.save(this)">Save</button>
       </div>
     </div>
+
+    <div class="selectionModal"><!-- AJAX --></div>
 
   </div>
 </div>

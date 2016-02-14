@@ -22,7 +22,7 @@ var DistributionCenter = mongoose.model('DistributionCenter', distributionCenter
 
 var findAll = function(entityName){
 	var entityModel = mongoose.model(entityName);
-	return entityModel.findAll().exec();
+	return entityModel.find({}).exec();
 }
 
 var findByExternalCode = function(entityName, externalCode){

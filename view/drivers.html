@@ -1,7 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block header %}
-  <script async defer src="js/drivers.js"></script>-
+  <script async defer src="js/drivers.js"></script>
+  <link href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet">
+  <script src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -17,25 +19,24 @@
           <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Birthdate</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
         {% for driver in drivers %}
-          <tr class="driver" externalCode="{{driver.externalCode.externalCode}}" origin="{{driver.externalCode.origin}}">
+          <tr class="driver" 
+              externalCode="{{driver.externalCode.externalCode}}" 
+              origin="{{driver.externalCode.origin}}">
             <th scope="row">
               <input type="checkbox" value=""></input>
             </th>
             <td>{{driver.person.firstName}} {{driver.person.surName}}</td>
+            <td>{{driver.person.birthdate}}</td>
             <td>
-              <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  More... <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a href="#" onclick="drivers.schedule(this)">Details</a></li>
-                  <li><a href="#" onclick="drivers.remove(this)">Remove</a></li>
-                  <li><a href="#" onclick="drivers.update(this)">Update</a></li>
-                </ul>
+              <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" onclick="drivers.openUpdateModal(this)">Update</button>
+                <button type="button" class="btn btn-default" onclick="drivers.remove(this)">Remove</button>
               </div>
             </td>
           </tr>
@@ -43,11 +44,7 @@
         </tbody>
       </table>
     </div>
-
-    <button type="button" class="btn btn-default" onclick="drivers.computeNewDriver(this)">Compute New Driver</button>
   </div>
 </div>
-
-<button type="button" style="display: none;" class="btn btn-info btn-lg modalOpener" data-toggle="modal" data-target="#driverDetails"></button>
 
 {% endblock %}

@@ -1,7 +1,25 @@
-var orders;
-if (!orders) orders = (function() {
+var distributionCenters;
+if (!distributionCenters) distributionCenters = (function() {
 
-	var REQUESTS = null;
+
+	var openSelection = function(div){
+		$.ajax({
+			type: 'GET',
+			beforeSend: function (request)
+            {
+                request.setRequestHeader("del", true);
+            },
+			data: JSON.stringify(externalCode),
+	        contentType: 'application/json',
+            url: '/rest/distributionCenters',						
+            success: function(data) {
+                var orderContainer = document.getElementsByClassName('orderContainer')[0];
+                orderContainer.appendChild($(data)[0]);
+                var modalOpener = document.getElementsByClassName('modalOpener')[0];
+                modalOpener.click();
+            }
+        });
+	}
 
 	var remove = function(button){
 		var order = button.up('.order');
@@ -11,7 +29,7 @@ if (!orders) orders = (function() {
 			origin: order.getAttribute('origin')
 		};
 
-		jQuery.ajax({
+		$.ajax({
 			type: 'POST',
 			beforeSend: function (request)
             {
@@ -33,13 +51,16 @@ if (!orders) orders = (function() {
 			origin: order.getAttribute('origin')
 		};
 
-		jQuery.ajax({
+		$.ajax({
 			type: 'POST',
 			data: JSON.stringify(externalCode),
 	        contentType: 'application/json',
             url: '/view/orders/details',		
             success: function(data) {
-            	utils.openModal(jQuery(data)[0]);
+                var orderContainer = document.getElementsByClassName('orderContainer')[0];
+                orderContainer.appendChild($(data)[0]);
+                var modalOpener = document.getElementsByClassName('modalOpener')[0];
+                modalOpener.click();
             }
         });
 	};
@@ -47,18 +68,22 @@ if (!orders) orders = (function() {
 	var save = function(button){
 		var self = this;
 		var orderDetails = button.up(".orderDetails");
-		jQuery.ajax({
+		$.ajax({
 			type: 'POST',
 			data: JSON.stringify(self.buildOrder(orderDetails)),
 	        contentType: 'application/json',
             url: '/view/orders/details',		
             success: function(data) {
+                var orderContainer = document.getElementsByClassName('orderContainer')[0];
+                orderContainer.appendChild($(data)[0]);
+                var modalOpener = document.getElementsByClassName('modalOpener')[0];
+                modalOpener.click();
             }
         });
 	};
 
 	var buildOrder = function(orderDetails){
-
+		
 	}
 
 	return {

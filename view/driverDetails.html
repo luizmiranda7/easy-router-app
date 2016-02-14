@@ -1,0 +1,35 @@
+<div id="driverDetails" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Details</h4>
+      </div>
+      <div class="modal-body easy-form">
+
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">First Name:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{driver.person.firstName}}" ></input>
+        </div>
+        
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">Last Name:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{driver.person.surName}}" ></input>
+        </div>
+        
+        <div class="input-group date">
+          <span class="input-group-addon" id="basic-addon1">Birthdate:</span>
+          <input type="text" class="datepicker form-control">
+          <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="drivers.save(this)">Save</button>
+      </div>
+    </div>
+</div>

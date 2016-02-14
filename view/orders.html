@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block header %}
-  <script async defer src="js/orders.js"></script>-
+  <script async defer src="js/orders.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -41,13 +41,12 @@
                 <td>{{order.priorityLevel}}</td>
                 <td>
                   <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      More... <span class="caret"></span>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More... <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a href="#" onclick="ORDERS.details(this)">Details</a></li>
-                      <li><a href="#" onclick="ORDERS.remove(this)">Remove</a></li>
-                    </ul>
+                      <li><a href="#" onclick="orders.details(this)">Details</a></li>
+                      <li><a href="#" onclick="orders.remove(this)">Remove</a></li>
+                    </ul> 
                   </div>
                 </td>
               </tr>
@@ -59,7 +58,4 @@
         <button type="button" class="btn btn-default" onclick="DIRECTION_LEG_UPDATER.update(this)">Compute Route</button>
       </div>
     </div>
-
-    <button type="button" style="display: none;" class="btn btn-info btn-lg modalOpener" data-toggle="modal" data-target="#orderDetails"></button>
-
 {% endblock %}
