@@ -14,7 +14,7 @@ router.get('/', function(req, res){
     orderManager.findAll()
     .then(function(orders){
         if(orders){
-            res.render(path + 'orders.html', {orders: orders});
+            res.render(path + 'orders.html', {apiKey: mainConfig.apiKey, orders: orders});
         }
     });
 });

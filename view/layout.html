@@ -9,15 +9,23 @@
     <link rel="icon" href="favicon.ico">
 
     <title>Easy Router</title>
-    <script src="lib/jquery/dist/jquery.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{apiKey}}&callback=initMap"></script>
+    
+    <!-- Bower access -->
+    <!--<script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="js/utils.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{apiKey}}&callback=initMap"></script>
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">-->
 
-    <!-- Bootstrap core CSS -->
-    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Web access -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{apiKey}}&callback=initMap"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
     <link href="css/main.css" rel="stylesheet">
+    <script src="js/utils.js"></script>
 
     {% block header %}{% endblock %}
   </head>

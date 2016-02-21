@@ -9,23 +9,28 @@
       </div>
       <div class="modal-body easy-form">
 
-        <div class="input-group">
+        <input type="text" style="display: none;" class="externalCode" value="{{driver.externalCode.externalCode}}" ></input>
+        <input type="text" style="display: none;" class="origin" value="{{driver.externalCode.origin}}" ></input>
+
+        <div class="input-group firstName">
           <span class="input-group-addon" id="basic-addon1">First Name:</span>
           <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{driver.person.firstName}}" ></input>
         </div>
         
-        <div class="input-group">
+        <div class="input-group surName">
           <span class="input-group-addon" id="basic-addon1">Last Name:</span>
           <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{driver.person.surName}}" ></input>
         </div>
         
-        <div class="input-group date">
+        <div class="input-group date birthdate">
           <span class="input-group-addon" id="basic-addon1">Birthdate:</span>
-          <input type="text" class="datepicker form-control">
+          <input type="text" class="datepicker form-control" value="{{driver.person.birthdate|date('d/m/Y')}}">
           <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
           </div>
         </div>
+
+        <!-- TODO Calendar management button -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

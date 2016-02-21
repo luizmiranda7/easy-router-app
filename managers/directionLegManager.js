@@ -57,47 +57,7 @@ var findDirectionLeg = function(initialRoutePoint, finalRoutePoint) {
         });
 }
 
-// Split a list of routePoints into a list of chunks (10) elements
-var getDirectionLegVectors = function(routePoints) {
-    var listMatrix = [];
-
-    while (routePoints.length > 0) {
-        var chunk = routePoints.splice(0, 10);
-        listMatrix.push(chunk);
-    }
-    return listMatrix;
-};
-
-/*
- * Given a list of routePoints, define a DirectionLEgUpdateRequestDTO
- */
-var getDirectionLegUpdateRequest = function(routePoints) {
-    var vectors = getDirectionLegVectors(routePoints);
-
-    var dto = {
-        requests: []
-    };
-    vectors.forEach(function(vector) {
-        dto.requests.push({
-            initialPoints: vector,
-            finalPoints: vector
-        });
-        if (vectors.length > 1) {
-            vectors.forEach(function(vectorInner) {
-                dto.requests.push({
-                    initialPoints: vector,
-                    finalPoints: vectorInner
-                });
-            });
-        }
-    });
-    return dto;
-}
-
-
-
 module.exports = {
     createOrUpdate,
-    findDirectionLeg,
-    getDirectionLegUpdateRequest
+    findDirectionLeg
 };

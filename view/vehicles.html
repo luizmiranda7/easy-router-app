@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block header %}
-  <script async defer src="js/vehicles.js"></script>-
+  <script async defer src="js/vehicles.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -20,6 +20,7 @@
             <th>Capacity (Weight)</th>
             <th>Capacity (Volume)</th>
             <th>Axes</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -33,15 +34,9 @@
             <td>{{vehicle.totalVolume}}</td>
             <td>{{vehicle.axes}}</td>
             <td>
-              <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  More... <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a href="#" onclick="vehicles.schedule(this)">Details</a></li>
-                  <li><a href="#" onclick="vehicles.remove(this)">Remove</a></li>
-                  <li><a href="#" onclick="vehicles.update(this)">Update</a></li>
-                </ul>
+              <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" onclick="vehicles.openUpdateModal(this)">Update</button>
+                <button type="button" class="btn btn-default" onclick="vehicles.remove(this)">Remove</button>
               </div>
             </td>
           </tr>
@@ -49,11 +44,6 @@
         </tbody>
       </table>
     </div>
-
-    <button type="button" class="btn btn-default" onclick="vehicles.computeNewVehicle(this)">Compute New Vehicle</button>
   </div>
 </div>
-
-<button type="button" style="display: none;" class="btn btn-info btn-lg modalOpener" data-toggle="modal" data-target="#vehicleDetails"></button>
-
 {% endblock %}

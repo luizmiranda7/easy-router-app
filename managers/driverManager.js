@@ -16,26 +16,31 @@ var createOrUpdate = function(json) {
 
 var update = function(driver, json) {
 
-    if (json.person.firstName) {
-        driver.person.firstName = json.person.firstName;
-    }
+    if(json.person){
+        if(!driver.person){
+            driver.person = {};
+        }
 
-    if (json.person.surName) {
-        driver.person.surName = json.person.surName;
-    }
+        if (json.person.firstName) {
+            driver.person.firstName = json.person.firstName;
+        }
 
-    if (json.person.birthdate) {
-        driver.person.birthdate = json.person.birthdate;
-    }
+        if (json.person.surName) {
+            driver.person.surName = json.person.surName;
+        }
 
-    if (json.person.externalCode) {
-        driver.person.externalCode = json.person.externalCode;
+        if (json.person.birthdate) {
+            driver.person.birthdate = new Date(json.person.birthdate);
+        }
+
+        if (json.person.externalCode) {
+            driver.person.externalCode = json.person.externalCode;
+        }
     }
 
     if (json.externalCode) {
         driver.externalCode = json.externalCode;
     }
-
 
     if (json.calendar) {
         driver.calendar = json.calendar;
@@ -44,6 +49,14 @@ var update = function(driver, json) {
     return driver.save();
 };
 
+var getAvailableDrivers = function(){
+    var now = new Date();
+    return e.Driver.find({
+        'calendar.intervals.finalDate' : { $lt: now }
+    }).exec();
+};
+
 module.exports = {
-    createOrUpdate
+    createOrUpdate,
+    getAvailableDrivers
 };

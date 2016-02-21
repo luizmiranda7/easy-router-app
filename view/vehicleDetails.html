@@ -1,0 +1,53 @@
+<div id="vehicleDetails" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Details</h4>
+      </div>
+      <div class="modal-body easy-form">
+
+        <input type="text" style="display: none;" class="externalCode" value="{{vehicle.externalCode.externalCode}}" ></input>
+        <input type="text" style="display: none;" class="origin" value="{{vehicle.externalCode.origin}}" ></input>
+
+        <div class="input-group costPerTime">
+          <span class="input-group-addon" id="basic-addon1">Cost per time:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.costPerTime}}" ></input>
+        </div>
+        
+        <div class="input-group costPerDistance">
+          <span class="input-group-addon" id="basic-addon1">Cost per distance:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.costPerDistance}}" ></input>
+        </div>
+
+        <div class="input-group totalWeight">
+          <span class="input-group-addon" id="basic-addon1">Total weight:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.totalWeight}}" ></input>
+        </div>
+
+        <div class="input-group totalVolume">
+          <span class="input-group-addon" id="basic-addon1">Total volume:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.totalVolume}}" ></input>
+        </div>
+
+        <div class="input-group axes">
+          <span class="input-group-addon" id="basic-addon1">Axes:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.axes}}" ></input>
+        </div>
+        
+        <div class="input-group type">
+          <span class="input-group-addon" id="basic-addon1">Type:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.type}}" ></input>
+        </div>
+
+        <!-- TODO Single selection to distributionCenter -->
+        <!-- TODO Calendar management button -->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="vehicles.save(this)">Save</button>
+      </div>
+    </div>
+</div>

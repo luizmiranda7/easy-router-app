@@ -32,7 +32,7 @@
               <input type="checkbox" value=""></input>
             </th>
             <td>{{driver.person.firstName}} {{driver.person.surName}}</td>
-            <td>{{driver.person.birthdate}}</td>
+            <td>{{driver.person.birthdate|date('jS F, Y')}}</td>
             <td>
               <div class="btn-group" role="group" aria-label="...">
                 <button type="button" class="btn btn-default" onclick="drivers.openUpdateModal(this)">Update</button>

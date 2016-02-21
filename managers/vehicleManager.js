@@ -41,6 +41,10 @@ var update = function(vehicle, json){
 		vehicle.externalCode = json.externalCode;
 	}
 
+	if(json.type){
+		vehicle.type = json.type;
+	}
+
 	return distributionCenterManager.createOrUpdate(json.distributionCenter)
 	.then(function(distributionCenter){
 		if(distributionCenter){
@@ -60,13 +64,19 @@ var findAll = function(vehicle){
 };
 
 var findVehicle = function(externalCode){
-	return e.findByExternalCode(externalCode)
-	.populate('currentDistributionCenter')
-	.exec();
+	return e.findByExternalCodeWithPopulationFields('Vehicle', externalCode, ['currentDistributionCenter']);
+};
+
+var getAvailableVehicles = function(){
+	var now = new Date();
+	return e.Vehicle.find({
+        'calendar.intervals.finalDate' : { $lt: now }
+	}).exec();
 };
 
 module.exports = {
 	findAll,
 	findVehicle,
+	getAvailableVehicles,
 	createOrUpdate
 };

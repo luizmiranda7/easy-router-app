@@ -21,16 +21,12 @@ router.get("/", function(req, res){
 });
 
 router.post("/details", function(req, res){
-    e.findByExternalCode("Driver", [req.body])
+    e.findByExternalCode("Driver", req.body)
     .then(function(driver){
         if(driver){
             res.render(path + "driverDetails.html", {driver: driver});
         }
     });
-});
-
-router.post("/remove", function(req, res){
-    e.deleteByExternalCode('Driver', req.body);
 });
 
 module.exports = router;

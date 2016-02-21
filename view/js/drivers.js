@@ -12,7 +12,7 @@ if (!drivers) drivers = (function() {
             },
 			data: JSON.stringify(getExternalCode(button.up('.driver'))),
 	        contentType: 'application/json',
-            url: '/rest/drivers/remove',						
+            url: '/rest/drivers',						
             success: function(data) {
                 window.location.reload(false);
             }
@@ -33,17 +33,13 @@ if (!drivers) drivers = (function() {
 
 	var save = function(button){
 		var self = this;
-		var driverDetails = button.up(".driverDetails");
 		jQuery.ajax({
 			type: 'POST',
-			data: JSON.stringify(self.buildDriver(driverDetails)),
+			data: JSON.stringify(self.buildDriver(button.up("#driverDetails"))),
 	        contentType: 'application/json',
-            url: '/view/drivers/details',		
+            url: '/rest/drivers',		
             success: function(data) {
-                var driverContainer = document.getElementsByClassName('driverContainer')[0];
-                driverContainer.appendChild($(data)[0]);
-                var modalOpener = document.getElementsByClassName('modalOpener')[0];
-                modalOpener.click();
+                window.location.reload(false);
             }
         });
 	};
@@ -55,10 +51,25 @@ if (!drivers) drivers = (function() {
 		};
 	}
 
+	var buildDriver = function(driverDetails){
+		return {
+			person : {
+				firstName: driverDetails.down('.firstName input').getValue(),
+				surName: driverDetails.down('.surName input').getValue(),
+				birthdate: driverDetails.down('.birthdate input').getValue()
+			},
+			externalCode: {
+				externalCode: driverDetails.down('.externalCode').getValue(),
+				origin: driverDetails.down('.origin').getValue()
+			}
+		};
+	};
+
 	return {
 		remove: remove,
 		openUpdateModal: openUpdateModal,
-		save: save
+		save: save,
+		buildDriver: buildDriver
 	};
 
 })();

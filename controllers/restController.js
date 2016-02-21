@@ -25,7 +25,6 @@ var initMethods = function(app){
 		return orderManager.findPendingOrders();
 	});
 
-
 	router.get('/drivers', function(req, res){
 		return e.findByExternalCode.get('Driver', req.body);
 	});
@@ -36,6 +35,28 @@ var initMethods = function(app){
 
 	router.get('/vehicles', function(req, res){
 		return e.findByExternalCode.get('Vehicle', req.body);
+	});
+
+	// Not default gets - REST
+	router.post('/getOrders', function(req, res){
+		return orderManager.findOrders(req.body)
+		.then(function(orders){
+			res.send(orders);
+		});
+	});
+
+	router.get('/getAvailableDrivers', function(req, res){
+		return driverManager.getAvailableDrivers()
+		.then(function(drivers){
+			res.send(drivers);
+		});
+	});
+
+	router.get('/getAvailableVehicles', function(req, res){
+		return vehicleManager.getAvailableVehicles()
+		.then(function(vehicles){
+			res.send(vehicles);
+		});
 	});
 
 	// Create and Update Methods - REST
@@ -89,13 +110,6 @@ var initMethods = function(app){
 		return vehicleManager.createOrUpdate(req.body)
 		.then(function(vehicle){
 			res.send(vehicle);
-		});
-	});
-
-	router.post('/directionLegUpdateRequest', function(req, res){
-		return routeManager.getDirectionLegUpdateRequest(req.body)
-		.then(function(directionLegUpdateRequest){
-			res.send(directionLegUpdateRequest);
 		});
 	});
 

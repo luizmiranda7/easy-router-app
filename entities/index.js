@@ -26,23 +26,41 @@ var findAll = function(entityName){
 }
 
 var findByExternalCode = function(entityName, externalCode){
+	return findByExternalCodeWithPopulationFields(entityName, externalCode, []);
+};
+
+var findByExternalCodeWithPopulationFields = function(entityName, externalCode, populationFields){
 	var entityModel = mongoose.model(entityName);
-	return entityModel.findOne({
+	var query = entityModel.findOne({
 		"externalCode.externalCode": externalCode.externalCode,
 		"externalCode.origin": externalCode.origin
-	})
-	.exec();
+	});
+
+	populationFields.forEach(function(item){
+		query.populate(item);
+	});
+	
+	return query.exec();
 };
 
 var findByExternalCodes = function(entityName, externalCodes){
+	return findByExternalCodesWithPopulationFields(entityName, externalCodes, []);
+}
+
+var findByExternalCodesWithPopulationFields = function(entityName, externalCodes, populationFields){
 	var externalCodesString = externalCodes.map(function(item){return item.externalCode;});
 	var origins = externalCodes.map(function(item){return item.origin;});
 	var entityModel = mongoose.model(entityName);
-	return entityModel.find({
+	var query = entityModel.find({
 		"externalCode.externalCode":{$in: externalCodesString},
 		"externalCode.origin":{$in: origins}
-	})
-	.exec();
+	});
+
+	populationFields.forEach(function(item){
+		query.populate(item);
+	});
+
+	return query.exec();
 }
 
 var deleteByExternalCode = function(entityName, externalCode){
@@ -53,7 +71,7 @@ var deleteByExternalCode = function(entityName, externalCode){
 	}).remove().exec();
 }
 
-var nullPromisse = function(){
+var nullPromise = function(){
 	return Promise.resolve(null);
 }
 
@@ -68,6 +86,8 @@ module.exports = {
 	findAll,
 	findByExternalCode,
 	findByExternalCodes,
+	findByExternalCodeWithPopulationFields,
+	findByExternalCodesWithPopulationFields,
 	deleteByExternalCode,
-	nullPromisse
+	nullPromise
 }

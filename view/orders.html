@@ -2,6 +2,7 @@
 
 {% block header %}
   <script async defer src="js/orders.js"></script>
+  <script async defer src="js/routes.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -40,13 +41,9 @@
                 <td>{{order.weight}}</td>
                 <td>{{order.priorityLevel}}</td>
                 <td>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> More... <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a href="#" onclick="orders.details(this)">Details</a></li>
-                      <li><a href="#" onclick="orders.remove(this)">Remove</a></li>
-                    </ul> 
+                  <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default" onclick="orders.openUpdateModal(this)">Update</button>
+                    <button type="button" class="btn btn-default" onclick="orders.remove(this)">Remove</button>
                   </div>
                 </td>
               </tr>
@@ -55,7 +52,7 @@
           </table>
         </div>
 
-        <button type="button" class="btn btn-default" onclick="DIRECTION_LEG_UPDATER.update(this)">Compute Route</button>
+        <button type="button" class="btn btn-default" onclick="routeManager.compute()">Compute Route</button>
       </div>
     </div>
 {% endblock %}
