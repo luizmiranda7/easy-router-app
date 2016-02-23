@@ -38,6 +38,14 @@ var update = function(driver, json) {
         }
     }
 
+    if(json.earliestStart){ 
+        driver.earliestStart = json.earliestStart;
+    }
+
+    if(json.latestEnd){ 
+        driver.latestEnd = json.latestEnd;
+    }
+
     if (json.externalCode) {
         driver.externalCode = json.externalCode;
     }

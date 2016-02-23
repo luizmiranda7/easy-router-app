@@ -25,6 +25,14 @@ var updateOrder = function(order, json) {
         order.weight = json.weight;
     }
 
+    if (json.volume) {
+        order.volume = json.volume;
+    }
+
+    if (json.penalty) {
+        order.penalty = json.penalty;
+    }
+
     if (json.deadline) {
         order.deadline = json.deadline;
     }
@@ -37,17 +45,27 @@ var updateOrder = function(order, json) {
         order.externalCode = json.externalCode;
     }
 
-    var deliveryPointPromise = deliveryPointManager.createOrUpdate(json.deliveryPoint)
-    .then(function(deliveryPoint) {
-        if (deliveryPoint) {
+    var deliveryPointPromise = null;
+    if (json.deliveryPoint.externalCode && json.deliveryPoint.origin) {
+        deliveryPointPromise = e.findByExternalCode('DeliveryPoint', json.deliveryPoint);
+    } else {
+        deliveryPointPromise = deliveryPointManager.createOrUpdate(json.deliveryPoint);
+    }
+    deliveryPointPromise.then(function(deliveryPoint){
+        if(deliveryPoint){
             order.deliveryPoint = deliveryPoint;
         }
         return;
     });
 
-    var distributionCenterPromise = distributionCenterManager.createOrUpdate(json.distributionCenter)
-    .then(function(distributionCenter) {
-        if (distributionCenter) {
+    var distributionCenterPromise = null;
+    if (json.distributionCenter.externalCode && json.distributionCenter.origin) {
+        distributionCenterPromise = e.findByExternalCode('DistributionCenter', json.distributionCenter);
+    } else {
+        distributionCenterPromise = distributionCenterManager.createOrUpdate(json.distributionCenter);
+    }
+    distributionCenterPromise.then(function(distributionCenter){
+        if(distributionCenter){
             order.distributionCenter = distributionCenter;
         }
         return;

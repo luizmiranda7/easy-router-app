@@ -6,5 +6,7 @@ var Calendar = require('./Calendar');
 module.exports.schema = new mongoose.Schema({
   calendar: Calendar.schema,
   externalCode: ExternalCode.schema,
-  person: Person.schema
+  person: Person.schema,
+  earliestStart: Date,
+  latestEnd: Date
 });

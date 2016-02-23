@@ -29,6 +29,7 @@
     "method-override": "latest",
     "mongoose": "latest",
     "path": "latest",
+    "request": "^2.69.0",
     "swig": "^1.4.2",
     "underscore": "latest"
   }

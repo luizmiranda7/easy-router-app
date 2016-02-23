@@ -29,6 +29,22 @@
               <span class="glyphicon glyphicon-th"></span>
           </div>
         </div>
+        
+        <div class="input-group date earliestStart">
+          <span class="input-group-addon" id="basic-addon1">Earliest Start:</span>
+          <input type="text" class="datepicker form-control" value="{{driver.earliestStart|date('d/m/Y')}}">
+          <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+          </div>
+        </div>
+        
+        <div class="input-group date latestEnd">
+          <span class="input-group-addon" id="basic-addon1">Latest End:</span>
+          <input type="text" class="datepicker form-control" value="{{driver.latestEnd|date('d/m/Y')}}">
+          <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+          </div>
+        </div>
 
         <!-- TODO Calendar management button -->
       </div>

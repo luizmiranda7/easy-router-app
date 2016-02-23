@@ -12,7 +12,13 @@ if (!utils) utils = (function() {
     		jQuery(this).remove();
         });
 		
-		jQuery('.datepicker').datepicker();
+		jQuery('.selectpicker').selectpicker({
+		  style: 'btn-info',
+		  size: 4
+		});
+
+		jQuery('.datepicker').datetimepicker();
+
 	}
 
 	return {
@@ -20,4 +26,9 @@ if (!utils) utils = (function() {
 	};
 
 })();
+
+jQuery(document)
+.on( 'click', '.dropdown-menu', function (e){
+    e.stopPropagation();
+});
 

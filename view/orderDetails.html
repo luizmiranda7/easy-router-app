@@ -1,4 +1,4 @@
-<div id="orderDetails" class="modal fade" role="dialog">
+<div id="orderDetails" class="orderDetails modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -8,56 +8,65 @@
         <h4 class="modal-title">Details</h4>
       </div>
       <div class="modal-body easy-form">
+        <input type="text" style="display: none;" class="externalCode" value="{{order.externalCode.externalCode}}" ></input>
+        <input type="text" style="display: none;" class="origin" value="{{order.externalCode.origin}}" ></input>
         
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">Delivery Point</span>
-          <input type="text" 
-                class="form-control" 
-                aria-describedby="basic-addon1" 
-                value="{{order.deliveryPoint.name}}"
-                externalcode="{{order.deliveryPoint.externalCode.externalCode}}"
-                origin="{{order.deliveryPoint.externalCode.origin}}"></input>
-
-          <div class="input-group-btn">
-              <button type="button" class="btn btn-default" onclick="deliveryPoints.openSelectModal(this)">Select</button>
-          </div>
+        <div class="input-group deliveryPoint">
+          <span class="input-group-addon">Delivery Point</span>
+          <select class="selectpicker" data-live-search="true">
+            {% for deliveryPoint in deliveryPoints %}
+              <option data-tokens="{{deliveryPoint.name}}" 
+              {% if order.deliveryPoint.externalCode|json_encode == deliveryPoint.externalCode|json_encode %}selected{% endif %} 
+              value="{{deliveryPoint.externalCode|json_encode}}">{{deliveryPoint.name}}</option>
+            {% endfor %}
+          </select>
         </div>
         
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">Distribution Center</span>
-          <input type="text" 
-                class="form-control" 
-                aria-describedby="basic-addon1" 
-                value="{{order.distributionCenter.name}}"
-                externalcode="{{order.distributionCenter.externalCode.externalCode}}"
-                origin="{{order.distributionCenter.externalCode.origin}}"></input>
-          <div class="input-group-btn">
-              <button type="button" class="btn btn-default" onclick="distributionCenters.openSelectModal(this)">Select</button>
-          </div>
+        <div class="input-group distributionCenter">
+          <span class="input-group-addon" >Distribution Center</span>
+          <select class="selectpicker" data-live-search="true">
+            {% for distributionCenter in distributionCenters %}
+              <option data-tokens="{{distributionCenter.name}}" 
+              {% if order.distributionCenter.externalCode|json_encode == distributionCenter.externalCode|json_encode %}selected{% endif %} value="{{distributionCenter.externalCode|json_encode}}">{{distributionCenter.name}}</option>
+            {% endfor %}
+          </select>
         </div>
 
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">Priority:</span>
+        <div class="input-group priority">
+          <span class="input-group-addon">Priority:</span>
           <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.priorityLevel}}" ></input>
         </div>
         
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">Weight:</span>
+        <div class="input-group weight">
+          <span class="input-group-addon">Weight:</span>
           <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.weight}}" ></input>
         </div>
         
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">Deadline:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.deadline}}" ></input>
+        <div class="input-group volume">
+          <span class="input-group-addon">Volume:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.volume}}" ></input>
         </div>
         
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">Status:</span>
+        <div class="input-group penalty">
+          <span class="input-group-addon">Penalty:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.penalty}}" ></input>
+        </div>
+        
+        <div class="input-group date deadline">
+          <span class="input-group-addon">Deadline:</span>
+          <input type="text" class="datepicker form-control" value="{{order.deadline|date('d/m/Y')}}">
+          <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+          </div>
+        </div>
+        
+        <div class="input-group status">
+          <span class="input-group-addon">Status:</span>
           <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.status}}" ></input>
         </div>
         
-        <div class="input-group">
-          <span class="input-group-addon" id="basic-addon1">Address:</span>
+        <div class="input-group address">
+          <span class="input-group-addon">Address:</span>
           <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.deliveryPoint.routePoint.street}}, 
           {{order.deliveryPoint.routePoint.number}} - 
           {{order.deliveryPoint.routePoint.city}}, 

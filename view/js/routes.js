@@ -120,7 +120,7 @@ function RouteManager() {
 		var routePoints = this.orders.map(function(order){
 			return order.deliveryPoint.routePoint;
 		});
-		orders.forEach(function(order){
+		this.orders.forEach(function(order){
 			routePoints.push(order.distributionCenter.routePoint);
 		});
 		routePoints = routePoints.filter(function(item, pos, selfAux) {
@@ -206,18 +206,41 @@ function RouteManager() {
 			jQuery.ajax({
 				type: 'POST',
 				data: JSON.stringify({
-					orders: self.orders,
+					orders: self.parseOrders(self.orders),
 					drivers: self.drivers,
 					vehicles: self.vehicles,
-					directionLegs: self.directionLegs
+					directionLegs: self.parseDirectionLegs(self.directionLegs)
 				}),
 		        contentType: 'application/json',
-	            url: '/rest/getOrders',						
+	            url: '/rest/solve',						
 	            success: function(data) {
-	            	self.routes = data.routes;
+	            	self.routes = JSON.parse(data);
 	            }
 	        });
 		}
+	};
+
+	var parseOrders = function(orders){
+		var self = this;
+		return orders.map(function(order){
+			order.deliveryPoint.routePointExternalCode = order.deliveryPoint.routePoint.externalCode;
+			order.distributionCenter.routePointExternalCode = order.distributionCenter.routePoint.externalCode;
+			delete order.deliveryPoint['routePoint'];
+			delete order.distributionCenter['routePoint'];
+			return order;
+		});
+	};
+
+	var parseDirectionLegs = function(directionLegs){
+		var self = this;
+		return directionLegs.map(function(directionLeg){
+				directionLeg.initialPoint = directionLeg.initialPoint.externalCode;
+				directionLeg.finalPoint = directionLeg.finalPoint.externalCode;
+				directionLeg.distance = directionLeg.distance.value;
+				directionLeg.duration = directionLeg.duration.value;
+
+			return directionLeg;
+		});
 	};
 
 	var next = function(){
@@ -231,7 +254,7 @@ function RouteManager() {
 
 	return {
 		next: next,
-		
+
 		getOrders: getOrders,
 		getDrivers: getDrivers,
 		getVehicles: getVehicles,
@@ -240,6 +263,9 @@ function RouteManager() {
 		getDirectionLegVectors: getDirectionLegVectors,
 		getDirectionLegUpdateRequests: getDirectionLegUpdateRequests,
 		computeRoutes: computeRoutes,
+
+		parseOrders: parseOrders,
+		parseDirectionLegs: parseDirectionLegs,
 
 		directionLegs: directionLegs,
 		lastInitialPoint: lastInitialPoint,

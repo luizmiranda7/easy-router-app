@@ -4,7 +4,9 @@ var ExternalCode = require('./ExternalCode');
 module.exports.schema = new mongoose.Schema({
   priorityLevel: Number,
   weight: Number,
-  deadline: Number,
+  volume: Number,
+  penalty: Number,
+  deadline: Date,
   status: {
     type: String,
     enum: ['PENDING', 'SCHEDULED', 'DELIVERED']

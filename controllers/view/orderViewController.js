@@ -1,5 +1,7 @@
 var express = require('express');
 var orderManager = require('../../managers/orderManager');
+var distributionCenterManager = require('../../managers/distributionCenterManager');
+var deliveryPointManager = require('../../managers/deliveryPointManager');
 var mainConfig = require('../../configurations/mainConfig');
 var e = require('../../entities');
 
@@ -20,10 +22,18 @@ router.get('/', function(req, res){
 });
 
 router.post('/details', function(req, res){
-    orderManager.findOrder(req.body)
-    .then(function(order){
-        if(order){
-            res.render(path + 'orderDetails.html', {order: order});
+    var order = null, deliveryPoints = null, distributionCenters = null;
+
+    var orderPromise = orderManager.findOrder(req.body).then(function(item){order = item;});
+    var deliveryPointsPromise = e.findAll('DeliveryPoint').then(function(items){deliveryPoints = items;});
+    var distributionCentersPromise = e.findAll('DistributionCenter').then(function(items){distributionCenters = items;});
+    Promise.all([orderPromise, deliveryPointsPromise, distributionCentersPromise]).then(function(){
+        if(order && deliveryPoints && distributionCenters){
+            res.render(path + 'orderDetails.html', {
+                order: order,
+                deliveryPoints: deliveryPoints,
+                distributionCenters: distributionCenters
+            });
         }
     });
 });

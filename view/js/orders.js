@@ -26,7 +26,7 @@ if (!orders) orders = (function() {
         });
 	};
 
-	var details = function(button){
+	var openUpdateModal = function(button){
 		var order = button.up('.order');
 		var externalCode = {
 			externalCode: order.getAttribute('externalCode'),
@@ -51,19 +51,34 @@ if (!orders) orders = (function() {
 			type: 'POST',
 			data: JSON.stringify(self.buildOrder(orderDetails)),
 	        contentType: 'application/json',
-            url: '/view/orders/details',		
+            url: '/rest/orders',		
             success: function(data) {
             }
         });
 	};
 
 	var buildOrder = function(orderDetails){
-
-	}
+		return {
+			deliveryPoint: JSON.parse(jQuery(orderDetails.down('.deliveryPoint .selectpicker option:selected')).val()),
+			distributionCenter: JSON.parse(jQuery(orderDetails.down('.distributionCenter .selectpicker option:selected')).val()),
+			priority: orderDetails.down('.priority input').getValue(),
+			weight: orderDetails.down('.weight input').getValue(),
+			volume: orderDetails.down('.volume input').getValue(),
+		    penalty: orderDetails.down('.penalty input').getValue(),
+		    deadline: orderDetails.down('.deadline input').getValue(),
+		    status: orderDetails.down('.status input').getValue(),
+			externalCode: {
+				externalCode: orderDetails.down('.externalCode').getValue(),
+				origin: orderDetails.down('.origin').getValue()
+			}
+		};
+	};
 
 	return {
+		buildOrder: buildOrder,
 		remove: remove,
-		details: details
+		openUpdateModal: openUpdateModal,
+		save: save
 	};
 
 })();

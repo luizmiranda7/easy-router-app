@@ -11,6 +11,11 @@
         <input type="text" style="display: none;" class="externalCode" value="{{vehicle.externalCode.externalCode}}" ></input>
         <input type="text" style="display: none;" class="origin" value="{{vehicle.externalCode.origin}}" ></input>
 
+        <div class="input-group maxVelocity">
+          <span class="input-group-addon" id="basic-addon1">Max Velocity:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.maxVelocity}}" ></input>
+        </div>
+
         <div class="input-group costPerTime">
           <span class="input-group-addon" id="basic-addon1">Cost per time:</span>
           <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.costPerTime}}" ></input>
@@ -34,6 +39,30 @@
         <div class="input-group axes">
           <span class="input-group-addon" id="basic-addon1">Axes:</span>
           <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.axes}}" ></input>
+        </div>
+        
+        <div class="input-group date endTime">
+          <span class="input-group-addon" id="basic-addon1">End Time:</span>
+          <input type="text" class="datepicker form-control" value="{{vehicle.endTime|date('d/m/Y')}}">
+          <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+          </div>
+        </div>
+        
+        <div class="input-group date earliestStart">
+          <span class="input-group-addon" id="basic-addon1">Earliest Start:</span>
+          <input type="text" class="datepicker form-control" value="{{vehicle.earliestStart|date('d/m/Y')}}">
+          <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+          </div>
+        </div>
+        
+        <div class="input-group date latestEnd">
+          <span class="input-group-addon" id="basic-addon1">Latest End:</span>
+          <input type="text" class="datepicker form-control" value="{{vehicle.latestEnd|date('d/m/Y')}}">
+          <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+          </div>
         </div>
         
         <div class="input-group type">

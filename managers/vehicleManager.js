@@ -6,16 +6,20 @@ var createOrUpdate = function(json){
 		return e.nullPromise();
 	}
 	
-  return e.findByExternalCode('Vehicle', json.externalCode)
-  .then(function(vehicle){
-    if (vehicle) {
-      return update(vehicle, json);
-    }
-    return update(new e.Vehicle({}), json);
-  });
+	return e.findByExternalCode('Vehicle', json.externalCode)
+		.then(function(vehicle){
+		if (vehicle) {
+		  return update(vehicle, json);
+		}
+		return update(new e.Vehicle({}), json);
+	});
 }
 
 var update = function(vehicle, json){
+
+	if(json.maxVelocity){
+		vehicle.maxVelocity = json.maxVelocity;
+	}
 
 	if(json.costPerTime){ 
 		vehicle.costPerTime = json.costPerTime;
@@ -35,6 +39,18 @@ var update = function(vehicle, json){
 
 	if(json.axes){ 
 		vehicle.axes = json.axes;
+	}
+
+	if(json.endTime){ 
+		vehicle.endTime = json.endTime;
+	}
+
+	if(json.earliestStart){ 
+		vehicle.earliestStart = json.earliestStart;
+	}
+
+	if(json.latestEnd){ 
+		vehicle.latestEnd = json.latestEnd;
 	}
 
 	if(json.externalCode){
@@ -70,7 +86,10 @@ var findVehicle = function(externalCode){
 var getAvailableVehicles = function(){
 	var now = new Date();
 	return e.Vehicle.find({
-        'calendar.intervals.finalDate' : { $lt: now }
+		$or: [
+	    		{'calendar.intervals.finalDate' : { $lt: now }},
+	    		{'calendar.intervals.finalDate' : null}
+		]
 	}).exec();
 };
 

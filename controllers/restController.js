@@ -1,4 +1,6 @@
 var express = require('express');
+var bodyParser = require('body-parser');
+var request = require('request');
 var e = require('../entities');
 var mongoose = require('mongoose');
 var routeManager = require('../managers/routeManager');
@@ -111,6 +113,25 @@ var initMethods = function(app){
 		.then(function(vehicle){
 			res.send(vehicle);
 		});
+	});
+
+	router.post('/solve',function(req, res) {
+		var url = 'http://localhost:8080/easy-router-engine/rest/solve';
+
+		request.post({
+			url: url,
+			body: JSON.stringify(req.body),
+			qs: req.query,
+			method: req.method,
+			headers: [
+				{
+				  name: 'content-type',
+				  value: 'text/plain'
+				}
+			],
+		}, function(error, response, body){
+			console.log(body);
+		}).pipe(res);
 	});
 
     app.use("/rest", router);
