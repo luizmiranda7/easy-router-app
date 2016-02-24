@@ -15,7 +15,9 @@ router.get("/", function(req, res){
     e.findAll("Driver")
     .then(function(drivers){
         if(drivers){
-            res.render(path + "drivers.html", {drivers: drivers});
+            res.render(path + "drivers.html", {
+                drivers: drivers
+            });
         }
     });
 });

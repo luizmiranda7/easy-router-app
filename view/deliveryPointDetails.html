@@ -1,0 +1,38 @@
+<div id="deliveryPointDetails" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Details</h4>
+      </div>
+      <div class="modal-body easy-form">
+
+        <input type="text" style="display: none;" class="externalCode" value="{{deliveryPoint.externalCode.externalCode}}" ></input>
+        <input type="text" style="display: none;" class="origin" value="{{deliveryPoint.externalCode.origin}}" ></input>
+
+        <div class="input-group name">
+          <span class="input-group-addon" id="basic-addon1">Name:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{deliveryPoint.name}}" ></input>
+        </div>
+
+        <div class="input-group deliveyDuration">
+          <span class="input-group-addon" id="basic-addon1">Delivery Duration (min):</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{deliveryPoint.deliveyDuration}}" ></input>
+        </div>
+
+        <div class="input-group address">
+          <span class="input-group-addon">Address:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{deliveryPoint.routePoint.street}}, {{deliveryPoint.routePoint.number}} - {{deliveryPoint.routePoint.city}}, {{deliveryPoint.routePoint.state}} - {{deliveryPoint.routePoint.postalCode}}"></input>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" onclick="utils.openSinglePointMapModal(JSON.parse('{{deliveryPoint|json_encode}}'))">View Map</button>
+          </span>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deliveryPoints.save(this)">Save</button>
+      </div>
+    </div>
+</div>
