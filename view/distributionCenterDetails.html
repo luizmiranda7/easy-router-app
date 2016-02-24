@@ -1,0 +1,38 @@
+<div id="distributionCenterDetails" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Details</h4>
+      </div>
+      <div class="modal-body easy-form">
+
+        <input type="text" style="display: none;" class="externalCode" value="{{distributionCenter.externalCode.externalCode}}" ></input>
+        <input type="text" style="display: none;" class="origin" value="{{distributionCenter.externalCode.origin}}" ></input>
+
+        <div class="input-group name">
+          <span class="input-group-addon" id="basic-addon1">Name:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{distributionCenter.name}}" ></input>
+        </div>
+
+        <div class="input-group prepareDuration">
+          <span class="input-group-addon" id="basic-addon1">Prepare Duration (min):</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{distributionCenter.prepareDuration}}" ></input>
+        </div>
+
+        <div class="input-group address">
+          <span class="input-group-addon">Address:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{distributionCenter.routePoint.street}}, {{distributionCenter.routePoint.number}} - {{distributionCenter.routePoint.city}}, {{distributionCenter.routePoint.state}} - {{distributionCenter.routePoint.postalCode}}"></input>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button" onclick="utils.openSinglePointMapModal(JSON.parse('{{distributionCenter|json_encode}}'))">View Map</button>
+          </span>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="distributionCenters.save(this)">Save</button>
+      </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ var routeManager = require('../managers/routeManager');
 var orderManager = require('../managers/orderManager');
 var driverManager = require('../managers/driverManager');
 var distributionCenterManager = require('../managers/distributionCenterManager');
+var deliveryPointManager = require('../managers/deliveryPointManager');
 var vehicleManager = require('../managers/vehicleManager');
 
 // REST Methods - Retrieve, Create, Update and Delete
@@ -99,6 +100,19 @@ var initMethods = function(app){
 		return distributionCenterManager.createOrUpdate(req.body)
 		.then(function(distributionCenter){
 			res.send(distributionCenter);
+		});
+	});
+
+	router.post('/deliveryPoints', function(req, res){
+		if(req.headers.del){
+			return e.deleteByExternalCode('DeliveryPoint', req.body)
+			.then(function(deliveryPoints){
+				res.send(deliveryPoints);
+			});
+		}
+		return deliveryPointManager.createOrUpdate(req.body)
+		.then(function(deliveryPoint){
+			res.send(deliveryPoint);
 		});
 	});
 

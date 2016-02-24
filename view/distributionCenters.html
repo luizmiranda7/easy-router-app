@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block header %}
+  <script async defer src="js/distributionCenters.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container distributionCenterContainer">
+  <div class="bs-example" data-example-id="table-within-panel">
+    <div class="panel panel-default">
+      <div class="panel-heading">Distribution Centers</div>
+      <div class="panel-body">
+        <p>Create, View, Remove and Update delivery points and its calendars.</p>
+      </div>
+      <table class="table distributionCenters">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Prepare Duration (min)</th>
+            <th>Address</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for distributionCenter in distributionCenters %}
+          <tr class="distributionCenter" externalCode="{{distributionCenter.externalCode.externalCode}}" origin="{{distributionCenter.externalCode.origin}}">
+            <th scope="row">
+              <input type="checkbox" value=""></input>
+            </th>
+            <td>{{distributionCenter.name}}</td>
+            <td>{{distributionCenter.prepareDuration}}</td>
+            <td>{{distributionCenter.routePoint.street}}
+                  <a href="http://maps.google.com/maps?q={{order.distributionCenter.routePoint.latitude}},{{order.distributionCenter.routePoint.longitude}}" target="_blank"> Map </a></td>
+            <td>
+              <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" onclick="distributionCenters.openUpdateModal(this)">Update</button>
+                <button type="button" class="btn btn-default" onclick="distributionCenters.remove(this)">Remove</button>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

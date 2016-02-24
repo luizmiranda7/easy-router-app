@@ -1,94 +1,70 @@
 var distributionCenters;
 if (!distributionCenters) distributionCenters = (function() {
 
-
-	var openSelection = function(div){
-		$.ajax({
-			type: 'GET',
-			beforeSend: function (request)
-            {
-                request.setRequestHeader("del", true);
-            },
-			data: JSON.stringify(externalCode),
-	        contentType: 'application/json',
-            url: '/rest/distributionCenters',						
-            success: function(data) {
-                var orderContainer = document.getElementsByClassName('orderContainer')[0];
-                orderContainer.appendChild($(data)[0]);
-                var modalOpener = document.getElementsByClassName('modalOpener')[0];
-                modalOpener.click();
-            }
-        });
-	}
-
 	var remove = function(button){
-		var order = button.up('.order');
-		
-		var externalCode = {
-			externalCode: order.getAttribute('externalCode'),
-			origin: order.getAttribute('origin')
-		};
-
-		$.ajax({
+		jQuery.ajax({
 			type: 'POST',
 			beforeSend: function (request)
             {
                 request.setRequestHeader("del", true);
             },
-			data: JSON.stringify(externalCode),
+			data: JSON.stringify(getExternalCode(button.up('.distributionCenter'))),
 	        contentType: 'application/json',
-            url: '/rest/orders',						
+            url: '/rest/distributionCenters',						
             success: function(data) {
                 window.location.reload(false);
             }
         });
 	};
 
-	var details = function(button){
-		var order = button.up('.order');
-		var externalCode = {
-			externalCode: order.getAttribute('externalCode'),
-			origin: order.getAttribute('origin')
-		};
-
-		$.ajax({
+	var openUpdateModal = function(button){
+		jQuery.ajax({
 			type: 'POST',
-			data: JSON.stringify(externalCode),
+			data: JSON.stringify(getExternalCode(button.up('.distributionCenter'))),
 	        contentType: 'application/json',
-            url: '/view/orders/details',		
+            url: '/view/distributionCenters/details',		
             success: function(data) {
-                var orderContainer = document.getElementsByClassName('orderContainer')[0];
-                orderContainer.appendChild($(data)[0]);
-                var modalOpener = document.getElementsByClassName('modalOpener')[0];
-                modalOpener.click();
+            	utils.openModal(jQuery(data)[0]);
             }
         });
 	};
 
 	var save = function(button){
 		var self = this;
-		var orderDetails = button.up(".orderDetails");
-		$.ajax({
+		jQuery.ajax({
 			type: 'POST',
-			data: JSON.stringify(self.buildOrder(orderDetails)),
+			data: JSON.stringify(self.buildDistributionCenter(button.up("#distributionCenterDetails"))),
 	        contentType: 'application/json',
-            url: '/view/orders/details',		
+            url: '/rest/distributionCenters',		
             success: function(data) {
-                var orderContainer = document.getElementsByClassName('orderContainer')[0];
-                orderContainer.appendChild($(data)[0]);
-                var modalOpener = document.getElementsByClassName('modalOpener')[0];
-                modalOpener.click();
+                window.location.reload(false);
             }
         });
 	};
 
-	var buildOrder = function(orderDetails){
-		
-	}
+	var getExternalCode = function(distributionCenter){
+		return{
+			externalCode: distributionCenter.getAttribute('externalCode'),
+			origin: distributionCenter.getAttribute('origin')
+		};
+	};
+
+	var buildDistributionCenter = function(distributionCenterDetails){
+		return {
+			name: distributionCenterDetails.down('.name input').getValue(),
+			deliveryDuration: distributionCenterDetails.down('.deliveryDuration input').getValue(),
+			externalCode: {
+				externalCode: distributionCenterDetails.down('.externalCode').getValue(),
+				origin: distributionCenterDetails.down('.origin').getValue()
+			}
+		};
+	};
 
 	return {
 		remove: remove,
-		details: details
+		openUpdateModal: openUpdateModal,
+		save: save,
+		buildDistributionCenter: buildDistributionCenter
 	};
 
 })();
