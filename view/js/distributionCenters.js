@@ -52,7 +52,8 @@ if (!distributionCenters) distributionCenters = (function() {
 	var buildDistributionCenter = function(distributionCenterDetails){
 		return {
 			name: distributionCenterDetails.down('.name input').getValue(),
-			deliveryDuration: distributionCenterDetails.down('.deliveryDuration input').getValue(),
+			prepareDuration: distributionCenterDetails.down('.prepareDuration input').getValue(),
+			routePoint: deliveryPointDetails.down('.address .routePoint').getValue(),
 			externalCode: {
 				externalCode: distributionCenterDetails.down('.externalCode').getValue(),
 				origin: distributionCenterDetails.down('.origin').getValue()

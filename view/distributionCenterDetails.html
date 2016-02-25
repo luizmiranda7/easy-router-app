@@ -23,9 +23,10 @@
 
         <div class="input-group address">
           <span class="input-group-addon">Address:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{distributionCenter.routePoint.street}}, {{distributionCenter.routePoint.number}} - {{distributionCenter.routePoint.city}}, {{distributionCenter.routePoint.state}} - {{distributionCenter.routePoint.postalCode}}"></input>
+          <input type="text" class="text form-control" aria-describedby="basic-addon1" value="{{distributionCenter.routePoint.street}}, {{distributionCenter.routePoint.number}} - {{distributionCenter.routePoint.city}}, {{distributionCenter.routePoint.state}} - {{distributionCenter.routePoint.postalCode}}"></input>
+          <input type="text" class="routePoint" style="display: none;" value="{{distributionCenter.routePoint|json_encode}}"></input>
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button" onclick="utils.openSinglePointMapModal(JSON.parse('{{distributionCenter|json_encode}}'))">View Map</button>
+            <button class="btn btn-default" type="button" onclick="addressSelector.addressSelectorModal(JSON.parse('{{distributionCenter|json_encode}}'), this)">View Map</button>
           </span>
         </div>
 

@@ -1,5 +1,5 @@
 var express = require('express');
-var deliveryPointManager = require('../../managers/deliveryPointManager');
+var distributionCenterManager = require('../../managers/distributionCenterManager');
 var mainConfig = require('../../configurations/mainConfig');
 var e = require('../../entities');
 
@@ -12,11 +12,11 @@ router.use(function(req, res, next) {
 });
 
 router.get("/", function(req, res){
-    e.findAll("DeliveryPoint")
-    .then(function(deliveryPoints){
-        if(deliveryPoints){
-            res.render(path + "deliveryPoints.html", {
-                deliveryPoints: deliveryPoints,
+    e.findAll("DistributionCenter")
+    .then(function(distributionCenters){
+        if(distributionCenters){
+            res.render(path + "distributionCenters.html", {
+                distributionCenters: distributionCenters,
                 apiKey: mainConfig.apiKey
             });
         }
@@ -24,10 +24,10 @@ router.get("/", function(req, res){
 });
 
 router.post("/details", function(req, res){
-    e.findByExternalCode("DeliveryPoint", req.body)
-    .then(function(deliveryPoint){
-        if(deliveryPoint){
-            res.render(path + "deliveryPointDetails.html", {deliveryPoint: deliveryPoint});
+    e.findByExternalCode("DistributionCenter", req.body)
+    .then(function(distributionCenter){
+        if(distributionCenter){
+            res.render(path + "distributionCenterDetails.html", {distributionCenter: distributionCenter});
         }
     });
 });

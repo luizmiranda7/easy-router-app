@@ -21,40 +21,9 @@ if (!utils) utils = (function() {
 
     }
 
-    var openSinglePointMapModal = function(place) {
-
-    	jQuery.ajax({
-			type: 'POST',
-            url: '/view/emptyModal',
-			data: JSON.stringify({
-				title: place.name,
-				modalId: 'mapModal'
-			}),
-	        contentType: 'application/json',						
-            success: function(data) {
-                utils.openModal(jQuery(data)[0]);
-                var point = {
-		            lat: place.routePoint.latitude,
-		            lng: place.routePoint.longitude
-		        };
-
-		        var map = new google.maps.Map(document.getElementById('mapModal').down('.modal-body'), {
-		            zoom: 7,
-		            center: point
-		        });
-
-		        var marker = new google.maps.Marker({
-		            position: point,
-		            map: map,
-		            title: place.name
-		        });
-            }
-        });
-    }
 
     return {
-        openModal: openModal,
-        openSinglePointMapModal: openSinglePointMapModal
+        openModal: openModal
     };
 
 })();

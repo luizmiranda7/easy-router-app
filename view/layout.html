@@ -21,7 +21,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{apiKey}}&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{apiKey}}&libraries=places"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
@@ -33,7 +33,9 @@
     <link href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 
     <link href="css/main.css" rel="stylesheet">
+    <link href="css/addressSelector.css" rel="stylesheet">
     <script src="js/utils.js"></script>
+    <script src="js/addressSelector.js"></script>    
 
     {% block header %}{% endblock %}
   </head>
@@ -67,6 +69,7 @@
               <li><a href="/view/drivers">Drivers</a></li>
               <li><a href="/view/vehicles">Vehicles</a></li>
               <li><a href="/view/deliveryPoints">Delivery Points</a></li>
+              <li><a href="/view/distributionCenters">Distribution Centers</a></li>
             </ul>
           </div>
         </div>
