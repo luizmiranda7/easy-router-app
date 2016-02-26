@@ -66,7 +66,7 @@ if (!orders) orders = (function() {
 			volume: orderDetails.down('.volume input').getValue(),
 		    penalty: orderDetails.down('.penalty input').getValue(),
 		    deadline: orderDetails.down('.deadline input').getValue(),
-		    status: orderDetails.down('.status input').getValue(),
+		    status: jQuery('input[name=status]:checked', '#orderDetails .status').val(),
 			externalCode: {
 				externalCode: orderDetails.down('.externalCode').getValue(),
 				origin: orderDetails.down('.origin').getValue()

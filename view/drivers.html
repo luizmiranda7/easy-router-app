@@ -35,8 +35,8 @@
             <td>{{driver.person.birthdate|date('jS F, Y')}}</td>
             <td>
               <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default" onclick="drivers.openUpdateModal(this)">Update</button>
-                <button type="button" class="btn btn-default" onclick="drivers.remove(this)">Remove</button>
+                <button type="button" class="btn btn-default" onclick="utils.openUpdateOrCreateModal(this, '.driver', '/view/drivers/details')">Update</button>
+                <button type="button" class="btn btn-default" onclick="utils.remove(this, '.driver', '/rest/drivers')">Remove</button>
               </div>
             </td>
           </tr>
@@ -44,6 +44,7 @@
         </tbody>
       </table>
     </div>
+    <button type="button" class="btn btn-default" onclick="utils.openUpdateOrCreateModal(this, '.driver', '/rest/drivers')">Create</button>
   </div>
 </div>
 

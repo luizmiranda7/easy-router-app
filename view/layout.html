@@ -1,42 +1,33 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="images/favicon.ico">
 
     <title>Easy Router</title>
     
     <!-- Bower access -->
-    <!--<script src="lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js"></script>
-    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{apiKey}}&callback=initMap"></script>
-    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">-->
-
-    <!-- Web access -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.3.0/prototype.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{apiKey}}&libraries=places"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-*.min.js"></script>
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/prototypejs/dist/prototype.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="lib/bootstrap-select/dist/js/i18n/defaults-*.min.js"></script>
+    <script src="lib/moment/min/moment-with-locales.js"></script>
+    <script src="lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    
+    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
-    <script src="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
-
-    <link href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <script src="js/utils.js"></script>
+    <script src="js/addressSelector.js"></script>   
 
     <link href="css/main.css" rel="stylesheet">
-    <link href="css/addressSelector.css" rel="stylesheet">
-    <script src="js/utils.js"></script>
-    <script src="js/addressSelector.js"></script>    
-
+    <link href="css/addressSelector.css" rel="stylesheet"> 
     {% block header %}{% endblock %}
   </head>
 

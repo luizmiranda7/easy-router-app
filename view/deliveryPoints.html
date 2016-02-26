@@ -34,8 +34,13 @@
                   <a href="http://maps.google.com/maps?q={{order.deliveryPoint.routePoint.latitude}},{{order.deliveryPoint.routePoint.longitude}}" target="_blank"> Map </a></td>
             <td>
               <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default" onclick="deliveryPoints.openUpdateModal(this)">Update</button>
-                <button type="button" class="btn btn-default" onclick="deliveryPoints.remove(this)">Remove</button>
+                <button type="button" 
+                        class="btn btn-default" 
+                        onclick="utils.openUpdateOrCreateModal(this, '.deliveryPoint', '/view/deliveryPoints/details')">Update</button>
+
+                <button type="button" 
+                        class="btn btn-default" 
+                        onclick="utils.remove(this, '.deliveryPoint', '/rest/deliveryPoints')">Remove</button>
               </div>
             </td>
           </tr>
@@ -43,6 +48,9 @@
         </tbody>
       </table>
     </div>
+    <button type="button" 
+            class="btn btn-default" 
+            onclick="utils.openUpdateOrCreateModal(this, '.deliveryPoint', '/view/deliveryPoints/details', deliveryPoints.buildEntity)">Create</button>
   </div>
 </div>
 {% endblock %}

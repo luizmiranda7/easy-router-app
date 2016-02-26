@@ -34,45 +34,39 @@
 
         <div class="input-group priority">
           <span class="input-group-addon">Priority:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.priorityLevel}}" ></input>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{order.priorityLevel}}" ></input>
         </div>
         
         <div class="input-group weight">
           <span class="input-group-addon">Weight:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.weight}}" ></input>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{order.weight}}" ></input>
         </div>
         
         <div class="input-group volume">
           <span class="input-group-addon">Volume:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.volume}}" ></input>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{order.volume}}" ></input>
         </div>
         
         <div class="input-group penalty">
           <span class="input-group-addon">Penalty:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.penalty}}" ></input>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{order.penalty}}" ></input>
         </div>
         
         <div class="input-group date deadline">
           <span class="input-group-addon">Deadline:</span>
           <input type="text" class="datepicker form-control" value="{{order.deadline|date('d/m/Y')}}">
-          <div class="input-group-addon">
-              <span class="glyphicon glyphicon-th"></span>
-          </div>
         </div>
         
         <div class="input-group status">
           <span class="input-group-addon">Status:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.status}}" ></input>
-        </div>
-        
-        <div class="input-group address">
-          <span class="input-group-addon">Address:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{order.deliveryPoint.routePoint.street}}, 
-          {{order.deliveryPoint.routePoint.number}} - 
-          {{order.deliveryPoint.routePoint.city}}, 
-          {{order.deliveryPoint.routePoint.state}} - 
-          {{order.deliveryPoint.routePoint.postalCode}} 
-          <a href='http://maps.google.com/maps?q={{order.deliveryPoint.routePoint.latitude}},{{order.deliveryPoint.routePoint.longitude}}' target='_blank'> Map </a>"></input>
+            <div class="input-group-addon">
+              {% for status in statuses %}
+                <label class="checkbox-inline">
+                  <input name="status" type="radio" value="{{status}}"
+                    {% if status == order.status %}checked="checked"{% endif %}/> {{status}}
+                </label>
+              {% endfor %}
+            </div>
         </div>
 
       </div>

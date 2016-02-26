@@ -32,7 +32,8 @@ router.post('/details', function(req, res){
             res.render(path + 'orderDetails.html', {
                 order: order,
                 deliveryPoints: deliveryPoints,
-                distributionCenters: distributionCenters
+                distributionCenters: distributionCenters,
+                statuses: ['PENDING', 'SCHEDULED', 'DELIVERED']
             });
         }
     });

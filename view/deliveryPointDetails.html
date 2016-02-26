@@ -35,7 +35,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deliveryPoints.save(this)">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="utils.save(this, 'deliveryPointDetails', '/rest/deliveryPoints', deliveryPoints.buildEntity)">Save</button>
       </div>
     </div>
 </div>

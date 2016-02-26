@@ -1,103 +1,106 @@
 function AddressSelector() {
 
     var currentMap = null;
-    var currentField = null
+    var currentField = null;
+    var autocomplete = null;
 
-    var addressSelectorModal = function(place, button) {
+    var addressSelectorModal = function(position, button) {
         var self = this;
         
-        self.place = place;
+        self.position = position;
         self.currentField = button.up('.input-group');
 
         jQuery.ajax({
             type: 'POST',
             url: '/view/addressSelectorModal',
             data: JSON.stringify({
-                title: place.name,
-                addressInputClass: addressInputClass
+                title: position.name
             }),
             contentType: 'application/json',
             success: function(data) {
                 utils.openModal(jQuery(data)[0]);
-                self.initAutocomplete(place);
+                self.initAutocomplete(position);
             }
         }); 
-    }
+    };
 
-    var initAutocomplete = function(place) {
+    var initAutocomplete = function(position) {
         var self = this;
-        self.currentMap = new google.maps.Map(jQuery('#mapModal .mapDiv')[0], {
+        self.currentMap = new google.maps.Map(document.getElementById('map'), {
             center: {
-                lat: place.routePoint.latitude,
-                lng: place.routePoint.longitude
+                lat: position.routePoint.latitude,
+                lng: position.routePoint.longitude
             },
-            zoom: 13,
+            zoom: 20,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
         // Create the search box and link it to the UI element.
-        var input = jQuery('#mapModal .pac-input')[0];
-        var searchBox = new google.maps.places.SearchBox(input);
+        var input = document.getElementById('pac-input');
+        self.autocomplete = new google.maps.places.Autocomplete(input);
+        self.autocomplete.bindTo('bounds', self.currentMap);
         self.currentMap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-        // Bias the SearchBox results towards current map's viewport.
-        self.currentMap.addListener('bounds_changed', function() {
-            searchBox.setBounds(self.currentMap.getBounds());
+        var infowindow = new google.maps.InfoWindow();
+        var marker = new google.maps.Marker({
+          map: self.currentMap
+        });
+        marker.addListener('click', function() {
+          infowindow.open(self.currentMap, marker);
         });
 
-        var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-            var places = searchBox.getPlaces();
+        self.autocomplete.addListener('place_changed', function() {
+          infowindow.close();
+          var place = self.autocomplete.getPlace();
+          if (!place.geometry) {
+            return;
+          }
 
-            if (places.length == 0) {
-                return;
+          if (place.geometry.viewport) {
+            self.currentMap.fitBounds(place.geometry.viewport);
+          } else {
+            self.currentMap.setCenter(place.geometry.location);
+            self.currentMap.setZoom(17);
+          }
+
+          // Set the position of the marker using the place ID and location.
+          marker.setPlace({
+            placeId: place.place_id,
+            location: place.geometry.location
+          });
+          marker.setVisible(true);
+
+          var placeName = '';
+          if(place.name){
+            placeName = '<div><strong>' + place.name + '</strong><br>';
+          }
+
+          infowindow.setContent(placeName + place.formatted_address);
+          infowindow.open(self.currentMap, marker);
+        });
+
+        google.maps.event.addListenerOnce(self.currentMap, 'idle', function() {
+            google.maps.event.trigger(self.currentMap, 'resize');
+            new google.maps.Geocoder().geocode({
+              location:{
+                  lat: position.routePoint.latitude,
+                  lng: position.routePoint.longitude
+              }
+            }, function(results){
+            if(results.length > 0){
+              var address = results.first();
+              self.autocomplete.set('place', address);
             }
-
-            // Clear out the old markers.
-            markers.forEach(function(marker) {
-                marker.setMap(null);
-            });
-            markers = [];
-
-            // For each place, get the icon, name and location.
-            var bounds = new google.maps.LatLngBounds();
-            places.forEach(function(place) {
-                var icon = {
-                    url: place.icon,
-                    size: new google.maps.Size(71, 71),
-                    origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(17, 34),
-                    scaledSize: new google.maps.Size(25, 25)
-                };
-
-                // Create a marker for each place.
-                markers.push(new google.maps.Marker({
-                    map: self.currentMap,
-                    icon: icon,
-                    title: place.name,
-                    position: place.geometry.location
-                }));
-
-                if (place.geometry.viewport) {
-                    // Only geocodes have viewport.
-                    bounds.union(place.geometry.viewport);
-                } else {
-                    bounds.extend(place.geometry.location);
-                }
-            });
-            self.currentMap.fitBounds(bounds);
+          });
         });
     };
 
     var save = function(){
       if(this.currentMap){
           var center = this.currentMap.getCenter();
-          var geocoder = new google.maps.Geocoder();
 
           var self = this;
-          geocoder.geocode({location:center}, function(results){
+          new google.maps.Geocoder().geocode({location:center}, function(results){
             if(results.length > 0){
               var address = results.first();
               
@@ -129,7 +132,7 @@ function AddressSelector() {
         });
       } 
       return null;
-    }
+    };
 
     return {
         getAddressComponent: getAddressComponent,
@@ -139,6 +142,6 @@ function AddressSelector() {
 
         currentMap: currentMap
     };
-}
+};
 
 var addressSelector = new AddressSelector();

@@ -19,18 +19,6 @@ if (!drivers) drivers = (function() {
         });
 	};
 
-	var openUpdateModal = function(button){
-		jQuery.ajax({
-			type: 'POST',
-			data: JSON.stringify(getExternalCode(button.up('.driver'))),
-	        contentType: 'application/json',
-            url: '/view/drivers/details',		
-            success: function(data) {
-            	utils.openModal(jQuery(data)[0]);
-            }
-        });
-	};
-
 	var save = function(button){
 		var self = this;
 		jQuery.ajax({
@@ -44,12 +32,7 @@ if (!drivers) drivers = (function() {
         });
 	};
 
-	var getExternalCode = function(driver){
-		return{
-			externalCode: driver.getAttribute('externalCode'),
-			origin: driver.getAttribute('origin')
-		};
-	}
+
 
 	var buildDriver = function(driverDetails){
 		return {
@@ -69,7 +52,6 @@ if (!drivers) drivers = (function() {
 
 	return {
 		remove: remove,
-		openUpdateModal: openUpdateModal,
 		save: save,
 		buildDriver: buildDriver
 	};

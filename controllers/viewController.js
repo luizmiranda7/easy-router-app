@@ -14,6 +14,10 @@ var initMethods = function(app, rootDirName) {
 	   	title: req.body.title
 	   });
 	});
+
+    app.get('/view/cover', function(req, res){
+       res.render(path + "cover.html");
+    });
 };
 
 module.exports = {

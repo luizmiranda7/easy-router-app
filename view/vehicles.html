@@ -35,7 +35,7 @@
             <td>{{vehicle.axes}}</td>
             <td>
               <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default" onclick="vehicles.openUpdateModal(this)">Update</button>
+                <button type="button" class="btn btn-default" onclick="utils.openUpdateOrCreateModal(this, '.vehicle', 'vehicles')">Update</button>
                 <button type="button" class="btn btn-default" onclick="vehicles.remove(this)">Remove</button>
               </div>
             </td>
@@ -43,6 +43,7 @@
         {% endfor %}
         </tbody>
       </table>
+      <button type="button" class="btn btn-default" onclick="utils.openUpdateOrCreateModal(this, '.vehicle', 'vehicles')">Create</button>
     </div>
   </div>
 </div>
