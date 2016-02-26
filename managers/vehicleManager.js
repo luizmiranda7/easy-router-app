@@ -1,4 +1,5 @@
 var e = require('../entities');
+var externalCodeManager = require('./externalCodeManager');
 var distributionCenterManager = require('./distributionCenterManager');
 
 var createOrUpdate = function(json){
@@ -11,7 +12,9 @@ var createOrUpdate = function(json){
 		if (vehicle) {
 		  return update(vehicle, json);
 		}
-		return update(new e.Vehicle({}), json);
+		return update(new e.Vehicle({
+            externalCode: externalCodeManager.generateExternalCode()
+        }), json);
 	});
 }
 

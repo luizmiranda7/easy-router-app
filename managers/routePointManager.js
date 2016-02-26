@@ -1,8 +1,11 @@
 var e = require('../entities');
+var externalCodeManager = require('./externalCodeManager');
 
 var createOrUpdate = function(routePoint, json) {
     if(!routePoint){
-        routePoint = {};
+        routePoint = {
+            externalCode: externalCodeManager.generateExternalCode()
+        };
     }
 
     if (json.latitude) {

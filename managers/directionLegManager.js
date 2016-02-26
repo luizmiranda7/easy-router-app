@@ -1,4 +1,5 @@
 var e = require('../entities');
+var externalCodeManager = require('./externalCodeManager');
 
 var createOrUpdate = function(json) {
     if (!json) {
@@ -10,7 +11,9 @@ var createOrUpdate = function(json) {
             if (directionLeg) {
                 return update(directionLeg, json);
             }
-            return update(new e.DirectionLeg({}), json);
+            return update(new e.DirectionLeg({
+                externalCode: externalCodeManager.generateExternalCode()
+            }), json);
         });
 }
 

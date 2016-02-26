@@ -22,17 +22,14 @@ router.get("/", function(req, res){
 
 router.post("/details", function(req, res){
     vehicleManager.findVehicle(req.body)
-    .then(function(vehicle){
-        if(vehicle){
-            res.render(path + "vehicleDetails.html", {vehicle: vehicle});
-        }
+    .then(function(entity){
+        var vehicle = entity ? entity : {};
+        res.render(path + "vehicleDetails.html", {vehicle: vehicle});
     });
 });
 
 router.post("/remove", function(req, res){
     e.deleteByExternalCode('Vehicle', req.body);
 });
-
-
 
 module.exports = router;

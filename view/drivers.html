@@ -2,8 +2,6 @@
 
 {% block header %}
   <script async defer src="js/drivers.js"></script>
-  <link href="lib/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet">
-  <script src="lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -44,7 +42,7 @@
         </tbody>
       </table>
     </div>
-    <button type="button" class="btn btn-default" onclick="utils.openUpdateOrCreateModal(this, '.driver', '/rest/drivers')">Create</button>
+    <button type="button" class="btn btn-default" onclick="utils.openUpdateOrCreateModal(this, '.driver', '/view/drivers/details')">Create</button>
   </div>
 </div>
 

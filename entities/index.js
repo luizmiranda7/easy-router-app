@@ -30,6 +30,10 @@ var findByExternalCode = function(entityName, externalCode){
 };
 
 var findByExternalCodeWithPopulationFields = function(entityName, externalCode, populationFields){
+	if(Object.keys(externalCode).length == 0){
+		return Promise.resolve(null);
+	}
+
 	var entityModel = mongoose.model(entityName);
 	var query = entityModel.findOne({
 		"externalCode.externalCode": externalCode.externalCode,
@@ -45,7 +49,7 @@ var findByExternalCodeWithPopulationFields = function(entityName, externalCode, 
 
 var findByExternalCodes = function(entityName, externalCodes){
 	return findByExternalCodesWithPopulationFields(entityName, externalCodes, []);
-}
+};
 
 var findByExternalCodesWithPopulationFields = function(entityName, externalCodes, populationFields){
 	var externalCodesString = externalCodes.map(function(item){return item.externalCode;});

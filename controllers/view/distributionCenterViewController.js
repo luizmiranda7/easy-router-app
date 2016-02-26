@@ -25,10 +25,9 @@ router.get("/", function(req, res){
 
 router.post("/details", function(req, res){
     e.findByExternalCode("DistributionCenter", req.body)
-    .then(function(distributionCenter){
-        if(distributionCenter){
-            res.render(path + "distributionCenterDetails.html", {distributionCenter: distributionCenter});
-        }
+    .then(function(entity){
+        var distributionCenter = entity ? entity : {};
+        res.render(path + "distributionCenterDetails.html", {distributionCenter: distributionCenter});
     });
 });
 

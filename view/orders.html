@@ -42,8 +42,8 @@
                 <td>{{order.priorityLevel}}</td>
                 <td>
                   <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" class="btn btn-default" onclick="orders.openUpdateModal(this)">Update</button>
-                    <button type="button" class="btn btn-default" onclick="orders.remove(this)">Remove</button>
+                    <button type="button" class="btn btn-default" onclick="utils.openUpdateOrCreateModal(this, '.order', '/view/orders/details')">Update</button>
+                <button type="button" class="btn btn-default" onclick="utils.remove(this, '.order', '/rest/orders')">Remove</button>
                   </div>
                 </td>
               </tr>
@@ -51,7 +51,7 @@
             </tbody>
           </table>
         </div>
-
+        <button type="button" class="btn btn-default" onclick="utils.openUpdateOrCreateModal(this, '.order', '/view/orders/details')">Create</button>
         <button type="button" class="btn btn-default" onclick="routeManager.compute()">Compute Route</button>
       </div>
     </div>

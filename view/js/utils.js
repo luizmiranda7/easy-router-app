@@ -17,7 +17,9 @@ if (!utils) utils = (function() {
             size: 4
         });
 
-        jQuery('.datepicker').datetimepicker();
+        jQuery('.datepicker').datetimepicker({
+                    locale: 'pt-BR'
+                });
     };
 
     var openUpdateOrCreateModal = function(button, entityClassName, url){

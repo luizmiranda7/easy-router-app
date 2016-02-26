@@ -1,7 +1,6 @@
 <div id="driverDetails" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -29,18 +28,18 @@
         
         <div class="input-group date earliestStart">
           <span class="input-group-addon" id="basic-addon1">Earliest Start:</span>
-          <input type="text" class="datepicker form-control" value="{{driver.earliestStart|date('d/m/Y')}}">
+          <input type="text" class="datepicker form-control" value="{{driver.earliestStart|date('d/m/Y h:m')}}">
         </div>
         
         <div class="input-group date latestEnd">
           <span class="input-group-addon" id="basic-addon1">Latest End:</span>
-          <input type="text" class="datepicker form-control" value="{{driver.latestEnd|date('d/m/Y')}}">
+          <input type="text" class="datepicker form-control" value="{{driver.latestEnd|date('d/m/Y h:m')}}">
         </div>
         
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="drivers.save(this)">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="utils.save(this, 'driverDetails', '/rest/drivers', drivers.buildEntity)">Save</button>
       </div>
     </div>
 </div>

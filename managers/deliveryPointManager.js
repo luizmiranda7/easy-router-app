@@ -1,4 +1,5 @@
 var e = require('../entities');
+var externalCodeManager = require('./externalCodeManager');
 var routePointManager = require('./routePointManager');
 
 var createOrUpdate = function(json){
@@ -11,7 +12,9 @@ var createOrUpdate = function(json){
     if (deliveryPoint) {
       return update(deliveryPoint, json);
     }
-    return update(new e.DeliveryPoint({}), json);
+    return update(new e.DeliveryPoint({
+            externalCode: externalCodeManager.generateExternalCode()
+        }), json);
   });
 }
 	

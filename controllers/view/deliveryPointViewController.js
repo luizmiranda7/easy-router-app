@@ -25,10 +25,9 @@ router.get("/", function(req, res){
 
 router.post("/details", function(req, res){
     e.findByExternalCode("DeliveryPoint", req.body)
-    .then(function(deliveryPoint){
-        if(deliveryPoint){
-            res.render(path + "deliveryPointDetails.html", {deliveryPoint: deliveryPoint});
-        }
+    .then(function(entity){
+        var deliveryPoint = entity ? entity : {};
+        res.render(path + "deliveryPointDetails.html", {deliveryPoint: deliveryPoint});
     });
 });
 

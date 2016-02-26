@@ -3,6 +3,7 @@ function AddressSelector() {
     var currentMap = null;
     var currentField = null;
     var autocomplete = null;
+    var currentMarker = null;
 
     var addressSelectorModal = function(position, button) {
         var self = this;
@@ -25,6 +26,15 @@ function AddressSelector() {
     };
 
     var initAutocomplete = function(position) {
+        if(!Object.keys(position).length){
+          position = {
+            routePoint: {
+              latitude: -23.5180494,
+              longitude: -46.6298972
+            }
+          }
+        }
+
         var self = this;
         self.currentMap = new google.maps.Map(document.getElementById('map'), {
             center: {
@@ -42,11 +52,11 @@ function AddressSelector() {
         self.currentMap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         var infowindow = new google.maps.InfoWindow();
-        var marker = new google.maps.Marker({
+        self.currentMarker = new google.maps.Marker({
           map: self.currentMap
         });
-        marker.addListener('click', function() {
-          infowindow.open(self.currentMap, marker);
+        self.currentMarker.addListener('click', function() {
+          infowindow.open(self.currentMap, self.currentMarker);
         });
 
         self.autocomplete.addListener('place_changed', function() {
@@ -64,11 +74,11 @@ function AddressSelector() {
           }
 
           // Set the position of the marker using the place ID and location.
-          marker.setPlace({
+          self.currentMarker.setPlace({
             placeId: place.place_id,
             location: place.geometry.location
           });
-          marker.setVisible(true);
+          self.currentMarker.setVisible(true);
 
           var placeName = '';
           if(place.name){
@@ -76,7 +86,7 @@ function AddressSelector() {
           }
 
           infowindow.setContent(placeName + place.formatted_address);
-          infowindow.open(self.currentMap, marker);
+          infowindow.open(self.currentMap, self.currentMarker);
         });
 
         google.maps.event.addListenerOnce(self.currentMap, 'idle', function() {
@@ -96,11 +106,11 @@ function AddressSelector() {
     };
 
     var save = function(){
-      if(this.currentMap){
-          var center = this.currentMap.getCenter();
+      if(this.currentMap && this.currentMarker){
+          var markedPlace = this.currentMarker.getPlace();
 
           var self = this;
-          new google.maps.Geocoder().geocode({location:center}, function(results){
+          new google.maps.Geocoder().geocode({location:markedPlace.location}, function(results){
             if(results.length > 0){
               var address = results.first();
               
@@ -118,6 +128,8 @@ function AddressSelector() {
 
               self.currentMap = null;
               self.currentField = null;
+              self.currentMarker = null;
+              self.autocomplete = null;
             }
           });
       }

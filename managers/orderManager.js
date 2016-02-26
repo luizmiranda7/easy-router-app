@@ -1,4 +1,5 @@
 var e = require('../entities');
+var externalCodeManager = require('./externalCodeManager');
 var deliveryPointManager = require('./deliveryPointManager');
 var distributionCenterManager = require('./distributionCenterManager');
 
@@ -12,7 +13,9 @@ var createOrUpdate = function(json) {
         if (order) {
             return updateOrder(order, json);
         }
-        return updateOrder(new e.Order({}), json);
+        return updateOrder(new e.Order({
+            externalCode: externalCodeManager.generateExternalCode()
+        }), json);
     });
 };
 
@@ -120,6 +123,7 @@ var findOrder = function(externalCode){
         if(orders.length > 0){
             return orders[0];
         }
+        return null;
     });
 };
 

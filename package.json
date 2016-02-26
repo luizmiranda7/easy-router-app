@@ -28,6 +28,7 @@
     "express": "latest",
     "method-override": "latest",
     "mongoose": "latest",
+    "node-uuid": "^1.4.7",
     "path": "latest",
     "request": "^2.69.0",
     "swig": "^1.4.2",

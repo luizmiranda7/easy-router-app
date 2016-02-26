@@ -24,7 +24,7 @@ router.get('/', function(req, res){
 router.post('/details', function(req, res){
     var order = null, deliveryPoints = null, distributionCenters = null;
 
-    var orderPromise = orderManager.findOrder(req.body).then(function(item){order = item;});
+    var orderPromise = orderManager.findOrder(req.body).then(function(item){order = item ? item : {};});
     var deliveryPointsPromise = e.findAll('DeliveryPoint').then(function(items){deliveryPoints = items;});
     var distributionCentersPromise = e.findAll('DistributionCenter').then(function(items){distributionCenters = items;});
     Promise.all([orderPromise, deliveryPointsPromise, distributionCentersPromise]).then(function(){

@@ -1,4 +1,5 @@
 var e = require('../entities');
+var externalCodeManager = require('./externalCodeManager');
 
 var createOrUpdate = function(json) {
     if (!json) {
@@ -10,7 +11,9 @@ var createOrUpdate = function(json) {
             if (driver) {
                 return update(driver, json);
             }
-            return update(new e.Driver({}), json);
+            return update(new e.Driver({
+                externalCode: externalCodeManager.generateExternalCode()
+            }), json);
         });
 }
 
@@ -18,7 +21,9 @@ var update = function(driver, json) {
 
     if(json.person){
         if(!driver.person){
-            driver.person = {};
+            driver.person = {
+                externalCode: externalCodeManager.generateExternalCode()
+            };
         }
 
         if (json.person.firstName) {

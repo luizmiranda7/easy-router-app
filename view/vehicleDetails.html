@@ -41,14 +41,6 @@
           <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.axes}}" ></input>
         </div>
         
-        <div class="input-group date endTime">
-          <span class="input-group-addon" id="basic-addon1">End Time:</span>
-          <input type="text" class="datepicker form-control" value="{{vehicle.endTime|date('d/m/Y')}}">
-          <div class="input-group-addon">
-              <span class="glyphicon glyphicon-th"></span>
-          </div>
-        </div>
-        
         <div class="input-group date earliestStart">
           <span class="input-group-addon" id="basic-addon1">Earliest Start:</span>
           <input type="text" class="datepicker form-control" value="{{vehicle.earliestStart|date('d/m/Y')}}">
@@ -65,6 +57,14 @@
           </div>
         </div>
         
+        <div class="input-group date endTime">
+          <span class="input-group-addon" id="basic-addon1">End Time:</span>
+          <input type="text" class="datepicker form-control" value="{{vehicle.endTime|date('d/m/Y')}}">
+          <div class="input-group-addon">
+              <span class="glyphicon glyphicon-th"></span>
+          </div>
+        </div>
+        
         <div class="input-group type">
           <span class="input-group-addon" id="basic-addon1">Type:</span>
           <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.type}}" ></input>
@@ -76,7 +76,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="vehicles.save(this)">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="utils.save(this, 'vehicleDetails', '/rest/vehicles', vehicles.buildEntity)">Save</button>
       </div>
     </div>
 </div>

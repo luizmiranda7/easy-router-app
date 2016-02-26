@@ -72,7 +72,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="orders.save(this)">Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="utils.save(this, 'orderDetails', '/rest/orders', orders.buildEntity)">Save</button>
       </div>
     </div>
 

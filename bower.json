@@ -24,6 +24,7 @@
     "bootstrap-select": "^1.10.0",
     "moment": "^2.11.2",
     "prototypejs": "prototype.js#^1.7.1",
-    "eonasdan-bootstrap-datetimepicker": "^4.17.37"
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37",
+    "bootstrap-datepicker": "^1.6.0"
   }
 }
