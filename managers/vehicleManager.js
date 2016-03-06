@@ -56,7 +56,7 @@ var update = function(vehicle, json){
 		vehicle.latestEnd = json.latestEnd;
 	}
 
-	if(json.externalCode){
+	if(externalCodeManager.isValid(json.externalCode)){
 		vehicle.externalCode = json.externalCode;
 	}
 

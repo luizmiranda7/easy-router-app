@@ -44,7 +44,7 @@ var updateOrder = function(order, json) {
         order.status = json.status;
     }
 
-    if(json.externalCode){
+    if(externalCodeManager.isValid(json.externalCode)){
         order.externalCode = json.externalCode;
     }
 

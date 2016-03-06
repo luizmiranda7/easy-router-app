@@ -43,7 +43,7 @@
         
         <div class="input-group date earliestStart">
           <span class="input-group-addon" id="basic-addon1">Earliest Start:</span>
-          <input type="text" class="datepicker form-control" value="{{vehicle.earliestStart|date('d/m/Y')}}">
+          <input type="text" class="datepicker form-control" value="{{vehicle.earliestStart|date('m/d/Y hh:MM')}}">
           <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
           </div>
@@ -51,7 +51,7 @@
         
         <div class="input-group date latestEnd">
           <span class="input-group-addon" id="basic-addon1">Latest End:</span>
-          <input type="text" class="datepicker form-control" value="{{vehicle.latestEnd|date('d/m/Y')}}">
+          <input type="text" class="datepicker form-control" value="{{vehicle.latestEnd|date('m/d/Y hh:MM')}}">
           <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
           </div>
@@ -59,7 +59,7 @@
         
         <div class="input-group date endTime">
           <span class="input-group-addon" id="basic-addon1">End Time:</span>
-          <input type="text" class="datepicker form-control" value="{{vehicle.endTime|date('d/m/Y')}}">
+          <input type="text" class="datepicker form-control" value="{{vehicle.endTime|date('m/d/Y hh:MM')}}">
           <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
           </div>

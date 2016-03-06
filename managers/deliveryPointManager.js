@@ -28,7 +28,7 @@ var update = function(deliveryPoint, json){
 		deliveryPoint.deliveryDuration = json.deliveryDuration;
 	}
 
-	if(json.externalCode){
+	if(externalCodeManager.isValid(json.externalCode)){
 		deliveryPoint.externalCode = json.externalCode;
 	}
 

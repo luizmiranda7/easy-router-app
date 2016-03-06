@@ -28,7 +28,7 @@ var update = function(distributionCenter, json){
 		distributionCenter.prepareDuration = json.prepareDuration;
 	}
 
-	if(json.externalCode){
+	if(externalCodeManager.isValid(json.externalCode)){
 		distributionCenter.externalCode = json.externalCode;
 	}
 

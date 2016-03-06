@@ -32,7 +32,7 @@ var createOrUpdate = function(routePoint, json) {
     if (json.postalCode) {
         routePoint.postalCode = json.postalCode;
     }
-    if (json.externalCode) {
+    if(externalCodeManager.isValid(json.externalCode)) {
         routePoint.externalCode = json.externalCode;
     }
     return routePoint;

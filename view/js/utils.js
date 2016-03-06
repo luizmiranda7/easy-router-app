@@ -18,7 +18,7 @@ if (!utils) utils = (function() {
         });
 
         jQuery('.datepicker').datetimepicker({
-                    locale: 'pt-BR'
+                    locale: 'en-US'
                 });
     };
 

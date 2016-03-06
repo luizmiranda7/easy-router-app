@@ -214,10 +214,15 @@ function RouteManager() {
 		        contentType: 'application/json',
 	            url: '/rest/solve',						
 	            success: function(data) {
-	            	self.routes = JSON.parse(data);
+	            	self.routes = self.parseEngineResponse(data);
+	            	self.orders = self.drivers = self.vehicles = self.directionLegs = [];
 	            }
 	        });
 		}
+	};
+
+	var parseEngineResponse = function(engineResponse){
+		
 	};
 
 	var parseOrders = function(orders){
@@ -266,6 +271,7 @@ function RouteManager() {
 
 		parseOrders: parseOrders,
 		parseDirectionLegs: parseDirectionLegs,
+		parseEngineResponse: parseEngineResponse,
 
 		directionLegs: directionLegs,
 		lastInitialPoint: lastInitialPoint,

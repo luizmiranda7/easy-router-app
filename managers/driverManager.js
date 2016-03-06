@@ -38,7 +38,7 @@ var update = function(driver, json) {
             driver.person.birthdate = new Date(json.person.birthdate);
         }
 
-        if (json.person.externalCode) {
+        if(externalCodeManager.isValid(json.person.externalCode)) {
             driver.person.externalCode = json.person.externalCode;
         }
     }
@@ -51,7 +51,7 @@ var update = function(driver, json) {
         driver.latestEnd = json.latestEnd;
     }
 
-    if (json.externalCode) {
+    if(externalCodeManager.isValid(json.externalCode)) {
         driver.externalCode = json.externalCode;
     }
 

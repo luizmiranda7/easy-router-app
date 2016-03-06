@@ -8,9 +8,9 @@ function Vehicles(){
 		    totalWeight: vehicleDetails.down('.totalWeight input').getValue(),
 		    totalVolume: vehicleDetails.down('.totalVolume input').getValue(),
 		    axes: vehicleDetails.down('.axes input').getValue(),
-			endTime: new Date(vehicleDetails.down('.endTime input').getValue()),
-			earliestStart: new Date(vehicleDetails.down('.earliestStart input').getValue()),
-			latestEnd: new Date(vehicleDetails.down('.latestEnd input').getValue()),
+			endTime: vehicleDetails.down('.endTime input').getValue(),
+			earliestStart: vehicleDetails.down('.earliestStart input').getValue(),
+			latestEnd: vehicleDetails.down('.latestEnd input').getValue(),
 		    type: vehicleDetails.down('.type input').getValue(),
 			externalCode: {
 				externalCode: vehicleDetails.down('.externalCode').getValue(),
