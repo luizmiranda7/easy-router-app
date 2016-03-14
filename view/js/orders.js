@@ -4,7 +4,7 @@ function Orders() {
 		return {
 			deliveryPoint: JSON.parse(jQuery(orderDetails.down('.deliveryPoint .selectpicker option:selected')).val()),
 			distributionCenter: JSON.parse(jQuery(orderDetails.down('.distributionCenter .selectpicker option:selected')).val()),
-			priority: orderDetails.down('.priority input').getValue(),
+			priorityLevel: orderDetails.down('.priorityLevel input').getValue(),
 			weight: orderDetails.down('.weight input').getValue(),
 			volume: orderDetails.down('.volume input').getValue(),
 		    penalty: orderDetails.down('.penalty input').getValue(),

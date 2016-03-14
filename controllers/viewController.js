@@ -15,6 +15,10 @@ var initMethods = function(app, rootDirName) {
 	   });
 	});
 
+    app.get('/view/routeMap', function(req, res){
+       res.render(path + "routeMap.html");
+    });
+
     app.get('/view/cover', function(req, res){
        res.render(path + "cover.html");
     });
