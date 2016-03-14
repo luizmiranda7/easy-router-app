@@ -147,12 +147,13 @@ function AddressSelector() {
     };
 
     return {
+        currentMap: currentMap,
+        
         getAddressComponent: getAddressComponent,
         addressSelectorModal: addressSelectorModal,
         initAutocomplete: initAutocomplete,
-        save: save,
+        save: save
 
-        currentMap: currentMap
     };
 };
 

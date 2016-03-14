@@ -9,11 +9,17 @@ var initMethods = function(app, rootDirName) {
     app.use('/view/distributionCenters', require('./view/distributionCenterViewController'));
 
     var path = GLOBAL.rootDirName + "/view/";
+    
+		app.use(function(req, res, next) {
+		    console.log("/" + req.method);
+		    next();
+		});
+    
     app.post('/view/addressSelectorModal', function(req, res){
-	   res.render(path + "addressSelectorModal.html", {
-	   	title: req.body.title
-	   });
-	});
+		   res.render(path + "addressSelectorModal.html", {
+		   	title: req.body.title
+		   });
+		});
 
     app.get('/view/routeMap', function(req, res){
        res.render(path + "routeMap.html");

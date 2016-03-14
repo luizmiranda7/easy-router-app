@@ -1,7 +1,5 @@
 function RouteMap() {
 
-	var colors = [];
-
     var initMap = function(engineResponse) {
         var self = this;
 
@@ -18,12 +16,12 @@ function RouteMap() {
                 });
                 directionsDisplay.setMap(map);
 
-                engineResponse.routes.each(function(route) {
-                    self.addRoute(route, directionsService, directionsDisplay);
-                });
-
                 google.maps.event.addListenerOnce(map, 'idle', function() {
                     google.maps.event.trigger(map, 'resize');
+                });
+
+                engineResponse.routes.each(function(route) {
+                    self.addRoute(route, directionsService, directionsDisplay);
                 });
             }
         });
@@ -43,18 +41,18 @@ function RouteMap() {
             if (status === google.maps.DirectionsStatus.OK) {
                 directionsDisplay.getMap().setCenter(start);
                 directionsDisplay.setDirections(response);
-                //var route = response.routes[0];
-                //var summaryPanel = document.getElementById('directions-panel');
-                //summaryPanel.innerHTML = '';
-                //// For each route, display summary information.
-                //for (var i = 0; i < route.legs.length; i++) {
-                //    var routeSegment = i + 1;
-                //    summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-                //        '</b><br>';
-                //    summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-                //    summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-                //    summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-                //}
+                
+                var directionLegPanel = // TODO creates a new panel in html
+                
+                // For each route leg, display summary information.
+                for (var i = 0; i < route.legs.length; i++) {
+									var routeLeg = self.getRouteLeg(route, i);
+                    summaryPanel.innerHTML += '<b>Route Segment: ' + routeLeg +
+                        '</b><br>';
+                    summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+                    summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+                    summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+                }
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
@@ -72,14 +70,11 @@ function RouteMap() {
     };
 
     var getGoogleMapsLocation = function(location) {
-        var routePoint = null;
-        routeManager.currentRoutePoints.each(function(point) {
+        var routePoint = routeManager.currentRoutePoints.filter(function(point) {
             var e1 = point.externalCode;
             var e2 = JSON.parse(location.id);
-            if ((e1.origin == e2.origin) && (e1.externalCode == e2.externalCode)) {
-                routePoint = point;
-            }
-        });
+            return (e1.origin == e2.origin) && (e1.externalCode == e2.externalCode);
+        }).first();
 
         return {
             lat: routePoint.latitude,

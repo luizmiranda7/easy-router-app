@@ -6,10 +6,6 @@ var e = require('../../entities');
 var router = express.Router();
 
 var path = GLOBAL.rootDirName + "/view/";
-router.use(function(req, res, next) {
-    console.log("/" + req.method);
-    next();
-});
 
 router.get("/", function(req, res){
     e.findAll("Driver")
