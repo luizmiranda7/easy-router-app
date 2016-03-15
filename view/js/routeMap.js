@@ -34,7 +34,7 @@ function RouteMap() {
         directionsService.route({
             origin: start,
             destination: self.getGoogleMapsLocation(route.end.location),
-            waypoints: self.getWaypoints(route.tourActivities.jobs),
+            waypoints: self.getWaypoints(route.tourActivities.tourActivities),
             optimizeWaypoints: false,
             travelMode: google.maps.TravelMode.DRIVING
         }, function(response, status) {
@@ -42,17 +42,17 @@ function RouteMap() {
                 directionsDisplay.getMap().setCenter(start);
                 directionsDisplay.setDirections(response);
                 
-                var directionLegPanel = // TODO creates a new panel in html
+                var directionLegPanel = document.createElement('div');
                 
                 // For each route leg, display summary information.
-                for (var i = 0; i < route.legs.length; i++) {
-									var routeLeg = self.getRouteLeg(route, i);
-                    summaryPanel.innerHTML += '<b>Route Segment: ' + routeLeg +
-                        '</b><br>';
-                    summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-                    summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-                    summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-                }
+                //for (var i = 0; i < route.legs.length; i++) {
+			//						var routeLeg = self.getRouteLeg(route, i);
+              //      summaryPanel.innerHTML += '<b>Route Segment: ' + routeLeg +
+                //        '</b><br>';
+                  //  summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+                    //summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+//                    summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+  //              }
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
