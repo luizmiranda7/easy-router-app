@@ -1,0 +1,1 @@
+docker run --name easy-router-app --link easyrouter-db:mongo -d easy-router-app

@@ -19,6 +19,9 @@
   "bugs": {
     "url": "https://gitlab.com/luizmiranda7/easy-router-app/issues"
   },
+  "scripts": {
+    "start": "node app.js"
+  },
   "homepage": "https://gitlab.com/luizmiranda7/easy-router-app#README",
   "dependencies": {
     "bluebird": "latest",

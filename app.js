@@ -18,7 +18,16 @@ app.use(bodyParser.json());
 
 // Only require entities when connected
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost/easyrouter');
+var MONGO_DB;
+var DOCKER_DB = process.env.DB_PORT;
+if ( DOCKER_DB ) {
+  MONGO_DB = DOCKER_DB.replace( 'tcp', 'mongodb' ) + '/easyrouter';
+} else {
+  MONGO_DB = process.env.MONGODB;
+}
+var retry = 0;
+mongoose.connect(MONGO_DB);
+//mongoose.connect('mongodb://localhost:27017/easyrouter');
 var e = require('./entities');
 
 var restController = require('./controllers/restController');
