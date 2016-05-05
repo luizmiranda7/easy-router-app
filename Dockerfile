@@ -12,5 +12,5 @@ RUN npm install
 # Bundle app source
 RUN bower install --allow-root
 
-EXPOSE 8080
+EXPOSE 3000
 CMD [ "npm", "start" ]

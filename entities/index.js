@@ -2,10 +2,8 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 mongoose.Promise = Promise;
 
-var calendarSchema = require('./Calendar');
 var driverSchema = require('./Driver');
 var vehicleSchema = require('./Vehicle');
-var routePointSchema = require('./RoutePoint');
 var directionLegSchema = require('./DirectionLeg');
 var deliveryPointSchema = require('./DeliveryPoint');
 var orderSchema = require('./Order');
@@ -23,7 +21,7 @@ var DistributionCenter = mongoose.model('DistributionCenter', distributionCenter
 var findAll = function(entityName){
 	var entityModel = mongoose.model(entityName);
 	return entityModel.find({}).exec();
-}
+};
 
 var findByExternalCode = function(entityName, externalCode){
 	return findByExternalCodeWithPopulationFields(entityName, externalCode, []);
@@ -65,7 +63,17 @@ var findByExternalCodesWithPopulationFields = function(entityName, externalCodes
 	});
 
 	return query.exec();
-}
+};
+
+var findByRoutePointExternalCode = function(entityName, routePointExternalCode){
+	if(Object.keys(routePointExternalCode).length == 0)
+		return Promise.resolve(null);
+
+	return mongoose.model(entityName).findOne({
+		"routePoint.externalCode.externalCode": routePointExternalCode.externalCode,
+		"routePoint.externalCode.origin": routePointExternalCode.origin
+	}).exec();
+};
 
 var deleteByExternalCode = function(entityName, externalCode){
 	var entityModel = mongoose.model(entityName);
@@ -73,11 +81,11 @@ var deleteByExternalCode = function(entityName, externalCode){
 		'externalCode.externalCode': externalCode.externalCode,
 		'externalCode.origin': externalCode.origin
 	}).remove().exec();
-}
+};
 
 var nullPromise = function(){
 	return Promise.resolve(null);
-}
+};
 
 module.exports = {
 	Driver,
@@ -92,6 +100,7 @@ module.exports = {
 	findByExternalCodes,
 	findByExternalCodeWithPopulationFields,
 	findByExternalCodesWithPopulationFields,
+	findByRoutePointExternalCode,
 	deleteByExternalCode,
 	nullPromise
 }

@@ -8,7 +8,14 @@ function Orders() {
 			weight: orderDetails.down('.weight input').getValue(),
 			volume: orderDetails.down('.volume input').getValue(),
 		    penalty: orderDetails.down('.penalty input').getValue(),
-		    deadline: orderDetails.down('.deadline input').getValue(),
+			deliverTimeWindow: {
+				start: orderDetails.down('.deliverTimeWindow .start').getValue(),
+				end: orderDetails.down('.deliverTimeWindow .end').getValue()
+			},
+			pickupTimeWindow: {
+				start: orderDetails.down('.pickupTimeWindow .start').getValue(),
+				end: orderDetails.down('.pickupTimeWindow .end').getValue()
+			},
 		    status: jQuery('input[name=status]:checked', '#orderDetails .status').val(),
 			externalCode: {
 				externalCode: orderDetails.down('.externalCode').getValue(),

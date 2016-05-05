@@ -36,8 +36,12 @@ var updateOrder = function(order, json) {
         order.penalty = json.penalty;
     }
 
-    if (json.deadline) {
-        order.deadline = json.deadline;
+    if (TimeWindow.isValid(json.deliverTimeWindow)) {
+        order.deliverTimeWindow = json.deliverTimeWindow;
+    }
+
+    if (TimeWindow.isValid(json.pickupTimeWindow)) {
+        order.pickupTimeWindow = json.pickupTimeWindow;
     }
 
     if (json.status) {
@@ -89,19 +93,20 @@ var findAll = function(){
     .populate('distributionCenter')
     .sort({
         priorityLevel: -1,
-        deadline: -1
     }).exec();
 };
 
 var findPendingOrders = function() {
-    return e.Order.find({
-        status: 'PENDING'
-    })
+    return e.Order.find()
+    .where('status', 'PENDING')
+    .where('deliverTimeWindow.start').lte(new Date())
+    .where('deliverTimeWindow.end').gte(new Date())
+    .where('pickupTimeWindow.start').lte(new Date())
+    .where('pickupTimeWindow.end').gte(new Date())
     .populate('deliveryPoint')
     .populate('distributionCenter')
     .sort({
         priorityLevel: -1,
-        deadline: -1
     }).exec();
 };
 

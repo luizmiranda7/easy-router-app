@@ -4,31 +4,38 @@ function RouteMap() {
         var self = this;
 
         jQuery.ajax({
-            type: 'GET',
-            url: '/view/routeMap',
+            type: 'POST',
+            data: JSON.stringify(engineResponse),
+            contentType: 'application/json',
+            url: '/view/routes/routeMap',
             success: function(data) {
                 utils.openModal(jQuery(data)[0]);
-                var directionsService = new google.maps.DirectionsService;
-                var directionsDisplay = new google.maps.DirectionsRenderer;
+                var directionsService = new google.maps.DirectionsService();
 
                 var map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 6
                 });
-                directionsDisplay.setMap(map);
 
                 google.maps.event.addListenerOnce(map, 'idle', function() {
                     google.maps.event.trigger(map, 'resize');
                 });
 
                 engineResponse.routes.each(function(route) {
-                    self.addRoute(route, directionsService, directionsDisplay);
+                    self.addRoute(route, map, directionsService);
                 });
             }
         });
     };
 
-    var addRoute = function(route, directionsService, directionsDisplay) {
+    var addRoute = function(route, map, directionsService) {
         var self = this;
+
+        var directionsDisplay = new google.maps.DirectionsRenderer({ 
+            polylineOptions: {
+             strokeColor: self.getRandomColor()
+            } 
+        });
+        directionsDisplay.setMap(map);
 
         var start = self.getGoogleMapsLocation(route.start.location);
         directionsService.route({
@@ -41,32 +48,28 @@ function RouteMap() {
             if (status === google.maps.DirectionsStatus.OK) {
                 directionsDisplay.getMap().setCenter(start);
                 directionsDisplay.setDirections(response);
-                
-                var directionLegPanel = document.createElement('div');
-                
-                // For each route leg, display summary information.
-                //for (var i = 0; i < route.legs.length; i++) {
-			//						var routeLeg = self.getRouteLeg(route, i);
-              //      summaryPanel.innerHTML += '<b>Route Segment: ' + routeLeg +
-                //        '</b><br>';
-                  //  summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-                    //summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-//                    summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-  //              }
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
         });
     };
 
-    var getWaypoints = function(jobs) {
+    var getWaypoints = function(tourActivities) {
         var self = this;
-        return jobs.map(function(job) {
+        return tourActivities.map(function(tourActivity) {
             return {
-                location: self.getGoogleMapsLocation(job.deliveryLocation_),
+                location: self.getGoogleMapsLocation(tourActivity.shipment.deliveryLocation_),
                 stopover: true
             };
         });
+    };
+
+    var getDeliverShipment = function(tourActivity){
+        return null;
+    };
+
+    var getPickupShipment = function(tourActivity){
+        return null;
     };
 
     var getGoogleMapsLocation = function(location) {
@@ -82,11 +85,23 @@ function RouteMap() {
         };
     };
 
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    };
+
     return {
+        getRandomColor: getRandomColor,
         initMap: initMap,
         addRoute: addRoute,
         getWaypoints: getWaypoints,
-        getGoogleMapsLocation: getGoogleMapsLocation
+        getGoogleMapsLocation: getGoogleMapsLocation,
+        getDeliverShipment: getDeliverShipment,
+        getPickupShipment: getPickupShipment
     };
 };
 

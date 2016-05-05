@@ -1,12 +1,14 @@
 var mongoose = require('mongoose');
 var ExternalCode = require('./ExternalCode');
+var TimeWindow = require('./TimeWindow');
 
 module.exports.schema = new mongoose.Schema({
   priorityLevel: Number,
   weight: Number,
   volume: Number,
   penalty: Number,
-  deadline: Date,
+  deliverTimewindow: TimeWindow.schema,
+  pickupTimewindow: TimeWindow.schema,
   status: {
     type: String,
     enum: ['PENDING', 'SCHEDULED', 'DELIVERED']

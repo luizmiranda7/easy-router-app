@@ -130,7 +130,7 @@ var initMethods = function(app){
 	});
 
 	router.post('/solve',function(req, res) {
-		var url = 'http://localhost:8080/easy-router-engine/rest/solve';
+		var url = 'http://localhost:8080/rest/solve';
 
 		request.post({
 			url: url,
@@ -153,5 +153,5 @@ var initMethods = function(app){
 };
 
 module.exports = {
-	initMethods
+	initMethods: initMethods
 };

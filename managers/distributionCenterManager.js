@@ -43,7 +43,6 @@ var update = function(distributionCenter, json){
 	return distributionCenter.save();
 };
 
-
 module.exports = {
 	createOrUpdate
 };
