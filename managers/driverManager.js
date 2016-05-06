@@ -1,22 +1,6 @@
 var e = require('../entities');
 var externalCodeManager = require('./externalCodeManager');
 
-var createOrUpdate = function(json) {
-    if (!json) {
-        return e.nullPromise();
-    }
-
-    return e.findByExternalCode('Driver', json.externalCode)
-        .then(function(driver) {
-            if (driver) {
-                return update(driver, json);
-            }
-            return update(new e.Driver({
-                externalCode: externalCodeManager.generateExternalCode()
-            }), json);
-        });
-}
-
 var update = function(driver, json) {
 
     if(json.person){
@@ -70,6 +54,6 @@ var getAvailableDrivers = function(){
 };
 
 module.exports = {
-    createOrUpdate,
-    getAvailableDrivers
+    update: update,
+    getAvailableDrivers: getAvailableDrivers
 };

@@ -1,22 +1,6 @@
 var e = require('../entities');
 var externalCodeManager = require('./externalCodeManager');
 var routePointManager = require('./routePointManager');
-
-var createOrUpdate = function(json){
-	if(!json){
-		return e.nullPromise();
-	}
-	
-	return e.findByExternalCode('DistributionCenter', json.externalCode)
-	.then(function(distributionCenter){
-		if (distributionCenter) {
-			return update(distributionCenter, json);
-		}
-		return update(new e.DistributionCenter({
-            externalCode: externalCodeManager.generateExternalCode()
-        }), json);
-	});
-}
 	
 var update = function(distributionCenter, json){
 
@@ -44,5 +28,5 @@ var update = function(distributionCenter, json){
 };
 
 module.exports = {
-	createOrUpdate
+	update: update
 };

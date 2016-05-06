@@ -25,9 +25,11 @@
         </thead>
         <tbody>
         {% for vehicle in vehicles %}
-          <tr class="vehicle" externalCode="{{vehicle.externalCode.externalCode}}" origin="{{vehicle.externalCode.origin}}">
+          <tr class="vehicle"
+              externalCode="{{vehicle.externalCode.externalCode}}"
+              origin="{{vehicle.externalCode.origin}}">
             <th scope="row">
-              <input type="checkbox" value=""></input>
+              <input type="checkbox" value="" />
             </th>
             <td>{{vehicle.type}}</td>
             <td>{{vehicle.totalWeight}}</td>

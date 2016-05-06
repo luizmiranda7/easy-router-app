@@ -6,34 +6,34 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Details</h4>
       </div>
-      <div class="modal-body easy-form">
 
-        <input type="text" style="display: none;" class="externalCode" value="{{driver.externalCode.externalCode}}" ></input>
-        <input type="text" style="display: none;" class="origin" value="{{driver.externalCode.origin}}" ></input>
+      <div class="modal-body easy-form">
+        <input type="text" style="display: none;" class="externalCode" value="{{driver.externalCode.externalCode}}" />
+        <input type="text" style="display: none;" class="origin" value="{{driver.externalCode.origin}}" />
 
         <div class="input-group firstName">
-          <span class="input-group-addon" id="basic-addon1">First Name:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{driver.person.firstName}}" ></input>
+          <span class="input-group-addon">First Name:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{driver.person.firstName}}" />
         </div>
         
         <div class="input-group surName">
           <span class="input-group-addon" id="basic-addon1">Last Name:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{driver.person.surName}}" ></input>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{driver.person.surName}}" />
         </div>
         
         <div class="input-group date birthdate">
-          <span class="input-group-addon" id="basic-addon1">Birthdate:</span>
-          <input type="text" class="datepicker form-control" value="{{driver.person.birthdate|date('m/d/Y')}}">
+          <span class="input-group-addon">Birthdate:</span>
+          <input type="text" class="datepicker form-control" value="{{driver.person.birthdate|date('m/d/Y')}}" />
         </div>
         
         <div class="input-group date earliestStart">
-          <span class="input-group-addon" id="basic-addon1">Earliest Start:</span>
-          <input type="text" class="datepicker form-control" value="{{driver.earliestStart|date('d/m/Y h:m')}}">
+          <span class="input-group-addon">Earliest Start:</span>
+          <input type="text" class="datepicker form-control" value="{{driver.earliestStart|date('d/m/Y h:m')}}" />
         </div>
         
         <div class="input-group date latestEnd">
-          <span class="input-group-addon" id="basic-addon1">Latest End:</span>
-          <input type="text" class="datepicker form-control" value="{{driver.latestEnd|date('d/m/Y h:m')}}">
+          <span class="input-group-addon">Latest End:</span>
+          <input type="text" class="datepicker form-control" value="{{driver.latestEnd|date('d/m/Y h:m')}}" />
         </div>
         
       </div>
@@ -42,4 +42,5 @@
         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="utils.save(this, 'driverDetails', '/rest/drivers', drivers.buildEntity)">Save</button>
       </div>
     </div>
+  </div>
 </div>

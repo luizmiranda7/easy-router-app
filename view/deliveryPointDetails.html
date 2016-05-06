@@ -8,24 +8,24 @@
       </div>
       <div class="modal-body easy-form">
 
-        <input type="text" style="display: none;" class="externalCode" value="{{deliveryPoint.externalCode.externalCode}}" ></input>
-        <input type="text" style="display: none;" class="origin" value="{{deliveryPoint.externalCode.origin}}" ></input>
+        <input type="text" style="display: none;" class="externalCode" value="{{deliveryPoint.externalCode.externalCode}}" />
+        <input type="text" style="display: none;" class="origin" value="{{deliveryPoint.externalCode.origin}}" />
 
         <div class="input-group name">
-          <span class="input-group-addon" id="basic-addon1">Name:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{deliveryPoint.name}}" ></input>
+          <span class="input-group-addon">Name:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{deliveryPoint.name}}" />
         </div>
 
         <div class="input-group deliveryDuration">
-          <span class="input-group-addon" id="basic-addon1">Delivery Duration (min):</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{deliveryPoint.deliveryDuration}}" ></input>
+          <span class="input-group-addon">Delivery Duration (min):</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{deliveryPoint.deliveryDuration}}" />
         </div>
 
         <div class="input-group address">
           <span class="input-group-addon">Address:</span>
           
-          <input type="text" class="text form-control" aria-describedby="basic-addon1" value="{{deliveryPoint.routePoint.street}}, {{deliveryPoint.routePoint.number}} - {{deliveryPoint.routePoint.city}}, {{deliveryPoint.routePoint.state}} - {{deliveryPoint.routePoint.postalCode}}"></input>
-          <input type="text" class="routePoint" style="display: none;" value="{{deliveryPoint.routePoint|json_encode}}"></input>
+          <input type="text" class="text form-control" aria-describedby="basic-addon1" value="{{deliveryPoint.routePoint.street}}, {{deliveryPoint.routePoint.number}} - {{deliveryPoint.routePoint.city}}, {{deliveryPoint.routePoint.state}} - {{deliveryPoint.routePoint.postalCode}}"/>
+          <input type="text" class="routePoint" style="display: none;" value="{{deliveryPoint.routePoint|json_encode}}"/>
           
           <span class="input-group-btn">
             <button class="btn btn-default" type="button" onclick="addressSelector.addressSelectorModal(JSON.parse('{{deliveryPoint|json_encode}}'), this)">View Map</button>
@@ -38,4 +38,5 @@
         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="utils.save(this, 'deliveryPointDetails', '/rest/deliveryPoints', deliveryPoints.buildEntity)">Save</button>
       </div>
     </div>
+  </div>
 </div>

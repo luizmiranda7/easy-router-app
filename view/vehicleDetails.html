@@ -8,41 +8,41 @@
       </div>
       <div class="modal-body easy-form">
 
-        <input type="text" style="display: none;" class="externalCode" value="{{vehicle.externalCode.externalCode}}" ></input>
-        <input type="text" style="display: none;" class="origin" value="{{vehicle.externalCode.origin}}" ></input>
+        <input type="text" style="display: none;" class="externalCode" value="{{vehicle.externalCode.externalCode}}" />
+        <input type="text" style="display: none;" class="origin" value="{{vehicle.externalCode.origin}}" />
 
         <div class="input-group maxVelocity">
-          <span class="input-group-addon" id="basic-addon1">Max Velocity:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.maxVelocity}}" ></input>
+          <span class="input-group-addon" >Max Velocity:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.maxVelocity}}" />
         </div>
 
         <div class="input-group costPerTime">
-          <span class="input-group-addon" id="basic-addon1">Cost per time:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.costPerTime}}" ></input>
+          <span class="input-group-addon" >Cost per time:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.costPerTime}}" />
         </div>
         
         <div class="input-group costPerDistance">
-          <span class="input-group-addon" id="basic-addon1">Cost per distance:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.costPerDistance}}" ></input>
+          <span class="input-group-addon" >Cost per distance:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.costPerDistance}}" />
         </div>
 
         <div class="input-group totalWeight">
-          <span class="input-group-addon" id="basic-addon1">Total weight:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.totalWeight}}" ></input>
+          <span class="input-group-addon" >Total weight:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.totalWeight}}" />
         </div>
 
         <div class="input-group totalVolume">
-          <span class="input-group-addon" id="basic-addon1">Total volume:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.totalVolume}}" ></input>
+          <span class="input-group-addon" >Total volume:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.totalVolume}}" />
         </div>
 
         <div class="input-group axes">
-          <span class="input-group-addon" id="basic-addon1">Axes:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.axes}}" ></input>
+          <span class="input-group-addon" >Axes:</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.axes}}" />
         </div>
         
         <div class="input-group date earliestStart">
-          <span class="input-group-addon" id="basic-addon1">Earliest Start:</span>
+          <span class="input-group-addon" >Earliest Start:</span>
           <input type="text" class="datepicker form-control" value="{{vehicle.earliestStart|date('m/d/Y hh:MM')}}">
           <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
@@ -50,7 +50,7 @@
         </div>
         
         <div class="input-group date latestEnd">
-          <span class="input-group-addon" id="basic-addon1">Latest End:</span>
+          <span class="input-group-addon" >Latest End:</span>
           <input type="text" class="datepicker form-control" value="{{vehicle.latestEnd|date('m/d/Y hh:MM')}}">
           <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
@@ -58,7 +58,7 @@
         </div>
         
         <div class="input-group date endTime">
-          <span class="input-group-addon" id="basic-addon1">End Time:</span>
+          <span class="input-group-addon" >End Time:</span>
           <input type="text" class="datepicker form-control" value="{{vehicle.endTime|date('m/d/Y hh:MM')}}">
           <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
@@ -66,8 +66,8 @@
         </div>
         
         <div class="input-group type">
-          <span class="input-group-addon" id="basic-addon1">Type:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.type}}" ></input>
+          <span class="input-group-addon" >Type:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.type}}" />
         </div>
 
         <!-- TODO Single selection to distributionCenter -->
@@ -79,4 +79,5 @@
         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="utils.save(this, 'vehicleDetails', '/rest/vehicles', vehicles.buildEntity)">Save</button>
       </div>
     </div>
+  </div>
 </div>

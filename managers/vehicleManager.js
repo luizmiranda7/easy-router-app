@@ -2,22 +2,6 @@ var e = require('../entities');
 var externalCodeManager = require('./externalCodeManager');
 var distributionCenterManager = require('./distributionCenterManager');
 
-var createOrUpdate = function(json){
-	if(!json){
-		return e.nullPromise();
-	}
-	
-	return e.findByExternalCode('Vehicle', json.externalCode)
-		.then(function(vehicle){
-		if (vehicle) {
-		  return update(vehicle, json);
-		}
-		return update(new e.Vehicle({
-            externalCode: externalCodeManager.generateExternalCode()
-        }), json);
-	});
-}
-
 var update = function(vehicle, json){
 
 	if(json.maxVelocity){
@@ -97,8 +81,8 @@ var getAvailableVehicles = function(){
 };
 
 module.exports = {
-	findAll,
-	findVehicle,
-	getAvailableVehicles,
-	createOrUpdate
+	update: update,
+	findAll: findAll,
+	findVehicle: findVehicle,
+	getAvailableVehicles: getAvailableVehicles
 };

@@ -8,23 +8,23 @@
       </div>
       <div class="modal-body easy-form">
 
-        <input type="text" style="display: none;" class="externalCode" value="{{distributionCenter.externalCode.externalCode}}" ></input>
-        <input type="text" style="display: none;" class="origin" value="{{distributionCenter.externalCode.origin}}" ></input>
+        <input type="text" style="display: none;" class="externalCode" value="{{distributionCenter.externalCode.externalCode}}" />
+        <input type="text" style="display: none;" class="origin" value="{{distributionCenter.externalCode.origin}}" />
 
         <div class="input-group name">
-          <span class="input-group-addon" id="basic-addon1">Name:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{distributionCenter.name}}" ></input>
+          <span class="input-group-addon">Name:</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{distributionCenter.name}}" />
         </div>
 
         <div class="input-group prepareDuration">
-          <span class="input-group-addon" id="basic-addon1">Prepare Duration (min):</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{distributionCenter.prepareDuration}}" ></input>
+          <span class="input-group-addon">Prepare Duration (min):</span>
+          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{distributionCenter.prepareDuration}}" />
         </div>
 
         <div class="input-group address">
           <span class="input-group-addon">Address:</span>
-          <input type="text" class="text form-control" aria-describedby="basic-addon1" value="{{distributionCenter.routePoint.street}}, {{distributionCenter.routePoint.number}} - {{distributionCenter.routePoint.city}}, {{distributionCenter.routePoint.state}} - {{distributionCenter.routePoint.postalCode}}"></input>
-          <input type="text" class="routePoint" style="display: none;" value="{{distributionCenter.routePoint|json_encode}}"></input>
+          <input type="text" class="text form-control" aria-describedby="basic-addon1" value="{{distributionCenter.routePoint.street}}, {{distributionCenter.routePoint.number}} - {{distributionCenter.routePoint.city}}, {{distributionCenter.routePoint.state}} - {{distributionCenter.routePoint.postalCode}}"/>
+          <input type="text" class="routePoint" style="display: none;" value="{{distributionCenter.routePoint|json_encode}}"/>
           <span class="input-group-btn">
             <button class="btn btn-default" type="button" onclick="addressSelector.addressSelectorModal(JSON.parse('{{distributionCenter|json_encode}}'), this)">View Map</button>
           </span>
@@ -36,4 +36,5 @@
         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="utils.save(this, 'distributionCenterDetails', '/rest/distributionCenters', distributionCenters.buildEntity)">Save</button>
       </div>
     </div>
+  </div>
 </div>

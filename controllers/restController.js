@@ -1,5 +1,4 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var request = require('request');
 var e = require('../entities');
 var mongoose = require('mongoose');
@@ -71,7 +70,7 @@ var initMethods = function(app){
 			});
 		}
 
-		orderManager.createOrUpdate(req.body)
+		e.createOrUpdate('Order', req.body, orderManager.updateOrder)
 		.then(function(order){
 			res.send(order);
 		});
@@ -84,7 +83,7 @@ var initMethods = function(app){
 				res.send(driver);
 			});
 		}
-		return driverManager.createOrUpdate(req.body)
+		return e.createOrUpdate('Driver', req.body, driverManager.update)
 		.then(function(driver){
 			res.send(driver);
 		});
@@ -97,7 +96,7 @@ var initMethods = function(app){
 				res.send(distributionCenters);
 			});
 		}
-		return distributionCenterManager.createOrUpdate(req.body)
+		return e.createOrUpdate('DistributionCenter', req.body, distributionCenterManager.update)
 		.then(function(distributionCenter){
 			res.send(distributionCenter);
 		});
@@ -110,7 +109,7 @@ var initMethods = function(app){
 				res.send(deliveryPoints);
 			});
 		}
-		return deliveryPointManager.createOrUpdate(req.body)
+		return e.createOrUpdate('DeliveryPoint', req.body, deliveryPointManager.update)
 		.then(function(deliveryPoint){
 			res.send(deliveryPoint);
 		});

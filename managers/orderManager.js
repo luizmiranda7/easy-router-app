@@ -3,23 +3,7 @@ var externalCodeManager = require('./externalCodeManager');
 var deliveryPointManager = require('./deliveryPointManager');
 var distributionCenterManager = require('./distributionCenterManager');
 
-var createOrUpdate = function(json) {
-    if(!json){
-        return e.nullPromise();
-    }
-    
-    return e.findByExternalCode('Order', json.externalCode)
-    .then(function(order) {
-        if (order) {
-            return updateOrder(order, json);
-        }
-        return updateOrder(new e.Order({
-            externalCode: externalCodeManager.generateExternalCode()
-        }), json);
-    });
-};
-
-var updateOrder = function(order, json) {
+var update = function(order, json) {
     if (json.priorityLevel) {
         order.priorityLevel = json.priorityLevel;
     }
@@ -36,11 +20,11 @@ var updateOrder = function(order, json) {
         order.penalty = json.penalty;
     }
 
-    if (TimeWindow.isValid(json.deliverTimeWindow)) {
+    if (json.deliverTimeWindow) {
         order.deliverTimeWindow = json.deliverTimeWindow;
     }
 
-    if (TimeWindow.isValid(json.pickupTimeWindow)) {
+    if (json.pickupTimeWindow) {
         order.pickupTimeWindow = json.pickupTimeWindow;
     }
 
@@ -133,9 +117,9 @@ var findOrder = function(externalCode){
 };
 
 module.exports = {
-    findAll,
-    findOrder,
-    findOrders,
-    findPendingOrders,
-    createOrUpdate
+    update: update,
+    findAll: findAll,
+    findOrder: findOrder,
+    findOrders: findOrders,
+    findPendingOrders: findPendingOrders
 };
