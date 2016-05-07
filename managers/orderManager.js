@@ -36,31 +36,15 @@ var update = function(order, json) {
         order.externalCode = json.externalCode;
     }
 
-    var deliveryPointPromise = null;
-    if (json.deliveryPoint.externalCode && json.deliveryPoint.origin) {
-        deliveryPointPromise = e.findByExternalCode('DeliveryPoint', json.deliveryPoint);
-    } else {
-        deliveryPointPromise = deliveryPointManager.createOrUpdate(json.deliveryPoint);
-    }
-    deliveryPointPromise.then(function(deliveryPoint){
-        if(deliveryPoint){
+    var deliveryPointPromise = e.findByExternalCode('DeliveryPoint', json.deliveryPoint)
+        .then(function(deliveryPoint){
             order.deliveryPoint = deliveryPoint;
-        }
-        return;
-    });
+        });
 
-    var distributionCenterPromise = null;
-    if (json.distributionCenter.externalCode && json.distributionCenter.origin) {
-        distributionCenterPromise = e.findByExternalCode('DistributionCenter', json.distributionCenter);
-    } else {
-        distributionCenterPromise = distributionCenterManager.createOrUpdate(json.distributionCenter);
-    }
-    distributionCenterPromise.then(function(distributionCenter){
-        if(distributionCenter){
+    var distributionCenterPromise =  e.findByExternalCode('DistributionCenter', json.distributionCenter)
+        .then(function(distributionCenter){
             order.distributionCenter = distributionCenter;
-        }
-        return;
-    });
+        });
 
     return Promise.all([deliveryPointPromise, distributionCenterPromise])
         .then(function() {
@@ -73,47 +57,47 @@ var update = function(order, json) {
 
 var findAll = function(){
     return e.Order.find()
-    .populate('deliveryPoint')
-    .populate('distributionCenter')
-    .sort({
-        priorityLevel: -1,
-    }).exec();
+        .populate('deliveryPoint')
+        .populate('distributionCenter')
+        .sort({
+            priorityLevel: -1,
+        }).exec();
 };
 
 var findPendingOrders = function() {
     return e.Order.find()
-    .where('status', 'PENDING')
-    .where('deliverTimeWindow.start').lte(new Date())
-    .where('deliverTimeWindow.end').gte(new Date())
-    .where('pickupTimeWindow.start').lte(new Date())
-    .where('pickupTimeWindow.end').gte(new Date())
-    .populate('deliveryPoint')
-    .populate('distributionCenter')
-    .sort({
-        priorityLevel: -1,
-    }).exec();
+        .where('status', 'PENDING')
+        .where('deliverTimeWindow.start').lte(new Date())
+        .where('deliverTimeWindow.end').gte(new Date())
+        .where('pickupTimeWindow.start').lte(new Date())
+        .where('pickupTimeWindow.end').gte(new Date())
+        .populate('deliveryPoint')
+        .populate('distributionCenter')
+        .sort({
+            priorityLevel: -1,
+        }).exec();
 };
 
 var findOrders = function(externalCodes){
     var externalCodesString = externalCodes.map(function(item){return item.externalCode;});
     var origins = externalCodes.map(function(item){return item.origin;});
-    return e.Order.find({
-        "externalCode.externalCode":{$in: externalCodesString},
-        "externalCode.origin":{$in: origins}
-    })
-    .populate('deliveryPoint')
-    .populate('distributionCenter')
-    .exec();
+    return e.Order.find({ // TODO descobrir como fazer where in com mongoose
+            "externalCode.externalCode":{$in: externalCodesString},
+            "externalCode.origin":{$in: origins}
+        })
+        .populate('deliveryPoint')
+        .populate('distributionCenter')
+        .exec();
 };
 
 var findOrder = function(externalCode){
     return findOrders([externalCode])
-    .then(function(orders){
-        if(orders.length > 0){
-            return orders[0];
-        }
-        return null;
-    });
+        .then(function(orders){
+            if(orders.length > 0){
+                return orders[0];
+            }
+            return null;
+        });
 };
 
 module.exports = {

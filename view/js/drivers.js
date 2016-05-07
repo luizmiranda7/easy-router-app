@@ -2,13 +2,14 @@ function Drivers() {
 
 	var buildEntity = function(driverDetails){
 		return {
-			earliestStart: driverDetails.down('.earliestStart input').getValue(),
-			latestEnd: driverDetails.down('.latestEnd input').getValue(),
 			person : {
-				firstName: driverDetails.down('.firstName input').getValue(),
-				surName: driverDetails.down('.surName input').getValue(),
-				birthdate: driverDetails.down('.birthdate input').getValue()
+				firstName: driverDetails.down('.firstName').getValue(),
+				surName: driverDetails.down('.surName').getValue(),
+				birthdate: driverDetails.down('.birthdate').getValue()
 			},
+			calendar: calendar.buildEntity(driverDetails.down('.calendar')),
+			earliestStart: driverDetails.down('.earliestStart').getValue(),
+			latestEnd: driverDetails.down('.latestEnd').getValue(),
 			externalCode: {
 				externalCode: driverDetails.down('.externalCode').getValue(),
 				origin: driverDetails.down('.origin').getValue()

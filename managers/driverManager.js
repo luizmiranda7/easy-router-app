@@ -31,7 +31,7 @@ var update = function(driver, json) {
         driver.earliestStart = json.earliestStart;
     }
 
-    if(json.latestEnd){ 
+    if(json.latestEnd){
         driver.latestEnd = json.latestEnd;
     }
 

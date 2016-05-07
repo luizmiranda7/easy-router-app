@@ -1,3 +1,5 @@
+{% import "calendar.html" as cal %}
+
 <div id="driverDetails" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -11,31 +13,30 @@
         <input type="text" style="display: none;" class="externalCode" value="{{driver.externalCode.externalCode}}" />
         <input type="text" style="display: none;" class="origin" value="{{driver.externalCode.origin}}" />
 
-        <div class="input-group firstName">
+        <div class="input-group">
           <span class="input-group-addon">First Name:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{driver.person.firstName}}" />
+          <input type="text" class="firstName form-control" aria-describedby="basic-addon1" value="{{driver.person.firstName}}" />
         </div>
-        
-        <div class="input-group surName">
+
+        <div class="input-group">
           <span class="input-group-addon" id="basic-addon1">Last Name:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{driver.person.surName}}" />
+          <input type="text" class="surName form-control" aria-describedby="basic-addon1" value="{{driver.person.surName}}" />
         </div>
-        
-        <div class="input-group date birthdate">
+
+        <div class="input-group date">
           <span class="input-group-addon">Birthdate:</span>
-          <input type="text" class="datepicker form-control" value="{{driver.person.birthdate|date('m/d/Y')}}" />
+          <input type="text" class="birthdate datepicker form-control" value="{{driver.person.birthdate|date('m/d/Y hh:MM')}}" />
         </div>
-        
-        <div class="input-group date earliestStart">
+
+        <div class="input-group date ">
           <span class="input-group-addon">Earliest Start:</span>
-          <input type="text" class="datepicker form-control" value="{{driver.earliestStart|date('d/m/Y h:m')}}" />
-        </div>
-        
-        <div class="input-group date latestEnd">
+          <input type="text" class="earliestStart datepicker form-control" value="{{driver.earliestStart|date('m/d/Y hh:MM')}}" />
           <span class="input-group-addon">Latest End:</span>
-          <input type="text" class="datepicker form-control" value="{{driver.latestEnd|date('d/m/Y h:m')}}" />
+          <input type="text" class="latestEnd datepicker form-control" value="{{driver.latestEnd|date('m/d/Y hh:MM')}}" />
         </div>
-        
+
+        {{ cal.input(calendar) }}
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -7,8 +7,8 @@ module.exports.schema = new mongoose.Schema({
   weight: Number,
   volume: Number,
   penalty: Number,
-  deliverTimewindow: TimeWindow.schema,
-  pickupTimewindow: TimeWindow.schema,
+  deliverTimeWindow: TimeWindow.schema,
+  pickupTimeWindow: TimeWindow.schema,
   status: {
     type: String,
     enum: ['PENDING', 'SCHEDULED', 'DELIVERED']

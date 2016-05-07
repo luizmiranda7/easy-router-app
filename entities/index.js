@@ -9,6 +9,8 @@ var Order = mongoose.model('Order', require('./Order').schema);
 var Route = mongoose.model('Route', require('./Route').schema);
 var DistributionCenter = mongoose.model('DistributionCenter', require('./DistributionCenter').schema);
 
+var externalCodeManager = require('../managers/externalCodeManager');
+
 var findAll = function(entityName){
 	var entityModel = mongoose.model(entityName);
 	return entityModel.find({}).exec();
@@ -23,7 +25,7 @@ var findByExternalCodes = function(entityName, externalCodes){
 };
 
 var findByExternalCodeWithPopulationFields = function(entityName, externalCode, populationFields){
-	return findByExternalCodesWithPopulationFields(entityName, [externalCode], [])
+	return findByExternalCodesWithPopulationFields(entityName, [externalCode], populationFields)
 		.then(function(entitites){
 			return entitites.pop();
 		});
@@ -31,19 +33,23 @@ var findByExternalCodeWithPopulationFields = function(entityName, externalCode, 
 
 var findByExternalCodesWithPopulationFields = function(entityName, externalCodes, populationFields){
 	if(externalCodes.length == 0){
-		return Promise.resolve(null);
+		return emptyPromise();
 	}
 
+	for(index in externalCodes){
+		if(externalCodeManager.isValid(externalCodes[index]) == false)
+			return emptyPromise();
+	}
+
+	var entityModel = mongoose.model(entityName);
 	var externalCodesString = externalCodes.map(function(item){return item.externalCode;});
 	var origins = externalCodes.map(function(item){return item.origin;});
-	var entityModel = mongoose.model(entityName);
-	var query = entityModel.find({
-		"externalCode.externalCode":{$in: externalCodesString},
-		"externalCode.origin":{$in: origins}
-	});
+	var query = entityModel.find({})
+		.where('externalCode.externalCode').in(externalCodesString)
+		.where('externalCode.origin').in(origins);
 
-	populationFields.forEach(function(item){
-		query.populate(item);
+	populationFields.forEach(function(populationFiled){
+		query.populate(populationFiled);
 	});
 
 	return query.exec();
@@ -53,10 +59,10 @@ var findByRoutePointExternalCode = function(entityName, routePointExternalCode){
 	if(Object.keys(routePointExternalCode).length == 0)
 		return Promise.resolve(null);
 
-	return mongoose.model(entityName).findOne({
-		"routePoint.externalCode.externalCode": routePointExternalCode.externalCode,
-		"routePoint.externalCode.origin": routePointExternalCode.origin
-	}).exec();
+	return mongoose.model(entityName).findOne({})
+		.where("routePoint.externalCode.externalCode", routePointExternalCode.externalCode)
+		.where("routePoint.externalCode.origin", routePointExternalCode.origin)
+		.exec();
 };
 
 var createOrUpdate = function(entityName, json, updateFunction) {
@@ -79,14 +85,19 @@ var createOrUpdate = function(entityName, json, updateFunction) {
 
 var deleteByExternalCode = function(entityName, externalCode){
 	var entityModel = mongoose.model(entityName);
-	return entityModel.find({
-		'externalCode.externalCode': externalCode.externalCode,
-		'externalCode.origin': externalCode.origin
-	}).remove().exec();
+	return entityModel.find({})
+		.where("externalCode.externalCode", externalCode.externalCode)
+		.where("externalCode.origin", externalCode.origin)
+		.remove()
+		.exec();
 };
 
 var nullPromise = function(){
 	return Promise.resolve(null);
+};
+
+var emptyPromise = function(){
+	return Promise.resolve([]);
 };
 
 module.exports = {
@@ -106,5 +117,6 @@ module.exports = {
 	findByRoutePointExternalCode: findByRoutePointExternalCode,
 	createOrUpdate: createOrUpdate,
 	deleteByExternalCode: deleteByExternalCode,
-	nullPromise: nullPromise
+	nullPromise: nullPromise,
+	emptyPromise: emptyPromise
 }

@@ -21,11 +21,17 @@ router.get("/", function(req, res){
 });
 
 router.post("/details", function(req, res){
-    vehicleManager.findVehicle(req.body)
-    .then(function(entity){
-        var vehicle = entity ? entity : {};
-        res.render(path + "vehicleDetails.html", {vehicle: vehicle});
-    });
+    var vehicle = null, distributionCenters = [];
+    var distributionCentersPromise = e.findAll('DistributionCenter').then(function(entities){distributionCenters = entities;});
+    var vehiclePromise = vehicleManager.findVehicle(req.body).then(function(entity){vehicle = entity ? entity : {};});
+
+    Promise.all([distributionCentersPromise, vehiclePromise])
+        .then(function(){
+            res.render(path + "vehicleDetails.html", {
+                vehicle: vehicle,
+                distributionCenters: distributionCenters
+            });
+        });
 });
 
 router.post("/remove", function(req, res){

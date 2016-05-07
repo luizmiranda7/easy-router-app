@@ -21,19 +21,6 @@ if (!utils) utils = (function() {
                     locale: 'en-US'
                 });
     };
-    
-    var search = function(button, url, buildFunction){
-    // TODO builds search DTO as mongo query
-        jQuery.ajax({
-            type: 'POST',
-            data: JSON.stringify(buildFunction(button)),
-            contentType: 'application/json',
-            url: url,
-            success: function(data) {
-                window.location.reload(false);
-            }
-        });
-    };
 
     var openUpdateOrCreateModal = function(button, entityClassName, url){
         var externalCode = {};

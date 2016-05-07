@@ -18,6 +18,6 @@ var isValid = function(externalCode){
 }
 
 module.exports = {
-	generateExternalCode,
-	isValid
+	generateExternalCode: generateExternalCode,
+	isValid: isValid
 };

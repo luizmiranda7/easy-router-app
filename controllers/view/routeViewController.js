@@ -32,7 +32,12 @@ router.post("/details", function(req, res){
 
 router.post('/routeMap', function(req, res){
     var addRouteTitle = function(route){
-        route.title = 'Route ' + uuid.v4();
+        route.title = 'Route ' + new Date().getTime();
+        return Promise.resolve(route);
+    };
+
+    var addRouteId = function(route){
+        route.id = uuid.v4();
         return Promise.resolve(route);
     };
 
@@ -76,6 +81,9 @@ router.post('/routeMap', function(req, res){
     var parseRoutePromises = [];
     req.body.routes.forEach(function(route){
         parseRoutePromises.push(addRouteTitle(route)
+            .then(function(parsedRoute){
+                return addRouteId(parsedRoute);
+            })
             .then(function (parsedRoute) {
                 return addEndTitle(parsedRoute);
             })

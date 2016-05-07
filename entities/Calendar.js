@@ -1,6 +1,12 @@
 var mongoose = require('mongoose');
-var ExternalCode = require('./ExternalCode');
+var TimeWindow = require('./TimeWindow');
 
 module.exports.schema = new mongoose.Schema({
-  intervals: [{initialDate: Date, finalDate: Date}]
+    timeWindows: [{
+    timeWindow: TimeWindow.schema,
+    cause: {
+        type: String,
+        enum: ['PERSONAL', 'WORKING']
+    },
+  }]
 });

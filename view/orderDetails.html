@@ -32,36 +32,37 @@
           </select>
         </div>
 
-        <div class="input-group priorityLevel">
+        <div class="input-group">
           <span class="input-group-addon">Priority Level:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{order.priorityLevel}}" />
+          <input type="number" class="priorityLevel form-control" aria-describedby="basic-addon1" value="{{order.priorityLevel}}" />
         </div>
         
-        <div class="input-group weight">
+        <div class="input-group">
           <span class="input-group-addon">Weight:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{order.weight}}" />
-        </div>
-        
-        <div class="input-group volume">
+          <input type="number" class="weight form-control" aria-describedby="basic-addon1" value="{{order.weight}}" />
           <span class="input-group-addon">Volume:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{order.volume}}" />
+          <input type="number" class="volume form-control" aria-describedby="basic-addon1" value="{{order.volume}}" />
         </div>
-        
-        <div class="input-group penalty">
+
+        <div class="input-group">
           <span class="input-group-addon">Penalty:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{order.penalty}}" />
+          <input type="number" class="penalty form-control" aria-describedby="basic-addon1" value="{{order.penalty}}" />
         </div>
         
         <div class="input-group date deliverTimeWindow">
-          <span class="input-group-addon">Delivery time window:</span>
-          <input type="text" class="start datepicker form-control" value="{{order.deliverTimeWindow.start|date('m/d/Y')}}">
-          <input type="text" class="end datepicker form-control" value="{{order.deliverTimeWindow.end|date('m/d/Y')}}">
+          <span class="input-group-addon">Delivery</span>
+          <span class="input-group-addon">Start</span>
+          <input type="text" class="start datepicker form-control" value="{{order.deliverTimeWindow.start|date('m/d/Y hh:MM')}}">
+          <span class="input-group-addon">End</span>
+          <input type="text" class="end datepicker form-control" value="{{order.deliverTimeWindow.end|date('m/d/Y hh:MM')}}">
         </div>
 
         <div class="input-group date pickupTimeWindow">
-          <span class="input-group-addon">Pickup time window:</span>
-          <input type="text" class="start datepicker form-control" value="{{order.pickupTimeWindow.start|date('m/d/Y')}}">
-          <input type="text" class="end datepicker form-control" value="{{order.pickupTimeWindow.end|date('m/d/Y')}}">
+          <span class="input-group-addon">Pickup</span>
+          <span class="input-group-addon">Start</span>
+          <input type="text" class="start datepicker form-control" value="{{order.pickupTimeWindow.start|date('m/d/Y hh:MM')}}">
+          <span class="input-group-addon">End</span>
+          <input type="text" class="end datepicker form-control" value="{{order.pickupTimeWindow.end|date('m/d/Y hh:MM')}}">
         </div>
         
         <div class="input-group status">

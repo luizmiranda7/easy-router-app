@@ -11,50 +11,47 @@
         <input type="text" style="display: none;" class="externalCode" value="{{vehicle.externalCode.externalCode}}" />
         <input type="text" style="display: none;" class="origin" value="{{vehicle.externalCode.origin}}" />
 
+        <div class="input-group">
+          <span class="input-group-addon" >Type:</span>
+          <input type="text" class="form-control type" aria-describedby="basic-addon1" value="{{vehicle.type}}" />
+        </div>
+
+        <div class="input-group distributionCenter">
+          <span class="input-group-addon" >Distribution Center</span>
+          <select class="selectpicker" data-live-search="true">
+            {% for distributionCenter in distributionCenters %}
+            <option data-tokens="{{distributionCenter.name}}"
+                    {% if order.distributionCenter.externalCode|json_encode == distributionCenter.externalCode|json_encode %}selected{% endif %} value="{{distributionCenter.externalCode|json_encode}}">{{distributionCenter.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+
         <div class="input-group maxVelocity">
           <span class="input-group-addon" >Max Velocity:</span>
           <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.maxVelocity}}" />
         </div>
 
-        <div class="input-group costPerTime">
+        <div class="input-group">
           <span class="input-group-addon" >Cost per time:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.costPerTime}}" />
-        </div>
-        
-        <div class="input-group costPerDistance">
+          <input type="number" class="form-control costPerTime" aria-describedby="basic-addon1" value="{{vehicle.costPerTime}}" />
           <span class="input-group-addon" >Cost per distance:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.costPerDistance}}" />
+          <input type="number" class="form-control costPerDistance" aria-describedby="basic-addon1" value="{{vehicle.costPerDistance}}" />
         </div>
 
-        <div class="input-group totalWeight">
-          <span class="input-group-addon" >Total weight:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.totalWeight}}" />
-        </div>
-
-        <div class="input-group totalVolume">
-          <span class="input-group-addon" >Total volume:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.totalVolume}}" />
-        </div>
-
-        <div class="input-group axes">
+        <div class="input-group">
+          <span class="input-group-addon" >Max. weight:</span>
+          <input type="number" class="form-control totalWeight" aria-describedby="basic-addon1" value="{{vehicle.totalWeight}}" />
+          <span class="input-group-addon" >Max. volume:</span>
+          <input type="number" class="form-control totalVolume" aria-describedby="basic-addon1" value="{{vehicle.totalVolume}}" />
           <span class="input-group-addon" >Axes:</span>
-          <input type="number" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.axes}}" />
+          <input type="number" class="form-control axes" aria-describedby="basic-addon1" value="{{vehicle.axes}}" />
         </div>
         
-        <div class="input-group date earliestStart">
+        <div class="input-group date">
           <span class="input-group-addon" >Earliest Start:</span>
-          <input type="text" class="datepicker form-control" value="{{vehicle.earliestStart|date('m/d/Y hh:MM')}}">
-          <div class="input-group-addon">
-              <span class="glyphicon glyphicon-th"></span>
-          </div>
-        </div>
-        
-        <div class="input-group date latestEnd">
+          <input type="text" class="earliestStart datepicker form-control" value="{{vehicle.earliestStart|date('m/d/Y hh:MM')}}">
           <span class="input-group-addon" >Latest End:</span>
-          <input type="text" class="datepicker form-control" value="{{vehicle.latestEnd|date('m/d/Y hh:MM')}}">
-          <div class="input-group-addon">
-              <span class="glyphicon glyphicon-th"></span>
-          </div>
+          <input type="text" class="latestEnd datepicker form-control" value="{{vehicle.latestEnd|date('m/d/Y hh:MM')}}">
         </div>
         
         <div class="input-group date endTime">
@@ -64,13 +61,7 @@
               <span class="glyphicon glyphicon-th"></span>
           </div>
         </div>
-        
-        <div class="input-group type">
-          <span class="input-group-addon" >Type:</span>
-          <input type="text" class="form-control" aria-describedby="basic-addon1" value="{{vehicle.type}}" />
-        </div>
 
-        <!-- TODO Single selection to distributionCenter -->
         <!-- TODO Calendar management button -->
 
       </div>

@@ -2,16 +2,17 @@ function Vehicles(){
 
 	var buildEntity = function(vehicleDetails){
 		return {
+			distributionCenter: JSON.parse(jQuery(vehicleDetails.down('.distributionCenter .selectpicker option:selected')).val()),
 			maxVelocity: vehicleDetails.down('.maxVelocity input').getValue(),
-			costPerTime: vehicleDetails.down('.costPerTime input').getValue(),
-			costPerDistance: vehicleDetails.down('.costPerDistance input').getValue(),
-		    totalWeight: vehicleDetails.down('.totalWeight input').getValue(),
-		    totalVolume: vehicleDetails.down('.totalVolume input').getValue(),
-		    axes: vehicleDetails.down('.axes input').getValue(),
+			costPerTime: vehicleDetails.down('.costPerTime').getValue(),
+			costPerDistance: vehicleDetails.down('.costPerDistance').getValue(),
+		    totalWeight: vehicleDetails.down('.totalWeight').getValue(),
+		    totalVolume: vehicleDetails.down('.totalVolume').getValue(),
+		    axes: vehicleDetails.down('.axes').getValue(),
 			endTime: vehicleDetails.down('.endTime input').getValue(),
-			earliestStart: vehicleDetails.down('.earliestStart input').getValue(),
-			latestEnd: vehicleDetails.down('.latestEnd input').getValue(),
-		    type: vehicleDetails.down('.type input').getValue(),
+			earliestStart: vehicleDetails.down('.earliestStart').getValue(),
+			latestEnd: vehicleDetails.down('.latestEnd').getValue(),
+		    type: vehicleDetails.down('.type').getValue(),
 			externalCode: {
 				externalCode: vehicleDetails.down('.externalCode').getValue(),
 				origin: vehicleDetails.down('.origin').getValue()

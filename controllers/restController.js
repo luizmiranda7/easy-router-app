@@ -70,7 +70,7 @@ var initMethods = function(app){
 			});
 		}
 
-		e.createOrUpdate('Order', req.body, orderManager.updateOrder)
+		e.createOrUpdate('Order', req.body, orderManager.update) 
 		.then(function(order){
 			res.send(order);
 		});
@@ -122,7 +122,7 @@ var initMethods = function(app){
 				res.send(vehicle);
 			});
 		}
-		return vehicleManager.createOrUpdate(req.body)
+		return e.createOrUpdate("Vehicle", req.body, vehicleManager.update)
 		.then(function(vehicle){
 			res.send(vehicle);
 		});
