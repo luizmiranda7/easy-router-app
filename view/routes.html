@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         {% for route in routes %}
-          <tr class="route" externalCode="{{route.externalCode.externalCode}}" origin="{{route.externalCode.origin}}">
+          <tr class="route" externalCode="{{ route.externalCode.externalCode }}" origin="{{ route.externalCode.origin }}">
             <th scope="row">
               <input type="checkbox" value="" />
             </th>
@@ -39,15 +39,10 @@
             <td>{{route.vehicle.type}}</td>
             <td>{{route.driver.person.firstname}} {{route.driver.person.surname}}</td>
             <td>
-              <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  More... <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a href="#" onclick="routes.schedule(this)">Details</a></li>
-                  <li><a href="#" onclick="routes.remove(this)">Remove</a></li>
-                </ul>
-              </div>
+                <div class="btn-group" role="group" aria-label="...">
+                  <button type="button" class="btn btn-default" onclick="utils.openUpdateOrCreateModal(this, '.route', '/view/routes/details')">Update</button>
+                  <button type="button" class="btn btn-default" onclick="utils.remove(this, '.route', '/rest/routes')">Remove</button>
+                </div>
             </td>
           </tr>
         {% endfor %}

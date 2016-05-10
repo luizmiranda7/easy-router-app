@@ -77,7 +77,7 @@ var initMethods = function(app){
 				});	
 		});
 		
-		Promise.all(routePromises)
+		return Promise.all(routePromises)
 			.then(function(){
 				res.send(null);
 			});

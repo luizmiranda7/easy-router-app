@@ -12,46 +12,6 @@ function RouteManager() {
     var lastInitialPoint = null;
     var lastFinalPoint = null;
 
-    var remove = function(button) {
-        var route = button.up('.route');
-
-        var data = {
-            externalCode: route.getAttribute('externalCode'),
-            origin: route.getAttribute('origin')
-        };
-
-        jQuery.ajax({
-            type: 'POST',
-            data: JSON.stringify(externalCode),
-            contentType: 'application/json',
-            url: '/rest/orders',
-            success: function(data) {
-                window.location.reload(false);
-            }
-        });
-    };
-
-    var details = function(button) {
-        var order = button.closest('.order');
-        var externalCode = {
-            externalCode: order.getAttribute('externalCode'),
-            origin: order.getAttribute('origin')
-        };
-
-        jQuery.ajax({
-            type: 'POST',
-            data: JSON.stringify(externalCode),
-            contentType: 'application/json',
-            url: '/view/orderDetails',
-            success: function(data) {
-                var orderContainer = document.getElementsByClassName('orderContainer')[0];
-                orderContainer.appendChild(jQuery(data)[0]);
-                var modalOpener = document.getElementsByClassName('modalOpener')[0];
-                modalOpener.click();
-            }
-        });
-    };
-
     var compute = function() {
 
         this.chain = [
@@ -295,8 +255,6 @@ function RouteManager() {
         lastFinalPoint: lastFinalPoint,
         currentRoutePoints: currentRoutePoints,
 
-        remove: remove,
-        details: details,
         compute: compute,
         save: save
     };
