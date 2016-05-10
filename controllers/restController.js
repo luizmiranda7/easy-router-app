@@ -69,11 +69,19 @@ var initMethods = function(app){
 				res.send(route);
 			});
 		}
-
-		e.createOrUpdate('Route', req.body, routeManager.update) 
-		.then(function(route){
-			res.send(route);
+		
+		var routePromises = req.body.map(function(route){
+			return e.createOrUpdate('Route', route, routeManager.update) 
+				.then(function(attachedRoute){
+					res.send(attachedRoute);
+				});	
 		});
+		
+		Promise.all(routePromises)
+			.then(function(){
+				res.send(null);
+			});
+		
 	});
 	
 	router.post('/orders', function(req, res){

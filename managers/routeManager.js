@@ -5,10 +5,6 @@ var directionLegManager = require('./directionLegManager');
 
 var update = function (route, json) {
 	
-	if(json.cost){
-		route.cost = json.cost;
-	}
-	
 	if(json.duration){
 		route.duration = json.duration;
 	}
@@ -16,35 +12,30 @@ var update = function (route, json) {
 	if(json.distance){
 		route.distance = json.distance;
 	}
-	
-	var driverPromise = e.findByExternalCode('Driver', JSON.parse(json.driver.id))
-        .then(function(driver){
-            route.driver = driver;
-        });
     
     var vehiclePromise = e.findByExternalCode('Vehicle', JSON.parse(json.vehicle.id))
         .then(function(vehicle){
             route.vehicle = vehicle;
         });
         
-    var distributionCenterPromise = e.findByRouteExternalCode('DistributionCenter', JSON.parse(json.start.location.id))
+    var distributionCenterPromise = e.findByRoutePointExternalCode('DistributionCenter', JSON.parse(json.start.location.id))
         .then(function(distributionCenter){
             route.distributionCenter = distributionCenter;
         });
 	
-	Promise.all([driverPromise, vehiclePromise, distributionCenterPromise])
-	.then(function(){
-		return route.save();
-	});
+	return Promise.all([vehiclePromise, distributionCenterPromise])
+		.then(function(){
+			return route.save();
+		});
 };
 
 var getScheduledRoutes = function () {
-	return e.Route.find({ status: 'Pending' }).exec();
+	return e.Route.find({ status: 'PENDING' }).exec();
 };
 
 var findNotExecutedRoutes = function () {
 	return e.Route.find({})
-		.where('status').in(['PENDING', 'SHEDULED'])
+		.where('status', 'SHEDULED')
 		.populate('distributionCenter')
 		.populate('vehicle')
 		.populate('driver')

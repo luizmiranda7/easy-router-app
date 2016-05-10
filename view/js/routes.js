@@ -248,20 +248,18 @@ function RouteManager() {
     var save = function(saveButton){
         var routeDetails = saveButton.up('.modal').down('.routeDetails');
         var cost = routeDetails.getAttribute('cost');
-        var routes = jQuery(routeDetails)
+        var routes = [];
+        jQuery(routeDetails)
             .find('.route')
-            .map(function(index, route){
-                return JSON.parse(route.getAttribute('route'));
+            .each(function(index, route){
+                routes.push(JSON.parse(route.getAttribute('route')));
             });
             
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/json',
             url: '/rest/routes',
-            data: JSON.stringify({
-                cost: cost,
-                routes: routes
-            }),
+            data: JSON.stringify(routes),
             success: function(data) {
                 window.location.reload(false);
             }

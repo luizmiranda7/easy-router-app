@@ -20,10 +20,17 @@ function RouteMap() {
                     google.maps.event.trigger(map, 'resize');
                 });
 
-                engineResponse.routes.each(function(route) {
+                self.getRoutes().each(function(index, route) {
                     self.addRoute(route, map, directionsService);
                 });
             }
+        });
+    };
+    
+    var getRoutes = function(){
+        var routeDetails = jQuery(document.getElementById('mapModal').down('.routeDetails'));
+        return routeDetails.find('.route').map(function(index, routeElement){
+            return JSON.parse(routeElement.getAttribute('route'));
         });
     };
 
@@ -46,17 +53,17 @@ function RouteMap() {
             travelMode: google.maps.TravelMode.DRIVING
         }, function(response, status) {
             if (status === google.maps.DirectionsStatus.OK) {
-                //var routeElement = document.getElementById(route.id);
-                //var routeJson = JSON.parse(routeElement.getAttribute('route'));
-                //
-                //routeJson.duration = response.routes.first().legs.reduce(function(totalDuration, leg){
-                //    return totalDuration + leg.duration.value;
-                //});
-                //routeJson.distance = response.routes.first().legs.reduce(function(totalDistance, leg){
-                //    return totalDistance + leg.distance.value;
-                //});
-                //
-                //routeElement.setAttribute('route', JSON.stringify(routeJson));
+                var routeElement = document.getElementById(route.id);
+                var routeJson = JSON.parse(routeElement.getAttribute('route'));
+                
+                routeJson.duration = response.routes.first().legs.reduce(function(totalDuration, leg){
+                    return totalDuration + leg.duration.value;
+                }, 0);
+                routeJson.distance = response.routes.first().legs.reduce(function(totalDistance, leg){
+                    return totalDistance + leg.distance.value;
+                }, 0);
+                
+                routeElement.setAttribute('route', JSON.stringify(routeJson));
                    
                 directionsDisplay.getMap().setCenter(start);
                 directionsDisplay.setDirections(response);
@@ -74,14 +81,6 @@ function RouteMap() {
                 stopover: true
             };
         });
-    };
-
-    var getDeliverShipment = function(tourActivity){
-        return null;
-    };
-
-    var getPickupShipment = function(tourActivity){
-        return null;
     };
 
     var getGoogleMapsLocation = function(location) {
@@ -112,8 +111,7 @@ function RouteMap() {
         addRoute: addRoute,
         getWaypoints: getWaypoints,
         getGoogleMapsLocation: getGoogleMapsLocation,
-        getDeliverShipment: getDeliverShipment,
-        getPickupShipment: getPickupShipment
+        getRoutes: getRoutes
     };
 };
 
