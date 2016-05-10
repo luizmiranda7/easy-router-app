@@ -1,3 +1,5 @@
+{% import "calendar.html" as cal %}
+
 <div id="distributionCenterDetails" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -29,6 +31,8 @@
             <button class="btn btn-default" type="button" onclick="addressSelector.addressSelectorModal(JSON.parse('{{distributionCenter|json_encode}}'), this)">View Map</button>
           </span>
         </div>
+
+        {{ cal.input(distributionCenter.calendar) }}
 
       </div>
       <div class="modal-footer">

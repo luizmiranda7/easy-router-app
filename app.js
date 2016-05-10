@@ -27,7 +27,7 @@ if ( DOCKER_DB ) {
   MONGO_DB = process.env.MONGODB;
 }
 var retry = 0;
-mongoose.connect(MONGO_DB);	
+mongoose.connect(MONGO_DB);
 }
 mongoose.connect('mongodb://localhost:27017/easyrouter');
 var e = require('./entities');

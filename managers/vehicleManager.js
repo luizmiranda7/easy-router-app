@@ -44,6 +44,10 @@ var update = function(vehicle, json){
         vehicle.externalCode = json.externalCode;
     }
 
+    if(json.calendar){
+        vehicle.calendar = json.calendar;
+    }
+
     if(json.type){
         vehicle.type = json.type;
     }

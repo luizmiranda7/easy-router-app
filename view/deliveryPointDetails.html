@@ -1,3 +1,5 @@
+{% import "calendar.html" as cal %}
+
 <div id="deliveryPointDetails" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -23,14 +25,14 @@
 
         <div class="input-group address">
           <span class="input-group-addon">Address:</span>
-          
           <input type="text" class="text form-control" aria-describedby="basic-addon1" value="{{deliveryPoint.routePoint.street}}, {{deliveryPoint.routePoint.number}} - {{deliveryPoint.routePoint.city}}, {{deliveryPoint.routePoint.state}} - {{deliveryPoint.routePoint.postalCode}}"/>
           <input type="text" class="routePoint" style="display: none;" value="{{deliveryPoint.routePoint|json_encode}}"/>
-          
           <span class="input-group-btn">
             <button class="btn btn-default" type="button" onclick="addressSelector.addressSelectorModal(JSON.parse('{{deliveryPoint|json_encode}}'), this)">View Map</button>
           </span>
         </div>
+
+        {{ cal.input(deliveryPoint.calendar) }}
 
       </div>
       <div class="modal-footer">

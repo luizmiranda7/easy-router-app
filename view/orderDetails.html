@@ -10,23 +10,25 @@
       <div class="modal-body easy-form">
         <input type="text" style="display: none;" class="externalCode" value="{{order.externalCode.externalCode}}" />
         <input type="text" style="display: none;" class="origin" value="{{order.externalCode.origin}}" />
-        
+
         <div class="input-group deliveryPoint">
           <span class="input-group-addon">Delivery Point</span>
           <select class="selectpicker" data-live-search="true">
             {% for deliveryPoint in deliveryPoints %}
-              <option data-tokens="{{deliveryPoint.name}}" 
-              {% if order.deliveryPoint.externalCode|json_encode == deliveryPoint.externalCode|json_encode %}selected{% endif %} 
+              <option data-tokens="{{deliveryPoint.name}}"
+              {% if order.deliveryPoint.externalCode|json_encode == deliveryPoint.externalCode|json_encode %}
+                selected
+              {% endif %}
               value="{{deliveryPoint.externalCode|json_encode}}">{{deliveryPoint.name}}</option>
             {% endfor %}
           </select>
         </div>
-        
+
         <div class="input-group distributionCenter">
           <span class="input-group-addon" >Distribution Center</span>
           <select class="selectpicker" data-live-search="true">
             {% for distributionCenter in distributionCenters %}
-              <option data-tokens="{{distributionCenter.name}}" 
+              <option data-tokens="{{distributionCenter.name}}"
               {% if order.distributionCenter.externalCode|json_encode == distributionCenter.externalCode|json_encode %}selected{% endif %} value="{{distributionCenter.externalCode|json_encode}}">{{distributionCenter.name}}</option>
             {% endfor %}
           </select>
@@ -36,7 +38,7 @@
           <span class="input-group-addon">Priority Level:</span>
           <input type="number" class="priorityLevel form-control" aria-describedby="basic-addon1" value="{{order.priorityLevel}}" />
         </div>
-        
+
         <div class="input-group">
           <span class="input-group-addon">Weight:</span>
           <input type="number" class="weight form-control" aria-describedby="basic-addon1" value="{{order.weight}}" />
@@ -48,7 +50,7 @@
           <span class="input-group-addon">Penalty:</span>
           <input type="number" class="penalty form-control" aria-describedby="basic-addon1" value="{{order.penalty}}" />
         </div>
-        
+
         <div class="input-group date deliverTimeWindow">
           <span class="input-group-addon">Delivery</span>
           <span class="input-group-addon">Start</span>
@@ -64,7 +66,7 @@
           <span class="input-group-addon">End</span>
           <input type="text" class="end datepicker form-control" value="{{order.pickupTimeWindow.end|date('m/d/Y hh:MM')}}">
         </div>
-        
+
         <div class="input-group status">
           <span class="input-group-addon">Status:</span>
             <div class="input-group-addon">

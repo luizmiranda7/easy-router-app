@@ -244,6 +244,29 @@ function RouteManager() {
             return parsed;
         });
     };
+    
+    var save = function(saveButton){
+        var routeDetails = saveButton.up('.modal').down('.routeDetails');
+        var cost = routeDetails.getAttribute('cost');
+        var routes = jQuery(routeDetails)
+            .find('.route')
+            .map(function(index, route){
+                return JSON.parse(route.getAttribute('route'));
+            });
+            
+        jQuery.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: '/rest/routes',
+            data: JSON.stringify({
+                cost: cost,
+                routes: routes
+            }),
+            success: function(data) {
+                window.location.reload(false);
+            }
+        });
+    };
 
     var next = function() {
         if (this.chain.length > 0) {
@@ -276,13 +299,13 @@ function RouteManager() {
 
         remove: remove,
         details: details,
-        compute: compute
+        compute: compute,
+        save: save
     };
 
 };
 
 var routeManager = new RouteManager();
-
 
 /*
  * We must save all elements from response until all requests are done.

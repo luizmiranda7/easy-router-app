@@ -1,4 +1,4 @@
-function Calendar(){
+function Calendars(){
 
     var addTimeWindowForm = function(event){
         var timeWindowForm = event.element().up('.calendar').down('.panel-body');
@@ -46,7 +46,7 @@ function Calendar(){
     };
 
     var removeTimeWindow = function(event){
-        event.element().remove();
+        event.element().up().remove();
     };
 
     var closeTimeWindowForm = function(event){
@@ -63,4 +63,4 @@ function Calendar(){
     };
 };
 
-var calendar = new Calendar();
+var calendars = new Calendars();

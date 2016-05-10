@@ -1,3 +1,5 @@
+{% import "calendar.html" as cal %}
+
 <div id="vehicleDetails" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -46,14 +48,14 @@
           <span class="input-group-addon" >Axes:</span>
           <input type="number" class="form-control axes" aria-describedby="basic-addon1" value="{{vehicle.axes}}" />
         </div>
-        
+
         <div class="input-group date">
           <span class="input-group-addon" >Earliest Start:</span>
           <input type="text" class="earliestStart datepicker form-control" value="{{vehicle.earliestStart|date('m/d/Y hh:MM')}}">
           <span class="input-group-addon" >Latest End:</span>
           <input type="text" class="latestEnd datepicker form-control" value="{{vehicle.latestEnd|date('m/d/Y hh:MM')}}">
         </div>
-        
+
         <div class="input-group date endTime">
           <span class="input-group-addon" >End Time:</span>
           <input type="text" class="datepicker form-control" value="{{vehicle.endTime|date('m/d/Y hh:MM')}}">
@@ -62,7 +64,7 @@
           </div>
         </div>
 
-        <!-- TODO Calendar management button -->
+        {{ cal.input(vehicle.calendar) }}
 
       </div>
       <div class="modal-footer">

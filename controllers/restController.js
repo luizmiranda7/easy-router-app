@@ -62,6 +62,20 @@ var initMethods = function(app){
 	});
 
 	// Create and Update Methods - REST
+	router.post('/routes', function(req, res){
+		if(req.headers.del){
+			return e.deleteByExternalCode('Route', req.body)
+			.then(function(route){
+				res.send(route);
+			});
+		}
+
+		e.createOrUpdate('Route', req.body, routeManager.update) 
+		.then(function(route){
+			res.send(route);
+		});
+	});
+	
 	router.post('/orders', function(req, res){
 		if(req.headers.del){
 			return e.deleteByExternalCode('Order', req.body)
@@ -129,7 +143,7 @@ var initMethods = function(app){
 	});
 
 	router.post('/solve',function(req, res) {
-		var url = 'http://localhost:8080/rest/solve';
+		var url = 'http://localhost:8080/easy-router-engine/rest/solve';
 
 		request.post({
 			url: url,

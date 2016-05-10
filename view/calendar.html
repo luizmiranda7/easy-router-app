@@ -5,7 +5,7 @@
             <h4 class="panel-title pull-left">
                 <a data-toggle="collapse" href="#collapseCalendar">Calendar</a>
             </h4>
-            <button type="button" class="btn btn-default btn-xs glyphicon glyphicon-plus pull-right" onclick="calendar.addTimeWindowForm(event)"/>
+            <button type="button" class="btn btn-default btn-xs glyphicon glyphicon-plus pull-right" onclick="calendars.addTimeWindowForm(event)"/>
             <div class="clearfix"></div>
         </div>
         <div class="panel-body" style="display: none">
@@ -14,6 +14,7 @@
                 <select class="form-control timeWindowCause">
                     <option>PERSONAL</option>
                     <option>WORKING</option>
+                    <option>MAINTENANCE</option>
                 </select>
             </div>
             <div class="input-group date">
@@ -23,16 +24,16 @@
                 <input type="text" class="timeWindowEndDate datepicker form-control"/>
             </div>
             <span class="btn-group pull-right">
-                <button class="btn btn-default glyphicon glyphicon-save" type="button" onclick="calendar.addTimeWindow(event);"/>
-                <button class="btn btn-default glyphicon glyphicon-remove" type="button" onclick="calendar.closeTimeWindowForm(event);"/>
+                <button class="btn btn-default glyphicon glyphicon-save" type="button" onclick="calendars.addTimeWindow(event);"/>
+                <button class="btn btn-default glyphicon glyphicon-remove" type="button" onclick="calendars.closeTimeWindowForm(event);"/>
             </span>
         </div>
         <div id="collapseCalendar" class="panel-collapse collapse" style="overflow-y: auto">
             <ul class="list-group">
                 {% for timeWindow in calendar.timeWindows %}
-                    <li class="list-group-item" value="{{ timeWindow.timeWindow|json_encode }}">
-                        {{ timeWindow.timeWindow.cause }} - {{ timeWindow.timeWindow.start }} - {{ timeWindow.timeWindow.end }}
-                        <span class="glyphicon glyphicon-trash pull-right" onclick="calendar.removeTimeWindow(event)" />
+                    <li class="list-group-item" value="{{ timeWindow|json_encode }}">
+                        {{ timeWindow.cause }} - {{ timeWindow.start|date('m/d/Y hh:MM') }} - {{ timeWindow.end|date('m/d/Y hh:MM') }}
+                        <span class="glyphicon glyphicon-trash pull-right" onclick="calendars.removeTimeWindow(event)" />
                     </li>
                 {% endfor %}
             </ul>

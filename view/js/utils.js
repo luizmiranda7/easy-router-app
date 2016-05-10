@@ -13,13 +13,12 @@ if (!utils) utils = (function() {
         });
 
         jQuery('.selectpicker').selectpicker({
-            style: 'btn-info',
             size: 4
         });
 
         jQuery('.datepicker').datetimepicker({
-                    locale: 'en-US'
-                });
+            locale: 'en-US'
+        });
     };
 
     var openUpdateOrCreateModal = function(button, entityClassName, url){
@@ -32,7 +31,7 @@ if (!utils) utils = (function() {
             type: 'POST',
             data: JSON.stringify(externalCode),
             contentType: 'application/json',
-            url: url,       
+            url: url,
             success: function(data) {
                 utils.openModal(jQuery(data)[0]);
             }
@@ -48,7 +47,7 @@ if (!utils) utils = (function() {
             },
             data: JSON.stringify(getExternalCode(button.up(entityClassName))),
             contentType: 'application/json',
-            url: url,                        
+            url: url,
             success: function(data) {
                 window.location.reload(false);
             }
@@ -60,7 +59,7 @@ if (!utils) utils = (function() {
             type: 'POST',
             data: JSON.stringify(buildFunction(document.getElementById(detailsId))),
             contentType: 'application/json',
-            url: url,        
+            url: url,
             success: function(data) {
                 window.location.reload(false);
             }

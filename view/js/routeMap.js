@@ -46,6 +46,18 @@ function RouteMap() {
             travelMode: google.maps.TravelMode.DRIVING
         }, function(response, status) {
             if (status === google.maps.DirectionsStatus.OK) {
+                //var routeElement = document.getElementById(route.id);
+                //var routeJson = JSON.parse(routeElement.getAttribute('route'));
+                //
+                //routeJson.duration = response.routes.first().legs.reduce(function(totalDuration, leg){
+                //    return totalDuration + leg.duration.value;
+                //});
+                //routeJson.distance = response.routes.first().legs.reduce(function(totalDistance, leg){
+                //    return totalDistance + leg.distance.value;
+                //});
+                //
+                //routeElement.setAttribute('route', JSON.stringify(routeJson));
+                   
                 directionsDisplay.getMap().setCenter(start);
                 directionsDisplay.setDirections(response);
             } else {

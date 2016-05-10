@@ -3,6 +3,7 @@ function DeliveryPoints() {
 	var buildEntity = function(deliveryPointDetails){
 		return {
 			name: deliveryPointDetails.down('.name input').getValue(),
+			calendar: calendars.buildEntity(deliveryPointDetails),
 			deliveryDuration: deliveryPointDetails.down('.deliveryDuration input').getValue(),
 			routePoint: JSON.parse(deliveryPointDetails.down('.address .routePoint').getValue()),
 			externalCode: {
@@ -19,4 +20,3 @@ function DeliveryPoints() {
 };
 
 var deliveryPoints = new DeliveryPoints();
-

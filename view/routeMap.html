@@ -7,7 +7,7 @@
         <h4 class="modal-title">Routes - Cost: {{ cost }}</h4>
       </div>
       <div class="modal-body" style="height: 400px; width: 100%; display: inline-flex;">
-        <div id="routeDetails" style="width: 30%; overflow: auto;">
+        <div class="routeDetails" style="width: 30%; overflow: auto;" cost="{{ cost }}">
           {% for route in routes %}
             <div class="panel-group">
               <div class="panel panel-default">
@@ -18,7 +18,7 @@
                   <button type="button" class="btn btn-default btn-xs glyphicon glyphicon-trash pull-right"/>
                   <div class="clearfix"></div>
                 </div>
-                <div id="{{ route.id }}" class="panel-collapse collapse">
+                <div id="{{ route.id }}" class="panel-collapse collapse route" route="{{ route|json_encode }}">
                   <ul class="list-group">
                     <li class="list-group-item">Start - {{ route.start.title }}</li>
                     {% for tourActivity in route.tourActivities.tourActivities %}

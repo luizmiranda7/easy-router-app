@@ -2,10 +2,10 @@ var e = require('../entities');
 var externalCodeManager = require('./externalCodeManager');
 var routePointManager = require('./routePointManager');
 
-	
+
 var update = function(deliveryPoint, json){
 
-	if(json.name){ 
+	if(json.name){
 		deliveryPoint.name = json.name;
 	}
 

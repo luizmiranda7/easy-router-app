@@ -5,10 +5,10 @@
 			"name": "Launch",
 			"type": "node",
 			"request": "launch",
-			"program": "app.js",
+			"program": "/opt/workspace/easy-router-app/app.js",
 			"stopOnEntry": false,
 			"args": [],
-			"cwd": ".",
+			"cwd": "/opt/workspace/easy-router-app/",
 			"runtimeExecutable": null,
 			"runtimeArgs": [
 				"--nolazy"
