@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Easy Router",
   "main": "app.js",
-  "scripts": {
-    "test": "easy-test"
+  "engines" : { 
+      "node" : ">=4.1.1",
+      "npm" : ">=2.1.x"
   },
   "repository": {
     "type": "git",
@@ -18,9 +19,6 @@
   "license": "ISC",
   "bugs": {
     "url": "https://gitlab.com/luizmiranda7/easy-router-app/issues"
-  },
-  "scripts": {
-    "start": "node app.js"
   },
   "homepage": "https://gitlab.com/luizmiranda7/easy-router-app#README",
   "dependencies": {

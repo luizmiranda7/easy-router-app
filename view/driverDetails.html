@@ -34,6 +34,16 @@
           <span class="input-group-addon">Latest End:</span>
           <input type="text" class="latestEnd datepicker form-control" value="{{driver.latestEnd|date('m/d/Y hh:MM')}}" />
         </div>
+        
+        <div class="input-group distributionCenter">
+          <span class="input-group-addon" >Distribution Center</span>
+          <select class="selectpicker" data-live-search="true">
+            {% for distributionCenter in distributionCenters %}
+              <option data-tokens="{{distributionCenter.name}}"
+              {% if driver.currentDistributionCenter.externalCode|json_encode == distributionCenter.externalCode|json_encode %}selected{% endif %} value="{{distributionCenter.externalCode|json_encode}}">{{distributionCenter.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
 
         {{ cal.input(driver.calendar) }}
 

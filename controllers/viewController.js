@@ -21,8 +21,24 @@ var initMethods = function(app, rootDirName) {
 		   });
 		});
 
+    app.get('/view/', function(req, res){
+       res.render(path + "cover.html");
+    });
+    
     app.get('/view/cover', function(req, res){
        res.render(path + "cover.html");
+    });
+    
+    app.get('/view/features', function(req, res){
+       res.render(path + "features.html");
+    });
+    
+    app.get('/view/contact', function(req, res){
+       res.render(path + "contact.html");
+    });
+    
+    app.get('/view/access', function(req, res){
+       res.render(path + "access.html");
     });
 };
 

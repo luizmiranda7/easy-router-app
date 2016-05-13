@@ -19,10 +19,15 @@ router.get("/", function(req, res){
 });
 
 router.post("/details", function(req, res){
+    var distributionCenters = [];
+    var distributionCentersPromise = e.findAll('DistributionCenter').then(function(items){distributionCenters = items;});
     e.findByExternalCode("Driver", req.body)
     .then(function(entity){
         var driver = entity ? entity : {};
-        res.render(path + "driverDetails.html", {driver: driver});
+        res.render(path + "driverDetails.html", {
+            driver: driver,
+            distributionCenters: distributionCenters
+        });
     });
 });
 

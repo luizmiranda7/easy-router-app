@@ -42,8 +42,15 @@ var update = function(driver, json) {
     if (json.calendar) {
         driver.calendar = json.calendar;
     }
-
-    return driver.save();
+    
+    return e.findByExternalCode('DistributionCenter', json.currentDistributionCenter)
+        .then(function(currentDistributionCenter){
+            driver.currentDistributionCenter = currentDistributionCenter;
+            return driver;
+        })
+        .then(function(driverToSave){
+           return driver.save(); 
+        });
 };
 
 var getAvailableDrivers = function(){

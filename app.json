@@ -1,0 +1,14 @@
+{
+  "name": "easy-router-app",
+  "description": "Easy Router",
+  "image": "heroku/nodejs",
+  "repository": "https://gitlab.com/luizmiranda7/easy-router-engine.git",
+  "keywords": [
+    "node",
+    "mongoose",
+    "ODM"
+  ],
+  "addons": [
+    "mongolab"
+  ]
+}

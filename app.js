@@ -44,7 +44,8 @@ app.use('/view/lib',  express.static(__dirname + '/view/lib'));
 app.use('/view/css',  express.static(__dirname + '/view/css'));
 app.use('/view/images',  express.static(__dirname + '/view/images'));
 
-var server = app.listen(3000, function () {
+var serverPort = process.env.PORT || 3000;
+var server = app.listen(serverPort, function () {
   var host = server.address().address;
   var port = server.address().port;
 

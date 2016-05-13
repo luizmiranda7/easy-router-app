@@ -8,5 +8,9 @@ module.exports.schema = new mongoose.Schema({
   externalCode: ExternalCode.schema,
   person: Person.schema,
   earliestStart: Date,
-  latestEnd: Date
+  latestEnd: Date,
+  currentDistributionCenter: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'DistributionCenter'
+  }
 });
