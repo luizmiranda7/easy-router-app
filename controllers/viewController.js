@@ -1,6 +1,12 @@
 var express = require('express');
 
 var initMethods = function(app, rootDirName) {
+
+    app.use('/view/js',  express.static(rootDirName + '/view/js'));
+    app.use('/view/lib',  express.static(rootDirName + '/view/lib'));
+    app.use('/view/css',  express.static(rootDirName + '/view/css'));
+    app.use('/view/images',  express.static(rootDirName + '/view/images'));
+    
     app.use('/view/drivers', require('./view/driverViewController'));
     app.use('/view/orders', require('./view/orderViewController'));
     app.use('/view/routes', require('./view/routeViewController'));
@@ -8,7 +14,7 @@ var initMethods = function(app, rootDirName) {
     app.use('/view/deliveryPoints', require('./view/deliveryPointViewController'));
     app.use('/view/distributionCenters', require('./view/distributionCenterViewController'));
 
-    var path = GLOBAL.rootDirName + "/view/";
+    var path = rootDirName + "/view/";
 
 		app.use(function(req, res, next) {
 		    console.log("Method: " + req.method);

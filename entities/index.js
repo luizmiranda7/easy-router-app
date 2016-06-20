@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Promise = require('bluebird');mongoose.Promise = Promise;
+var externalCodeManager = require('../managers/externalCodeManager');
 
 var Driver = mongoose.model('Driver', require('./Driver').schema);
 var Vehicle = mongoose.model('Vehicle', require('./Vehicle').schema);
@@ -9,7 +10,6 @@ var Order = mongoose.model('Order', require('./Order').schema);
 var Route = mongoose.model('Route', require('./Route').schema);
 var DistributionCenter = mongoose.model('DistributionCenter', require('./DistributionCenter').schema);
 
-var externalCodeManager = require('../managers/externalCodeManager');
 
 var findAll = function(entityName){
 	var entityModel = mongoose.model(entityName);
